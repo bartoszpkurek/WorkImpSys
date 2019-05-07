@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
+    <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
+        <ui:define name="head">
+            <title>#{msg["faq.Title"]}</title>
+        </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
+        <ui:define name="navbar">
+            <!--Wstrzyknięcie menu-->
+            <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
+        </ui:define>
+
+        <!--Tutaj jest główna treść-->
+        <ui:define name="body">
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center" style="padding-top: 10%;"> 
+                        <h1 align="left">#{msg["faq.Title"]}</h1>    
+                        <div class="row">
+
+                            <!--Dwie kolumny z FAQ. 
+                                Opcja list-group tworzy liste
+                                Klasy list-group-item i list-group-item-action tworza pola
+                                Id oznacza identyfikator.
+                                Data-toggle="list" to navigatory, ktore integruja JS
+                                Role określa role jaka pelnia.
+                                Tab-pane to po prostu panel.-->
+                            <div class="col-4">
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <a class="list-group-item list-group-item-action active" id="firstQ" data-toggle="list" href="#firstA" role="tab">#{msg["faq.FirstQ"]}</a>
+                                    <a class="list-group-item list-group-item-action" id="secondQ" data-toggle="list" href="#secondA" role="tab">#{msg["faq.SecondQ"]}</a>
+                                    <a class="list-group-item list-group-item-action" id="thirdQ" data-toggle="list" href="#thirdA" role="tab">#{msg["faq.ThirdQ"]}</a>
+                                    <a class="list-group-item list-group-item-action" id="fourthQ" data-toggle="list" href="#fourthA" role="tab">#{msg["faq.FourthQ"]}</a>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane active font-weight-bold" id="firstA" role="tabpanel">#{msg["faq.FirstA"]}</div>
+                                    <div class="tab-pane font-weight-bold" id="secondA" role="tabpanel">#{msg["faq.SecondA"]}</div>
+                                    <div class="tab-pane font-weight-bold" id="thirdA" role="tabpanel">#{msg["faq.ThirdA"]}</div>
+                                    <div class="tab-pane font-weight-bold" id="fourthA" role="tabpanel">#{msg["faq.FourthA"]}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
+        <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
+            <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
+        </ui:define>
+    </ui:composition> 
+</html>
+

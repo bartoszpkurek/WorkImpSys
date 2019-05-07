@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
+    <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
+        <ui:define name="head">
+            <title>#{msg["useradd.WelcomeText"]}</title>
+        </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
+        <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
+        </ui:define>
+
+        <!--Tutaj jest główna treść-->
+        <ui:define name="body">
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center align-self-center"> 
+                        <div>
+                            <h1>#{msg["useraddconfirm.WelcomeText"]}</h1>
+                        </div>
+
+                        <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+
+                                <!-- Formularz ma 3x form-row-->
+                                <h:form>                                    
+                                    <!-- 1st row -->
+                                    <div class="form-row">
+
+                                        <!-- 1x12 kolumna -->
+                                        <div class="col-md-12 md-form form-group">
+                                            #{msg["useradd.ShortDescription"]}: <h:outputText class="form-control" id="shortdescription" value="#{addNotificationConfimBean.notification.shortdescription}" />                                             
+                                        </div>
+                                        <div class="col-md-12 md-form form-group">
+                                            #{msg["useradd.FullDescription"]}: <h:outputText class="form-control" id="fulldescription" value="#{addNotificationConfimBean.notification.fulldescription}" />                                             
+                                        </div>
+                                    </div>
+
+                                    <!-- 2nd row -->
+                                    <div class="form-row">
+
+                                        <!-- 3x4 kolumny -->
+                                        <div class="col-md-3 md-form form-group">
+                                            #{msg["useradd.MoneyRequired"]}: <h:outputText class="form-control" id="moneyrequired" value="#{addNotificationConfimBean.notification.moneyrequired}"  />                                              
+                                        </div>
+                                        <div class="col-md-3 md-form form-group">
+                                            #{msg["useradd.Priority"]}: 
+                                            <h:outputText class="form-control" id="priority" value="#{addNotificationConfimBean.notification.priority}"/>  
+
+                                        </div>
+                                        <div class="col-md-3 md-form form-group">
+                                            #{msg["useradd.Category"]}: 
+                                            <h:outputText class="form-control" id="category" value="#{addNotificationConfimBean.notification.category}" />  
+                                        </div>
+                                        <div class="col-md-3 md-form form-group">
+                                            Status: 
+                                            <h:outputText class="form-control" id="status" value="#{addNotificationConfimBean.notification.status}" />  
+                                        </div>
+
+                                    </div>                                   
+                                    <!-- Przycisk zatwierdzenia-->
+                                    <h:commandButton type="submit" value="Confirm" class="btn btn-success btn-lg btn-space" action="#{addNotificationConfimBean.register()}"/>
+                                    <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
+                                </h:form>
+
+
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+
+
+
+
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
+        <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
+            <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
+        </ui:define>
+    </ui:composition> 
+</html>
+

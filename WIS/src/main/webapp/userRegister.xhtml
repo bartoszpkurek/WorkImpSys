@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
+    <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
+        <ui:define name="head">
+            <title>#{msg["register.Title"]}</title>
+        </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
+        <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <ui:include src="/WEB-INF/include/templateLogin.xhtml" />
+        </ui:define>
+
+        <!--Tutaj jest główna treść-->
+        <ui:define name="body">
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center align-self-center"> 
+                        <div>
+                            <h1>#{msg["login.RegisterButt"]}!</h1>
+                        </div>
+                        
+                        <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                
+                                <!-- Formularz ma 3x form-row-->
+                                <h:form>
+                                    <!-- 1st row -->
+                                    <div class="form-row">
+                                        
+                                        <!-- 3x4 kolumny -->
+                                        <div class="col-md-4 md-form form-group">
+                                                Login: <h:inputText class="form-control" id="login" value="" required="true" a:placeholder="Login" />                                              
+                                        </div>                                  
+                                        <div class="col-md-4 md-form form-group">
+                                                #{msg["login.Password"]}: <h:inputSecret class="form-control" id="password" value="" required="true" a:placeholder="#{msg['login.Password']}" /> 
+                                        </div>
+                                        <div class="col-md-4 md-form form-group">
+                                                #{msg["register.RepeatPassword"]}: <h:inputSecret class="form-control" id="repeatpassword" value="" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 2nd row -->
+                                    <div class="form-row">
+                                        
+                                        <!-- 2x6 kolumny -->
+                                        <div class="col-md-6 md-form form-group">
+                                                #{msg["register.FirstName"]}: <h:inputText class="form-control" id="firstname" value="" required="true" a:placeholder="#{msg['register.FirstName']}" />                                              
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                                #{msg["register.LastName"]}: <h:inputText class="form-control" id="lastname" value="" required="true" a:placeholder="#{msg['register.LastName']}" />                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 3rd row -->
+                                    <div class="form-row">
+                                        
+                                        <!-- 2x6 kolumny -->
+                                        <div class="col-md-6 md-form form-group">
+                                                Email: <h:inputText class="form-control" id="email" value="" required="true" a:placeholder="Email" />                                             
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                                #{msg["register.EmployeeNumber"]}: <h:inputText class="form-control" id="empnumber" value="" required="true" a:placeholder="#{msg['register.EmployeeNumber']}" />
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Przycisk zatwierdzenia-->
+                                    <button type="submit" class="btn btn-success btn-lg my-2 my-sm-0">
+                                        <i class="fas fa-user-plus buttonFixed"></i> #{msg["login.RegisterButt"]} 
+                                    </button>
+                                </h:form>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+                        
+                        <!--Przycisk powrotu na strone logowania-->
+                        <h3 class="font-weight-light">#{msg["register.SignIn"]}</h3>
+                        <div class="row">
+                            <div class="col-sm-5"></div>
+                            <div  class="col-sm-2">
+                                <h:link class="nav-link" outcome="login">       
+                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
+                                        <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg["login.SignIn"]} 
+                                    </button>
+                                </h:link>
+                            </div>
+                            <div class="col-sm-5"></div>
+                        </div>
+
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+
+
+
+
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
+        <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
+            <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
+        </ui:define>
+    </ui:composition> 
+</html>
+

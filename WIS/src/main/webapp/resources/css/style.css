@@ -1,0 +1,109 @@
+/*Pelna wysokosc ekranu*/
+html,body{  
+    height:100%;
+}
+
+/*Wypelnienie flex*/
+.flex-fill { flex:1;   
+}
+
+/*Tekst po srodku*/
+.flex-fill > .text-center 
+{
+    flex-grow: 1;
+}
+
+/*Odleglosc pomiedzy dwoma przyciskami*/
+.btn-space {
+    margin-right: 5px;
+}
+
+/*Kolor marginesow*/
+.marginsCol{
+    background-color: #f4f5f7;
+}
+
+/*Po srodku strony*/
+.centerCol{
+    align-items: center;
+}
+
+/*Stale umiejscowienie stopki, bialy kolor tekstu*/
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+
+/*Tymczasowy tylko dla nowych stron w stanie ToDo*/
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+/*Kolor podswietlenia menu*/
+.dropdown .dropdown-menu a:hover
+{
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #fff;
+}
+
+/*Poszczegolne style dla strony FAQ i listy*/
+.list-group .list-group-item {
+    color: #000;
+    background-color: #f4f5f7; 
+    border-top: 2px solid #5cb85c;    
+    border-color: #5cb85c;
+}
+
+.list-group-item.active{
+    background-color: #5cb85c;
+}
+
+.list-group .list-group-item:hover {
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+/*Kolor przycisku*/
+.buttonFixed{
+    color: white;
+}
+
+.green {
+    color: #5cb85c;
+}
+
+.greenText {
+    color: #5cb85c;
+}
+.green:hover {
+    color: white;
+}
+
+/*Style dla Menu i Logo*/
+.nav-link{
+    font-size: larger;
+}
+
+.navbar-brand{
+    font-size: xx-large;
+    color:white !important;
+}
+
+/*Styl dla listy ponizej zera*/
+.old {
+    background-color: #f45f41 !important;
+}
+
+.ui-expanded-row-content{
+    text-align: left;
+}
+
+.lighterFont{
+    font-size: 11pt; 
+}

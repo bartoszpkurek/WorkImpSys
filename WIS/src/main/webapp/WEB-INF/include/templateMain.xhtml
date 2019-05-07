@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <!-- CSS z Bootstrap, FontAwesome i Aplikacyjny style.css-->
+        <h:outputStylesheet name="bootstrap-4.3.1-dist/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="fontawesome/css/all.css" />
+        <h:outputStylesheet name="css/style.css"/>
+
+        <!-- "Wstrzykniecie head-->
+        <ui:insert name="head"/>
+    </h:head>
+    
+    <h:body class="d-flex flex-column">
+        <!-- Wstrzykniecia elementow html-->
+        <ui:insert name="navbar"/>
+        <ui:insert name="body"/>
+        <ui:insert name="footer"/>
+        
+        <!-- Skrypt wykonuje sie jako ostatni, zeby przyspieszyc ladowanie strony-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <h:outputScript name="bootstrap-4.3.1-dist/js/bootstrap.min.js"/>
+    </h:body>
+</html>
+

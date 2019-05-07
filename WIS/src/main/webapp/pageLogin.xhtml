@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
+    <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
+        <ui:define name="head">
+            <title>#{msg["login.Title"]}</title>
+        </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
+        <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <ui:include src="/WEB-INF/include/templateLogin.xhtml" />
+        </ui:define>
+
+        <!--Tutaj jest główna treść-->
+        <ui:define name="body">
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center align-self-center"> 
+
+                        <!-- Dwa teksty wylogowania na stronie. Zwykla internacjonalizacja poprzez właściwości-->
+                        <h1>#{msg["login.Welcome"]}</h1>
+
+                        <!--Ponowny podział na wiersz i 3x4 grid kolumny -->      
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4 text-center">
+                                
+                                <!--Początek formularza-->
+                                <h:form class="form-signin">
+                                    <div class="form-group">
+                                        <!--a:placeholder i xmlns:a="http://xmlns.jcp.org/jsf/passthrough"-->                         
+                                        <h:inputText class="form-control" id="login" value="" a:placeholder="Login" required="true"/>
+                                        <!-- a:placeholder="['']" musi byc w pojedynczych cudzyslowach bo inaczej ucieka poprzez wartosc z h:inputSecret => zle => a:placeholder="[""]"-->
+                                        <h:inputSecret class="form-control" id="password" value="" required="true" a:placeholder="#{msg['login.Password']}" /> 
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value=""> #{msg["login.Remember"]}</input>
+                                        </label>
+                                    </div>
+                                    
+                                    <!--Przycisk-->
+                                    <button class="btn btn-success btn-lg my-2 my-sm-0" type="submit">
+                                        <i class="fas fa-sign-in-alt"></i> #{msg["login.SignIn"]}
+                                    </button>
+                                </h:form>
+                                
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                        <!-- Przycisk z linkiem do strony z rejestracją poprzez navigation rule i outcome z ikonką z FontAwesome.-->
+                        <!-- Ponowny podział na wiersz--> 
+                        <h3 class="font-weight-light">#{msg["login.Register"]}</h3>
+                        <div class="row">
+                            <div class="col-sm-5"></div>
+                            <div  class="col-sm-2">
+                                <h:link class="nav-link" outcome="register">       
+                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
+                                        <i class="fas fa-user-plus buttonFixed"></i> #{msg["login.RegisterButt"]} 
+                                    </button>
+                                </h:link>
+                            </div>
+                            <div class="col-sm-5"></div>
+                        </div>
+
+                        <!--TEMPORARY!!!!-->
+                        <div>
+                            <br/><br/><br/><br/><br/><br/>
+                            Tymczasowe do czasu uwierzytelnienia!
+                            <h:link class="nav-link" outcome="homePage">       
+                                <button class="btn btn-success btn-sm my-2 my-sm-0 ">                       
+                                    Index.xhtml 
+                                </button>
+                            </h:link>
+                        </div>
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
+        <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
+            <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
+        </ui:define>
+    </ui:composition> 
+</html>
+
