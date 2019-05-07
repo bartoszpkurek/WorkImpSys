@@ -1,4 +1,5 @@
 This system is for postgraduate studies school project. Be patient, it's just a start. :)
+It requires DBMS - Connection Pools are for Derby/Postgress but it will work with any. (as it is now, later only with ones, that allows integer[] type)
 
 What work:
 - adding, listing, sorting suggestions
