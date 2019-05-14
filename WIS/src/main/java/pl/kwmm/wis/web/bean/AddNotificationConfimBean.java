@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kwmm.wis.web;
+package pl.kwmm.wis.web.bean;
 
+import pl.kwmm.wis.web.controller.NotificationController;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,14 +20,14 @@ import pl.kwmm.wis.model.Notification;
 public class AddNotificationConfimBean {
 
     @Inject
-    private NotificationController ctrl;
+    private NotificationController notCtrl;
 
     public Notification getNotification() {
-        return ctrl.getRegisteredNotification();
+        return notCtrl.getRegisteredNotification();
     }
     
     public String register() {
-        ctrl.registerNotification();
+        notCtrl.registerNotification();
         return "success";
     }
 

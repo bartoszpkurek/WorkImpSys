@@ -1,7 +1,6 @@
 package pl.kwmm.wis.ejb.endpoint;
 
 import java.util.Date;
-
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;

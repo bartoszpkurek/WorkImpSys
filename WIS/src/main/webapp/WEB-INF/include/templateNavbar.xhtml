@@ -27,16 +27,25 @@
 
             <!-- Pasek menu z lewej strony-->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <h:link class="nav-link" outcome="ranking"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-chart-line buttonFixed"></i> Ranking</button></h:link>
-                </li>
-                <li class="nav-item">
-                    <h:link class="nav-link" outcome="view"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-search buttonFixed"></i> #{msg["navbarmenu.Browse"]}</button></h:link>
-                </li>
-                <li class="nav-item">
-                    <h:link class="nav-link" outcome="completed"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-dollar-sign buttonFixed"></i> #{msg["navbarmenu.Completed"]}</button></h:link>
-                </li>
+                <f:subview id="leftMenuAll" rendered="#{not empty request.remoteUser}">
+                    <li class="nav-item">
+                        <h:link class="nav-link" outcome="ranking"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-chart-line buttonFixed"></i> Ranking</button></h:link>
+                    </li>
+                    <li class="nav-item">
+                        <h:link class="nav-link" outcome="view"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-search buttonFixed"></i> #{msg["navbarmenu.Browse"]}</button></h:link>
+                    </li>
+                    <li class="nav-item">
+                        <h:link class="nav-link" outcome="completed"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-dollar-sign buttonFixed"></i> #{msg["navbarmenu.Completed"]}</button></h:link>
+                    </li>
+                </f:subview>
             </ul>
+
+            <div id="top">
+                <h:form>
+                    <h:commandLink class="btn btn-success btn-lg btnMain" action="login" value="LOGIN" rendered="#{empty request.remoteUser}"/>
+                    <h:commandLink class="btn btn-success btn-lg btnMain" action="#{accountSession.logout()}" value="LOGOUT" rendered="#{not empty request.remoteUser}"/>
+                </h:form>
+            </div>
 
             <!-- Pasek menu z prawej strony-->
             <ul class="navbar-nav my-2 my-lg-0">
@@ -65,22 +74,35 @@
                         </div>  
                     </div>
                 </li>
-                
-                <!--Menu Uzytkownika-->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user-circle fa-2x green"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <h:link class="dropdown-item" outcome="userNotifications">#{msg["navbarmenu.MyNotification"]}</h:link>
-                        <h:link class="dropdown-item" outcome="userAdd">#{msg["navbarmenu.AddNotification"]}</h:link>                   
-                        <h:link class="dropdown-item" outcome="userPoints">#{msg["navbarmenu.Points"]}</h:link>
-                        <div class="dropdown-divider"></div>
-                        <h:link class="dropdown-item" outcome="userPassChange"><i class="fas fa-user-edit"></i> #{msg["navbarmenu.PassChange"]}</h:link>
-                        <h:link class="dropdown-item" outcome="pageLogout"><i class="fas fa-sign-out-alt"></i> #{msg["navbarmenu.Logout"]}</h:link>
-                    </div>
-                </li>
 
+                <!--Menu Uzytkownika-->
+                <f:subview id="rightMenuAll" rendered="#{not empty request.remoteUser}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle fa-2x green"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <h:link class="dropdown-item" outcome="userNotifications">#{msg["navbarmenu.MyNotification"]}</h:link>
+                            <h:link class="dropdown-item" outcome="userAdd">#{msg["navbarmenu.AddNotification"]}</h:link>                   
+                            <h:link class="dropdown-item" outcome="userPoints">#{msg["navbarmenu.Points"]}</h:link>
+                            <div class="dropdown-divider"></div>
+                            <h:link class="dropdown-item" outcome="userPassChange"><i class="fas fa-user-edit"></i> #{msg["navbarmenu.PassChange"]}</h:link>
+                        </div>
+
+                    </li>
+                    
+                    <f:subview id="rightMenuAdmin" rendered="#{request.isUserInRole('ADMIN')}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-hat-wizard fa-2x green"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <h:link class="dropdown-item" outcome="accountList"><i class="fas fa-book-reader"></i> AccountList</h:link>
+                            </div> 
+                        </li>    
+
+                    </f:subview>
+                </f:subview>
                 <!--Link do strony glownej-->
                 <li class="nav-item">
                     <h:link class="nav-link" outcome="homePage"><i class="fas fa-home fa-2x green "></i></h:link>

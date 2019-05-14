@@ -11,15 +11,15 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["register.Title"]}</title>
+            <title>Confirm</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
 
         <!--Tutaj jest menu-->
         <ui:define name="navbar">
-            <!--Wstrzyknięcie menu-->
-            <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <ui:include src="/WEB-INF/include/templateLogin.xhtml" />
         </ui:define>
 
         <!--Tutaj jest główna treść-->
@@ -40,7 +40,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
                         <div>
-                            <h1>#{msg["login.RegisterButt"]}!</h1>
+                            <h1>Confirm</h1>
                         </div>
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
@@ -53,15 +53,12 @@
                                     <!-- 1st row -->
                                     <div class="form-row">
 
-                                        <!-- 3x4 kolumny -->
-                                        <div class="col-md-4 md-form form-group">
-                                            Login: <h:inputText class="form-control" id="login" value="#{addEmployeeBean.employee.login}" required="true" a:placeholder="Login" />                                              
-                                        </div>                                  
-                                        <div class="col-md-4 md-form form-group">
-                                            #{msg["login.Password"]}: <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" /> 
-                                        </div>
-                                        <div class="col-md-4 md-form form-group">
-                                            #{msg["register.RepeatPassword"]}: <h:inputSecret class="form-control" id="repeatpassword" value="#{addEmployeeBean.passwordRepeat}" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
+                                        <!-- 2x6 kolumny -->
+                                        <div class="col-md-6 md-form form-group">
+                                            Login: <h:outputText class="form-control" id="login" value="#{addEmployeeConfirmBean.employee.login}"/>                                              
+                                        </div>   
+                                        <div class="col-md-6 md-form form-group">
+                                            Email: <h:outputText class="form-control" id="email" value="#{addEmployeeConfirmBean.employee.email}"/>                                                   
                                         </div>
                                     </div>
 
@@ -69,9 +66,12 @@
                                     <div class="form-row">
 
                                         <!-- 2x6 kolumny -->
-                                        <div class="col-md-12 md-form form-group">
-                                            Email: <h:inputText class="form-control" id="email" value="#{addEmployeeBean.employee.email}" required="true" a:placeholder="Email" />                                                   
-                                        </div>                             
+                                        <div class="col-md-6 md-form form-group">
+                                            #{msg["register.FirstName"]}: <h:outputText class="form-control" id="firstname" value="#{addEmployeeConfirmBean.employee.firstname}"/>                                              
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                            #{msg["register.LastName"]}: <h:outputText class="form-control" id="lastname" value="#{addEmployeeConfirmBean.employee.lastname}"/>                                            
+                                        </div>
                                     </div>
 
                                     <!-- 3rd row -->
@@ -79,32 +79,15 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.FirstName"]}: <h:inputText class="form-control" id="firstname" value="#{addEmployeeBean.employee.firstname}" required="true" a:placeholder="#{msg['register.FirstName']}" />                                              
+                                            Type: <h:outputText class="form-control" id="type" value="#{addEmployeeConfirmBean.employee.type}"/> 
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.LastName"]}: <h:inputText class="form-control" id="lastname" value="#{addEmployeeBean.employee.lastname}" required="true" a:placeholder="#{msg['register.LastName']}" />                                            
-                                        </div>
-                                    </div>
-
-                                    <!-- 4th row -->
-                                    <div class="form-row">
-
-                                        <!-- 2x6 kolumny -->
-                                        <div class="col-md-6 md-form form-group">
-                                            Type:
-                                            <h:selectOneMenu class="form-control" id="type" value="#{addEmployeeBean.employee.type}" required="true">  
-                                                <f:selectItem itemValue="Employee" itemLabel="Employee" />
-                                                <f:selectItem itemValue="ImpTeam" itemLabel="ImpTeam" />
-                                                <f:selectItem itemValue="Admin" itemLabel="Admin" />
-                                            </h:selectOneMenu>
-                                        </div>
-                                        <div class="col-md-6 md-form form-group">
-                                            #{msg["register.EmployeeNumber"]}: <h:inputText class="form-control" id="empnumber" value="#{addEmployeeBean.employee.employeenumber}" required="true" a:placeholder="#{msg['register.EmployeeNumber']}" />
+                                            #{msg["register.EmployeeNumber"]}: <h:outputText class="form-control" id="empnumber" value="#{addEmployeeConfirmBean.employee.employeenumber}"/>
                                         </div>
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-lg btn-space" action="#{addEmployeeBean.register()}"/>
+                                    <h:commandButton type="submit" value="Confirm" class="btn btn-success btn-lg btn-space" action="#{addEmployeeConfirmBean.register()}"/>
                                     <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
                                 </h:form>
                             </div>

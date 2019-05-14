@@ -5,6 +5,8 @@ What work:
 - adding, listing, sorting suggestions
 - navigation
 - communication with DB Postgres/Derby
+- accounts listing
+- login system - partially
 
 What does not work:
 -Everything else :)
@@ -12,4 +14,3 @@ What does not work:
 -Exceptions
 -Junit Test
 -Validation of forms
--Account System

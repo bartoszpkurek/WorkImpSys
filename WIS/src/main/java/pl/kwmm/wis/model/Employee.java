@@ -1,7 +1,6 @@
 package pl.kwmm.wis.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "employee")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
     @NamedQuery(name = "Employee.findById", query = "SELECT e FROM Employee e WHERE e.id = :id"),
@@ -24,61 +22,94 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Employee.findByEmployeenumber", query = "SELECT e FROM Employee e WHERE e.employeenumber = :employeenumber"),
     @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email"),
     @NamedQuery(name = "Employee.findByNotificationpoints", query = "SELECT e FROM Employee e WHERE e.notificationpoints = :notificationpoints")})
+@SecondaryTable(name = "PersonalData")
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
+    //Account Data (Main)
     @Id
-    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    
-    @Basic(optional = false)
+
+    @Size(min = 1, max = 30)
+    @Column(name = "login", nullable = false)
+    private String login;
+
+    @Size(min = 1, max = 30)
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "satus", nullable = false)
+    private boolean status;
+
     @Size(min = 1, max = 50)
-    @Column(name = "firstname", nullable = false)
+    @Column(name = "type", nullable = false)
+    private String type;
+
+    //Personal Data (Secondary)
+    @Size(min = 1, max = 50)
+    @Column(table = "PersonalData", name = "firstname", nullable = false)
     private String firstname;
-   
-    @Basic(optional = false)
+
     @Size(min = 1, max = 50)
-    @Column(name = "lastname", nullable = false)
+    @Column(table = "PersonalData", name = "lastname", nullable = false)
     private String lastname;
-    
-    @Basic(optional = false)
+
     @Size(min = 1, max = 30)
-    @Column(name = "employeenumber", nullable = false)
+    @Column(table = "PersonalData", name = "employeenumber", nullable = false)
     private String employeenumber;
-    
-// @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
+
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(min = 1, max = 30)
-    @Column(name = "email", nullable = false)
+    @Column(table = "PersonalData", name = "email", nullable = false)
     private String email;
-    
-    @Column(name = "notificationpoints")
+
+    @Column(table = "PersonalData", name = "notificationpoints")
     private Integer notificationpoints;
 
     public Employee() {
     }
 
-    public Employee(Integer id) {
-        this.id = id;
-    }
-
-    public Employee(Integer id, String firstname, String lastname, String employeenumber, String email) {
-        this.id = id;
+    public Employee(String login, String password, boolean status, String firstname, String lastname, String employeenumber, String email, Integer notificationpoints, String type) {
+        this.login = login;
+        this.password = password;
+        this.status = status;
         this.firstname = firstname;
         this.lastname = lastname;
         this.employeenumber = employeenumber;
         this.email = email;
+        this.notificationpoints = notificationpoints;
+        this.type = type;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getFirstname() {
@@ -119,5 +150,14 @@ public class Employee implements Serializable {
 
     public void setNotificationpoints(Integer notificationpoints) {
         this.notificationpoints = notificationpoints;
-    }   
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

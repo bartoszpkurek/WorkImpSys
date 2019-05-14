@@ -2,7 +2,7 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 
 <!--Do Postgres-->
-<resources>
+<!--<resources>
   <jdbc-resource enabled="true" jndi-name="jdbc/wisDS" object-type="user" pool-name="wisCP">
     <description/>
   </jdbc-resource>
@@ -11,10 +11,10 @@
     <property name="User" value="postgres"/>
     <property name="Password" value="wis"/>
   </jdbc-connection-pool>
-</resources>
+</resources>-->
 
 <!--Do Derby np na zajecia-->
-<!--<resources>
+<resources>
   <jdbc-resource enabled="true" jndi-name="jdbc/wisDS" object-type="user" pool-name="wisCP">
     <description/>
   </jdbc-resource>
@@ -27,4 +27,4 @@
     <property name="User" value="wis"/>
     <property name="Password" value="wis"/>
   </jdbc-connection-pool>
-</resources>-->
+</resources>

@@ -41,6 +41,32 @@
     
     <!-- Zasady nawigacyjne-->
     <navigation-rule>
+        <navigation-case>
+            <from-outcome>accountList</from-outcome>
+            <to-view-id>/accountList.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>employeeEscalatedReg</from-outcome>
+            <to-view-id>/employeeEscalatedReg.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>employeeUserReg</from-outcome>
+            <to-view-id>/employeeUserReg.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/userRegister.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>employeeAddConfirm</from-outcome>
+            <to-view-id>/userRegisterConfirm.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/userAdd.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>userAddConfirm</from-outcome>

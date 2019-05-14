@@ -1,5 +1,5 @@
 
-package pl.kwmm.wis.web;
+package pl.kwmm.wis.web.bean;
 
 import java.io.Serializable;
 import java.util.Locale;

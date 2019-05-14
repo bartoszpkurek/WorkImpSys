@@ -1,4 +1,4 @@
-package pl.kwmm.wis.web;
+package pl.kwmm.wis.web.controller;
 
 import java.io.Serializable;
 import java.util.List;

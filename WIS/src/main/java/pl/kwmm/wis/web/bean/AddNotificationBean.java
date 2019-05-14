@@ -1,5 +1,6 @@
-package pl.kwmm.wis.web;
+package pl.kwmm.wis.web.bean;
 
+import pl.kwmm.wis.web.controller.NotificationController;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,7 +12,7 @@ import pl.kwmm.wis.model.Notification;
 public class AddNotificationBean {
 
     @Inject
-    private NotificationController ctrl;
+    private NotificationController notCtrl;
 
     private final Notification notification = new Notification();
 
@@ -20,7 +21,7 @@ public class AddNotificationBean {
     }
 
     public String register() {
-            ctrl.setRegisteredNotification(notification);
+            notCtrl.setRegisteredNotification(notification);
             return "userAddConfirm";       
     }
 }

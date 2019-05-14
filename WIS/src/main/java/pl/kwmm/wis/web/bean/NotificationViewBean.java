@@ -1,5 +1,6 @@
-package pl.kwmm.wis.web;
+package pl.kwmm.wis.web.bean;
 
+import pl.kwmm.wis.web.controller.NotificationController;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -9,7 +10,7 @@ import pl.kwmm.wis.model.Notification;
 
 @ManagedBean(name = "notView")
 @ViewScoped
-public class ViewBean implements Serializable {
+public class NotificationViewBean implements Serializable {
 
     @Inject
     private NotificationController ctrl;

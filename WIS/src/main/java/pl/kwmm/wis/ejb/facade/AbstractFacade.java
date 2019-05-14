@@ -8,7 +8,7 @@ package pl.kwmm.wis.ejb.facade;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
+/** 
  *
  * @author Warsztat
  */
@@ -60,6 +60,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
     
 }
