@@ -19,6 +19,7 @@ public class NotificationEndpoint {
         n.setRankingpoints(0);
         Date cal = new Date();
         n.setDateadded(cal);
+        notificationFacade.edit(n);
     }
 
 //    Metody rankingowe

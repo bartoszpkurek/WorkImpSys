@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 @ManagedBean(name="language")
 @SessionScoped
-public class LanguageBean implements Serializable{
+public class UtilsLanguageBean implements Serializable{
 
     private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
  

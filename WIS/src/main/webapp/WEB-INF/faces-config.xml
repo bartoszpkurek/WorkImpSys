@@ -43,7 +43,7 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>accountList</from-outcome>
-            <to-view-id>/accountList.xhtml</to-view-id>
+            <to-view-id>/admin/accountList.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -67,10 +67,10 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userAdd.xhtml</from-view-id>
+        <from-view-id>/basic/userAdd.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>userAddConfirm</from-outcome>
-            <to-view-id>/userAddConfirm.xhtml</to-view-id>
+            <to-view-id>/basic/userAddConfirm.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -96,43 +96,43 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>ranking</from-outcome>
-            <to-view-id>/ranking.xhtml</to-view-id>
+            <to-view-id>/basic/ranking.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>view</from-outcome>
-            <to-view-id>/view.xhtml</to-view-id>
+            <to-view-id>/basic/view.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>completed</from-outcome>
-            <to-view-id>/completed.xhtml</to-view-id>
+            <to-view-id>/basic/completed.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userNotifications</from-outcome>
-            <to-view-id>/userNotifications.xhtml</to-view-id>
+            <to-view-id>/basic/userNotifications.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userAdd</from-outcome>
-            <to-view-id>/userAdd.xhtml</to-view-id>
+            <to-view-id>/basic/userAdd.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userPoints</from-outcome>
-            <to-view-id>/userPoints.xhtml</to-view-id>
+            <to-view-id>/basic/userPoints.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userPassChange</from-outcome>
-            <to-view-id>/userPassChange.xhtml</to-view-id>
+            <to-view-id>/basic/userPassChange.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>

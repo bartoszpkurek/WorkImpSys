@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
+    <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
+        <ui:define name="head">
+            <title>Lista Kont</title>
+        </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
+        <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
+        </ui:define>
+
+        <!--Tutaj jest główna treść-->
+        <ui:define name="body">
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center "> 
+
+                        <h:form>
+                            <p:dataTable 
+                                var="employee" 
+                                class="font-weight-light" 
+                                value="#{empView.tableDataList}" 
+                                style="margin-top: 20px;" 
+                                rowStyleClass="#{employee.status ? null : 'old  '}"
+                                paginator="true" 
+                                rows="8"
+                                paginatorPosition="bottom"
+                                >
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column rowspan="2" width="3%">
+                                            <p:rowToggler class="btn btn-outline-success btn-lg"/>
+                                        </p:column>
+                                        <p:column colspan="4" headerText="Dane" >
+
+                                        </p:column>
+                                        <p:column colspan="3" rowspan="2" headerText="Akcje" >
+
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column headerText="Numer Pracownika" sortBy="${employee.employeenumber}" width="8%" styleClass="lighterFont" />
+                                        <p:column headerText="Login" sortBy="${employee.login}" width="8%" styleClass="lighterFont"/>
+                                        <p:column headerText="Typ" sortBy="${employee.type}" width="8%" styleClass="lighterFont" />
+                                        <p:column headerText="Poprzedni Typ" sortBy="${employee.lasttype}" width="8%" styleClass="lighterFont" />
+                                    </p:row>
+                                </p:columnGroup>
+                                <p:column width="3%">
+                                    <p:rowToggler/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:outputText value="${employee.employeenumber}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:outputText value="${employee.login}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:outputText value="${employee.type}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:outputText value="${employee.lasttype}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:commandButton value="Aktywuj" action="#{empView.enableEmployee(employee)}" disabled="#{employee.status}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:commandButton value="Zablokuj" action="#{empView.disableEmployee(employee)}" disabled="#{not employee.status}"/>
+                                </p:column>
+                                <p:column styleClass="lighterFont">
+                                    <h:commandButton value="Usun" action="#{empView.deleteEmployee(employee)}"/>
+                                </p:column>
+                                <p:rowExpansion styleClass="lighterFont">    
+                                    <span>Nazwisko: <h:outputText value="${employee.lastname}"/></span>
+                                    <span>Imie: <h:outputText value="${employee.firstname}"/></span>
+                                    <span>Email: <h:outputText value="${employee.email}"/></span>
+                                </p:rowExpansion>
+
+                            </p:dataTable>
+                        </h:form>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
+        <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
+            <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
+        </ui:define>
+    </ui:composition> 
+</html>
+
+
+
+
+
+
+
+
+

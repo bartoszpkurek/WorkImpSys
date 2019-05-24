@@ -2,26 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      >
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Lista Kont</title>
+            <title>#{msg["userpoints.Text"]}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
 
         <!--Tutaj jest menu-->
         <ui:define name="navbar">
-            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <!--Wstrzyknięcie menu-->
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
 
@@ -41,41 +36,25 @@
                     <div class="col-1 marginsCol"></div>
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
-                    <div class="col-10 text-center "> 
-
-                        <h:form>
-                            <p:dataTable 
-                                var="employee" 
-                                class="font-weight-light" 
-                                value="#{accView.tableDataList}" 
-                                style="margin-top: 20px;" 
-                                rowStyleClass="#{notification.rankingpoints le -1 ? 'old' : null}"
-                                paginator="true" 
-                                rows="8"
-                                paginatorPosition="bottom"
-                                >
-                                                               
-                                <p:column sortBy="${employee.lastname}" width="8%" styleClass="lighterFont">
-                                    <f:facet name="header">Nazwisko</f:facet> 
-                                    <h:outputText value="${employee.lastname}"/>
-                                </p:column>
-                                
-                            </p:dataTable>
-                        </h:form>
-
-                        <!--Przerwa-->
-                        <br/><br/><br/>
-
+                    <div class="col-10 text-center align-self-center"> 
+                        
+                        <!-- Treść-->
+                        <div class="container">               
+                            <h3>#{msg["userpoints.Text"]}:</h3>  
+                            <blockquote class="blockquote">
+                                <h1 class="font-weight-bold greenText"><i class="fas fa-brain"></i> <span><h:outputText id="points" value="#{employeeDetailsBean.employee.notificationpoints}"/></span> #{msg["userpoints.Points"]}!</h1>                            
+                            <footer class="blockquote-footer">#{msg["userpoints.Quote1"]}<br/>#{msg["userpoints.Quote2"]}</footer>
+                            </blockquote>
+                        </div>
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
                     <div class="col-1 marginsCol"></div>
                 </div> 
-
                 <!--Koniec kontenera treści-->
             </div>
-            <!--Koniec zdefiniowanego body z templateMain-->    
-        </ui:define>  
+            <!--Koniec zdefiniowanego body z templateMain-->
+        </ui:define>
 
         <!--Tutaj jest stopka-->
         <ui:define name="footer">
@@ -84,12 +63,4 @@
         </ui:define>
     </ui:composition> 
 </html>
-
-
-
-
-
-
-
-
 

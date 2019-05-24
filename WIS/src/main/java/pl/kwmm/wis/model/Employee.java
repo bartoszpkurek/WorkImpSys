@@ -41,12 +41,16 @@ public class Employee implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "satus", nullable = false)
-    private boolean status;
-
     @Size(min = 1, max = 50)
     @Column(name = "type", nullable = false)
     private String type;
+    
+    @Size(min = 1, max = 50)
+    @Column(name = "lasttype", nullable = true)
+    private String lasttype;
+    
+    @Column(name = "status", nullable = false)
+    private boolean status;
 
     //Personal Data (Secondary)
     @Size(min = 1, max = 50)
@@ -84,6 +88,24 @@ public class Employee implements Serializable {
         this.type = type;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    
+    
+    public String getLasttype() {
+        return lasttype;
+    }
+
+    public void setLasttype(String lasttype) {
+        this.lasttype = lasttype;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -102,14 +124,6 @@ public class Employee implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public String getFirstname() {

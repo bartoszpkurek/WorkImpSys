@@ -10,7 +10,7 @@ import pl.kwmm.wis.model.Notification;
 
 @ManagedBean(name = "notView")
 @ViewScoped
-public class NotificationViewBean implements Serializable {
+public class ViewNotificationBean implements Serializable {
 
     @Inject
     private NotificationController ctrl;

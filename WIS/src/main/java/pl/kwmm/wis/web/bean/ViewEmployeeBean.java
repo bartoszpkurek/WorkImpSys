@@ -1,14 +1,15 @@
 package pl.kwmm.wis.web.bean;
 
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
 
-@ManagedBean(name = "accView")
-@ViewScoped
-public class AccountViewBean {
+@ManagedBean(name = "empView")
+@RequestScoped
+public class ViewEmployeeBean {
     
     @Inject
     private EmployeeController empCtrl;
@@ -20,6 +21,18 @@ public class AccountViewBean {
             tableDataList = empCtrl.getAllEmployee();
         }
         return tableDataList;
+    }
+    
+    public void deleteEmployee(Employee e){
+        empCtrl.deleteEmployee(e);
+    }
+    
+    public void enableEmployee(Employee e){
+        empCtrl.enableEmployee(e);
+    }
+    
+    public void disableEmployee(Employee e){
+        empCtrl.disableEmployee(e);
     }
     
 }

@@ -5,7 +5,7 @@
  */
 package pl.kwmm.wis.web.utils;
 
-import static java.security.AccessController.getContext;
+import java.security.Principal;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
  * @author Warsztat
  */
 public class WebSessioUtils {
+    
+    
 
     public WebSessioUtils() {
     }
@@ -23,6 +25,11 @@ public class WebSessioUtils {
         return FacesContext.getCurrentInstance().getExternalContext();
     }
     
+    public static String getUserName() {
+        Principal p = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+        return (null == p ? "!BRAK UWIERZYTELNIENIA!" : p.getName());
+    }
+
     public static void invalidateSession() {
         ((HttpSession) getContext().getSession(true)).invalidate();
     }

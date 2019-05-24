@@ -36,5 +36,21 @@ public class EmployeeController implements Serializable{
     public List<Employee> getAllEmployee(){
         return employeeEndpoint.getAllEmployee();
     }
+    
+    public void deleteEmployee(Employee e){
+        employeeEndpoint.deleteEmployee(e);
+    }
+    
+    public void enableEmployee(Employee e){
+        employeeEndpoint.enableEmployee(e);
+    }
+    
+    public void disableEmployee(Employee e){
+        employeeEndpoint.disableEmployee(e);
+    }
+    
+    public Employee getCurrentAccount(){
+        return employeeEndpoint.getCurrentAccount();
+    }
            
 }
