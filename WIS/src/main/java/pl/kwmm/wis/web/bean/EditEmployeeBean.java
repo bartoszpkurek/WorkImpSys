@@ -5,6 +5,7 @@
  */
 package pl.kwmm.wis.web.bean;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,14 +14,22 @@ import pl.kwmm.wis.web.controller.EmployeeController;
 
 /**
  *
- * @author Gosc
+ * @author Warsztat
  */
 @Named
 @RequestScoped
-public class UserPasswordChangeBean {
+public class EditEmployeeBean {
+
+    public EditEmployeeBean() {
+    }
 
     @Inject
     private EmployeeController empCtrl;
+
+    @PostConstruct
+    private void init() {
+        employee = empCtrl.getCurrentAccount();
+    }
 
     private Employee employee = new Employee();
 
@@ -28,10 +37,8 @@ public class UserPasswordChangeBean {
         return employee;
     }
 
-    public String changeMyPassword() {
-        empCtrl.changeMyPassword(employee.getPassword());
-        return "homePage";
-
+    public String saveEmployeeAfterEdit() {
+        return empCtrl.saveEmployeeAfterEdit(employee);
     }
 
 }

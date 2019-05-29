@@ -38,8 +38,20 @@
             <var>msg</var>
         </resource-bundle>
     </application>
-    
     <!-- Zasady nawigacyjne-->
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>userNotificationChange</from-outcome>
+            <to-view-id>/basic/userNotificationChange.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>userEmployeeChange</from-outcome>
+            <to-view-id>/basic/userEmployeeChange.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>accountList</from-outcome>

@@ -2,25 +2,89 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Zrealizowane</title>
+            <title>Completed</title>
         </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
         <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
+
+        <!--Tutaj jest główna treść-->
         <ui:define name="body">
-            <div class="container">
-                <div class="starter-template">
-                    <h1>Zrealizowane</h1>
-                    <p class="lead">ToDO</p>
-                </div>
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center "> 
+                        <h:form id="form" style="margin-top: 10px;">
+                            <p:repeat value="#{notView.completedDataList}" var="notification">
+                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                                     <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:outputText value="Id:" />
+                                            <h:outputText value="#{notification.category}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Year:" />
+                                            <h:outputText value="#{notification.status}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Color:" />
+                                            <h:outputText value="#{notification.priority}" style="font-weight: bold"/>
+                                        </h:panelGrid>
+                                    </p:outputPanel>
+                                </h:panelGrid>
+                                <hr />
+                            </p:repeat>
+                        </h:form>
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+
+                <!--Koniec kontenera treści-->
             </div>
-        </ui:define>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
         <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
             <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
         </ui:define>
     </ui:composition> 
 </html>
+
+
+
+
+
+
+
+
 

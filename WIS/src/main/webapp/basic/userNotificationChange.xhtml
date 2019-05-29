@@ -15,10 +15,14 @@
                 <div class="starter-template">
                     <h1>Zmień hasło</h1>
                     <h:form>
-                        Login: <h:outputText id="login" value="#{employeeDetailsBean.employee.login}"/> <br/>
-                        Pass: <h:inputText id="password" value="#{userPasswordChangeBean.employee.password}"/><br/>
+                        Notification ID: <h:outputText id="login" value="#{editNotificationBean.notification.notification_id}"/> <br/>
 
-                        <h:commandButton action="#{userPasswordChangeBean.changeMyPassword()}" value="ChangePass" />
+                        ShortDesc: <h:inputText id="ShortDesc" value="#{editNotificationBean.notification.shortdescription}"/><br/>
+                        FullDesc: <h:inputText id="FullDesc" value="#{editNotificationBean.notification.fulldescription}"/><br/>
+                        Category: <h:inputText id="Category" value="#{editNotificationBean.notification.category}"/><br/>
+                        Priority: <h:inputText id="Priority" value="#{editNotificationBean.notification.priority}"/><br/>
+                        
+                        <h:commandButton action="#{editNotificationBean.saveNotificationAfterEdit()}" value="Save" />
                         <br />
                         <h:commandButton action="homePage" value="Cancel" immediate="true" />
                     </h:form>

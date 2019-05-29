@@ -1,13 +1,21 @@
 package pl.kwmm.wis.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -18,17 +26,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "notification")
 @NamedQueries({
-    @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n"),
-    @NamedQuery(name = "Notification.findById", query = "SELECT n FROM Notification n WHERE n.id = :id"),
-    @NamedQuery(name = "Notification.findByShortdescription", query = "SELECT n FROM Notification n WHERE n.shortdescription = :shortdescription"),
-    @NamedQuery(name = "Notification.findByFulldescription", query = "SELECT n FROM Notification n WHERE n.fulldescription = :fulldescription"),
-    @NamedQuery(name = "Notification.findByDateadded", query = "SELECT n FROM Notification n WHERE n.dateadded = :dateadded"),
-    @NamedQuery(name = "Notification.findByMoneyrequired", query = "SELECT n FROM Notification n WHERE n.moneyrequired = :moneyrequired"),
-    @NamedQuery(name = "Notification.findByPriority", query = "SELECT n FROM Notification n WHERE n.priority = :priority"),
-    @NamedQuery(name = "Notification.findByCategory", query = "SELECT n FROM Notification n WHERE n.category = :category"),
-    @NamedQuery(name = "Notification.findByStatus", query = "SELECT n FROM Notification n WHERE n.status = :status"),
-    @NamedQuery(name = "Notification.findByRankingpoints", query = "SELECT n FROM Notification n WHERE n.rankingpoints = :rankingpoints"),
-    @NamedQuery(name = "Notification.findByVoted", query = "SELECT n FROM Notification n WHERE n.voted = :voted")})
+    @NamedQuery(name = "Notification.findByEmployeeId", query = "SELECT n FROM Notification n WHERE n.employee = :employee"),
+    @NamedQuery(name = "Notification.findByNotificationId", query = "SELECT n FROM Notification n WHERE n.notification_id = :notification"),
+    @NamedQuery(name = "Notification.findByStatusEnded", query = "SELECT n FROM Notification n WHERE n.status = 'Zakonczone'"),
+    @NamedQuery(name = "Notification.findByTopThree", query = "SELECT n FROM Notification n ORDER BY n.rankingpoints DESC")})
+
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,57 +38,72 @@ public class Notification implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "notification_id", nullable = false)
+    private long notification_id;
 
-    @Basic(optional = false)
+
     @Size(min = 1, max = 255)
     @Column(name = "shortdescription")
     private String shortdescription;
 
-    @Basic(optional = false)
     @Size(min = 1, max = 2147483647)
     @Column(name = "fulldescription", nullable = false)
     private String fulldescription;
 
-    @Basic(optional = false)
+
     @Column(name = "dateadded")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateadded;
 
-    @Basic(optional = false)
+
     @Column(name = "moneyrequired", nullable = false)
     private boolean moneyrequired;
 
-    @Basic(optional = false)
+
     @Column(name = "priority", nullable = false)
     private int priority;
 
-    @Basic(optional = false)
+
     @Size(min = 1, max = 50)
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Basic(optional = false)
+
     @Size(min = 1, max = 50)
     @Column(name = "status", nullable = false)
     private String status;
-   
+
     @Column(name = "rankingpoints")
     private Integer rankingpoints;
-   
-    @Column(name = "voted")
-    private Integer voted;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id")
+//    private Employee notificationOwner;
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "post_tag",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Employee> tags = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    public void addTag(Employee tag) {
+        tags.add(tag);
+        tag.getPosts().add(this);
+    }
+
+    
     public Notification() {
     }
 
-    public Notification(Integer id) {
-        this.id = id;
-    }
-
-    public Notification(Integer id, String shortdescription, String fulldescription, Date dateadded, boolean moneyrequired, int priority, String category, String status) {
-        this.id = id;
+    public Notification(long notification_id, String shortdescription, String fulldescription, Date dateadded, boolean moneyrequired, int priority, String category, String status, Integer rankingpoints, Employee employee) {
+        this.notification_id = notification_id;
         this.shortdescription = shortdescription;
         this.fulldescription = fulldescription;
         this.dateadded = dateadded;
@@ -94,14 +111,24 @@ public class Notification implements Serializable {
         this.priority = priority;
         this.category = category;
         this.status = status;
+        this.rankingpoints = rankingpoints;
+        this.employee = employee;
     }
 
-    public Integer getId() {
-        return id;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public long getNotification_id() {
+        return notification_id;
+    }
+
+    public void setNotification_id(long notification_id) {
+        this.notification_id = notification_id;
     }
 
     public String getShortdescription() {
@@ -128,7 +155,7 @@ public class Notification implements Serializable {
         this.dateadded = dateadded;
     }
 
-    public boolean getMoneyrequired() {
+    public boolean isMoneyrequired() {
         return moneyrequired;
     }
 
@@ -168,11 +195,12 @@ public class Notification implements Serializable {
         this.rankingpoints = rankingpoints;
     }
 
-    public Integer getVoted() {
-        return voted;
+    public List<Employee> getTags() {
+        return tags;
     }
 
-    public void setVoted(Integer voted) {
-        this.voted = voted;
+    public void setTags(List<Employee> tags) {
+        this.tags = tags;
     }
+
 }

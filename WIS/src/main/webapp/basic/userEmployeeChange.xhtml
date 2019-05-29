@@ -14,11 +14,15 @@
             <div class="container">
                 <div class="starter-template">
                     <h1>Zmień hasło</h1>
-                    <h:form>
+                    <h:form> 
                         Login: <h:outputText id="login" value="#{employeeDetailsBean.employee.login}"/> <br/>
-                        Pass: <h:inputText id="password" value="#{userPasswordChangeBean.employee.password}"/><br/>
 
-                        <h:commandButton action="#{userPasswordChangeBean.changeMyPassword()}" value="ChangePass" />
+                        FirstName: <h:inputText id="firstname" value="#{editEmployeeBean.employee.firstname}"/><br/>
+                        LastName: <h:inputText id="lastname" value="#{editEmployeeBean.employee.lastname}"/><br/>
+                        Email: <h:inputText id="email" value="#{editEmployeeBean.employee.email}"/><br/>
+                        EmployeeNumber: <h:inputText id="employeenumber" value="#{editEmployeeBean.employee.employeenumber}"/><br/>
+                                              
+                        <h:commandButton action="#{editEmployeeBean.saveEmployeeAfterEdit()}" value="Save" />
                         <br />
                         <h:commandButton action="homePage" value="Cancel" immediate="true" />
                     </h:form>

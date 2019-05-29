@@ -2,28 +2,175 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Moje zgłoszenia</title>
+            <title>Moje zgloszenia</title>
         </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
         <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
+
+        <!--Tutaj jest główna treść-->
         <ui:define name="body">
-            <div class="container">
-                <div class="starter-template">
-                    <h1>Moje zgłoszenia</h1>
-                    <p class="lead">ToDO</p>
-                    
+
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center "> 
+
+                        <h:form>
+                            <p:dataTable 
+                                var="notification"
+                                widgetVar="notificationTable"
+                                class="font-weight-light" 
+                                value="#{notView.getMyDataList(employee)}" 
+                                style="margin-top: 20px;" 
+                                rowStyleClass="#{notification.rankingpoints le -1 ? 'old' : null}"
+                                paginator="true" 
+                                rows="8"
+                                paginatorPosition="bottom"
+                                >
+
+                                
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Search all fields:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('notificationTable').filter()" style="width:350px" placeholder="Enter keyword"/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:column width="3%">
+                                    <p:rowToggler class="btn btn-outline-success btn-lg"/>
+
+                                </p:column>
+                                <p:column sortBy="${notification.dateadded}" width="10%" styleClass="lighterFont">
+                                    <f:facet name="header">#{msg["view.Date"]}</f:facet>
+                                    <h:outputText value="${notification.dateadded}" styleClass="lighterFont">
+                                        <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Category" filterBy="#{notification.category}" sortBy="#{notification.category}" filterMatchMode="exact" width="8%" styleClass="lighterFont">
+                                    <f:facet name="filter">
+                                        <h:selectOneMenu onchange="PF('notificationTable').filter()" >
+                                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="Workspace" itemValue="Workspace" />
+                                            <f:selectItem itemLabel="Process" itemValue="Process" />
+                                            <f:selectItem itemLabel="Other" itemValue="Other" />
+                                        </h:selectOneMenu>
+                                    </f:facet> 
+                                    <h:outputText value="${notification.category}"/>
+                                </p:column>
+                                
+                                <p:column headerText="ShortDescription" filterBy="#{notification.shortdescription}" filterMatchMode="contains" styleClass="lighterFont">
+                                    <f:facet name="filter">
+                                        <p:inputText onkeyup="PF('notificationTable').filter()" style="width:350px" placeholder="Enter keyword"/>
+                                    </f:facet>
+                                    <h:outputText value="#{notification.shortdescription}"/>
+                                </p:column>
+
+                                <p:column headerText="Priority" filterBy="#{notification.priority}" sortBy="#{notification.priority}" filterMatchMode="exact" width="7%" styleClass="lighterFont">
+                                    <f:facet name="filter">
+                                        <h:selectOneMenu onchange="PF('notificationTable').filter()" >
+                                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="5" itemValue="5" />
+                                            <f:selectItem itemLabel="4" itemValue="4" />
+                                            <f:selectItem itemLabel="3" itemValue="3" />
+                                            <f:selectItem itemLabel="2" itemValue="2" />
+                                            <f:selectItem itemLabel="1" itemValue="1" />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                    <h:outputText value="${notification.priority}"/>
+                                </p:column>
+                                <p:column headerText="Status" filterBy="#{notification.status}" sortBy="#{notification.status}" filterMatchMode="contains" width="9%" styleClass="lighterFont">
+                                    <f:facet name="filter">
+                                        <h:selectOneMenu onchange="PF('notificationTable').filter()" >
+                                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+                                            <f:selectItem itemLabel="Nowy" itemValue="Nowy" />
+                                            <f:selectItem itemLabel="Oczekuje" itemValue="Oczekuje" />
+                                            <f:selectItem itemLabel="W realizacji" itemValue="W realizacji" />
+                                            <f:selectItem itemLabel="Odrzucony" itemValue="Odrzucony" />
+                                            <f:selectItem itemLabel="Zakonczony" itemValue="Zakonczony" />
+                                        </h:selectOneMenu>
+                                    </f:facet>
+                                    <h:outputText value="${notification.status}"/>
+                                </p:column>
+                                <p:column sortBy="${notification.rankingpoints}" width="7%" styleClass="lighterFont">
+                                    <f:facet name="header">Points</f:facet> 
+                                    <h:outputText value="${notification.rankingpoints}"/>
+                                </p:column>
+
+                                <p:column width="8%" styleClass="lighterFont" rendered="#{request.isUserInRole('EMPLOYEE')}">
+                                    <f:facet name="header">Remove</f:facet>
+                                    <h:commandButton value="Remove" action="#{notView.removeNotification(notification)}"/>
+                                </p:column>
+                                <p:column width="8%" styleClass="lighterFont" rendered="#{request.isUserInRole('EMPLOYEE')}">
+                                    <f:facet name="header">Edit</f:facet>
+                                    <h:commandButton value="Edit" action="#{notView.getNotificationToEdit(notification)}"/>
+                                </p:column>
 
 
-                </div>
+
+                                <p:rowExpansion styleClass="lighterFont">   
+                                    
+                                    <h:outputText value="${notification.fulldescription}" />
+                                    
+                                </p:rowExpansion>
+
+                            </p:dataTable>
+                        </h:form>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+                </div> 
+
+                <!--Koniec kontenera treści-->
             </div>
-        </ui:define>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
         <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
             <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
         </ui:define>
     </ui:composition> 
 </html>
+
+
+
+
+
+
+
+
 

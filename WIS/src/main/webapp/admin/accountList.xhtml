@@ -28,6 +28,8 @@
         <!--Tutaj jest główna treść-->
         <ui:define name="body">
 
+
+
             <!--Podział na flexy z Bootstrapa 4. Główny kontener.
             Opcja container-fluid wypełnia szerokość.
             Opcja flex tworzy i daje tę właściwość child items.
@@ -42,69 +44,84 @@
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center "> 
+                        <f:view>
+                            <h:form>
 
-                        <h:form>
-                            <p:dataTable 
-                                var="employee" 
-                                class="font-weight-light" 
-                                value="#{empView.tableDataList}" 
-                                style="margin-top: 20px;" 
-                                rowStyleClass="#{employee.status ? null : 'old  '}"
-                                paginator="true" 
-                                rows="8"
-                                paginatorPosition="bottom"
-                                >
-                                <p:columnGroup type="header">
-                                    <p:row>
-                                        <p:column rowspan="2" width="3%">
-                                            <p:rowToggler class="btn btn-outline-success btn-lg"/>
-                                        </p:column>
-                                        <p:column colspan="4" headerText="Dane" >
 
-                                        </p:column>
-                                        <p:column colspan="3" rowspan="2" headerText="Akcje" >
+                                <p:dataTable 
+                                    var="employee" 
+                                    class="font-weight-light" 
+                                    value="#{empView.tableDataList}" 
+                                    style="margin-top: 20px;" 
+                                    rowStyleClass="#{employee.status ? null : 'old  '}"
+                                    paginator="true" 
+                                    rows="8"
+                                    paginatorPosition="bottom"
+                                    >
 
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column headerText="Numer Pracownika" sortBy="${employee.employeenumber}" width="8%" styleClass="lighterFont" />
-                                        <p:column headerText="Login" sortBy="${employee.login}" width="8%" styleClass="lighterFont"/>
-                                        <p:column headerText="Typ" sortBy="${employee.type}" width="8%" styleClass="lighterFont" />
-                                        <p:column headerText="Poprzedni Typ" sortBy="${employee.lasttype}" width="8%" styleClass="lighterFont" />
-                                    </p:row>
-                                </p:columnGroup>
-                                <p:column width="3%">
-                                    <p:rowToggler/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:outputText value="${employee.employeenumber}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:outputText value="${employee.login}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:outputText value="${employee.type}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:outputText value="${employee.lasttype}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:commandButton value="Aktywuj" action="#{empView.enableEmployee(employee)}" disabled="#{employee.status}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:commandButton value="Zablokuj" action="#{empView.disableEmployee(employee)}" disabled="#{not employee.status}"/>
-                                </p:column>
-                                <p:column styleClass="lighterFont">
-                                    <h:commandButton value="Usun" action="#{empView.deleteEmployee(employee)}"/>
-                                </p:column>
-                                <p:rowExpansion styleClass="lighterFont">    
-                                    <span>Nazwisko: <h:outputText value="${employee.lastname}"/></span>
-                                    <span>Imie: <h:outputText value="${employee.firstname}"/></span>
-                                    <span>Email: <h:outputText value="${employee.email}"/></span>
-                                </p:rowExpansion>
+                                    <p:columnGroup type="header">
+                                        <p:row>
+                                            <p:column rowspan="2" width="3%">
+                                                <p:rowToggler class="btn btn-outline-success btn-lg"/>
+                                            </p:column>
+                                            <p:column colspan="4" headerText="Dane" >
 
-                            </p:dataTable>
-                        </h:form>
+                                            </p:column>
+                                            <p:column colspan="4" rowspan="2" headerText="Akcje" >
+
+                                            </p:column>
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Numer Pracownika" sortBy="${employee.employeenumber}" width="8%" styleClass="lighterFont" />
+                                            <p:column headerText="Login" sortBy="${employee.login}" width="8%" styleClass="lighterFont"/>
+                                            <p:column headerText="Typ" sortBy="${employee.type}" width="8%" styleClass="lighterFont" />
+                                            <p:column headerText="Poprzedni Typ" sortBy="${employee.lasttype}" width="8%" styleClass="lighterFont" />
+                                        </p:row>
+                                    </p:columnGroup>
+                                    <p:column width="3%">
+                                        <p:rowToggler/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:outputText value="${employee.employeenumber}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:outputText value="${employee.login}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:outputText value="${employee.type}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:outputText value="${employee.lasttype}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:commandButton value="Aktywuj" action="#{empView.enableEmployee(employee)}" disabled="#{employee.status}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:commandButton value="Zablokuj" action="#{empView.disableEmployee(employee)}" disabled="#{not employee.status}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:commandButton value="Usun" action="#{empView.deleteEmployee(employee)}"/>
+                                    </p:column>
+                                    <p:column styleClass="lighterFont">
+                                        <h:commandButton value="Employee" action="#{empView.setEmployeeRole(employee)}" /><br/>
+                                        <h:commandButton value="ImpTeam" action="#{empView.setImpTeamRole(employee)}" /><br/>
+                                        <h:commandButton value="Admin" action="#{empView.setAdminRole(employee)}"/>
+                                    </p:column>
+
+                                    <p:column styleClass="lighterFont">
+                                        <p:commandButton value="ResetPass" action="#{empView.resetPassword(employee)}"/>
+                                    </p:column>
+
+                                    <p:rowExpansion styleClass="lighterFont">    
+                                        <span>Nazwisko: <h:outputText value="${employee.lastname}"/></span>
+                                        <span>Imie: <h:outputText value="${employee.firstname}"/></span>
+                                        <span>Email: <h:outputText value="${employee.email}"/></span>
+                                    </p:rowExpansion>
+
+                                </p:dataTable>
+                            </h:form>
+                   
+                        </f:view>
 
                         <!--Przerwa-->
                         <br/><br/><br/>
