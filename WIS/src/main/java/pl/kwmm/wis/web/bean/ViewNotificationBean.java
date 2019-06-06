@@ -24,6 +24,9 @@ public class ViewNotificationBean implements Serializable {
 
     @Inject
     private EditNotificationBean editBean;
+    
+    @Inject
+    private UtilsAccountSessionBean accountSessionBean;
 
     public ViewNotificationBean() {
     }
@@ -100,14 +103,15 @@ public class ViewNotificationBean implements Serializable {
         ctrl.removeNotification(n);
     }
 
-    public void completeNotification(Notification n) {
+    public void completeNotification(Notification n) throws IOException {
         ctrl.completeNotification(n);
+        accountSessionBean.reload();
     }
 
     public String getNotificationToEdit(Notification n) {
        return  editBean.getNotificationToEdit(n);
     }
-    
+
     
 
 }

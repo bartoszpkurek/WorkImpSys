@@ -94,7 +94,7 @@
         <auth-method>FORM</auth-method>
         <realm-name>wisDBRealm</realm-name>
         <form-login-config>
-            <form-login-page>/faces/pageLogin.xhtml</form-login-page>
+            <form-login-page>/faces/login.xhtml</form-login-page>
             <form-error-page>/faces/errors/errorLogin.xhtml</form-error-page>
         </form-login-config>
     </login-config>

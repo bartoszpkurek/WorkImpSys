@@ -5,16 +5,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      >
+      xmlns:p="http://primefaces.org/ui">
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Ranking</title>
+            <title>#{msg["success.Title"]}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -41,37 +39,35 @@
                     <div class="col-1 marginsCol"></div>
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
-                    <div class="col-10 text-center "> 
-                        <h1>TIMER HERE TO COUNT TIME</h1>
-                        <h:form id="grid">
-                            <p:dataGrid var="notification" value="#{notView.topThreeDataList}" columns="3" layout="grid"
-                                        rows="12"  id="cars" style="margin-top:10px;" >
+                    <div class="col-10 text-center align-self-center"> 
 
-                                <f:facet name="header">
-                                    3 best notifications
-                                </f:facet>
-
-                                <p:panel header="#{notification.category}" style="text-align:center">
-                                    <h:panelGrid columns="1" style="width:100%; ">
-
-                                        <h:outputText value="#{notification.shortdescription}" />
-
-
-                                    </h:panelGrid>
-                                </p:panel>
-
-                            </p:dataGrid>
-                        </h:form>
+                        <h2>#{msg["success.Text"]}</h2>
+                        <div class="row">
+                            <div class="col-sm-5"></div>
+                            <div class="col-sm-1">
+                                <h:link class="nav-link" outcome="userAdd">       
+                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
+                                        Add 
+                                    </button>
+                                </h:link>
+                            </div>
+                            <div class="col-sm-1">
+                                <h:link class="nav-link" outcome="homePage">       
+                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
+                                        Home 
+                                    </button>
+                                </h:link></div>
+                            <div class="col-sm-5"></div>
+                        </div>
 
                     </div>
 
-                        <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                        <div class="col-1 marginsCol"></div>
-                    </div> 
-
-                    <!--Koniec kontenera treści-->
-                </div>
-                <!--Koniec zdefiniowanego body z templateMain-->    
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
+                </div> 
+                <!--Koniec kontenera treści-->
+            </div>
+            <!--Koniec zdefiniowanego body z templateMain-->    
         </ui:define>  
 
         <!--Tutaj jest stopka-->

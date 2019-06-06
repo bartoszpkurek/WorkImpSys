@@ -45,23 +45,31 @@
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
                         <div class="row">
-                            <div class="col-md-3"></div>
+                            <div class="col-md-3 textRed"><h:messages/></div>
                             <div class="col-md-6">
 
                                 <!-- Formularz ma 3x form-row-->
                                 <h:form>
                                     <!-- 1st row -->
                                     <div class="form-row">
-
+                                        
+                                        
                                         <!-- 3x4 kolumny -->
                                         <div class="col-md-4 md-form form-group">
-                                            Login: <h:inputText class="form-control" id="login" value="#{addEmployeeBean.employee.login}" required="true" a:placeholder="Login" />                                              
+                                            Login<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="login" value="#{addEmployeeBean.employee.login}" required="true" a:placeholder="Login" >
+                                                <f:validateLength minimum="3" maximum="30" />
+                                            </h:inputText>
                                         </div>                                  
                                         <div class="col-md-4 md-form form-group">
-                                            #{msg["login.Password"]}: <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" /> 
+                                            Password<span style="color: red">*</span>: 
+                                            <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" >
+                                                <f:validateLength minimum="8"/>
+                                            </h:inputSecret> 
                                         </div>
                                         <div class="col-md-4 md-form form-group">
-                                            #{msg["register.RepeatPassword"]}: <h:inputSecret class="form-control" id="repeatpassword" value="#{addEmployeeBean.passwordRepeat}" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
+                                            #{msg["register.RepeatPassword"]}<span style="color: red">*</span>: 
+                                            <h:inputSecret class="form-control" id="repeatpassword" value="#{addEmployeeBean.passwordRepeat}" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
                                         </div>
                                     </div>
 
@@ -70,7 +78,10 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-12 md-form form-group">
-                                            Email: <h:inputText class="form-control" id="email" value="#{addEmployeeBean.employee.email}" required="true" a:placeholder="Email" />                                                   
+                                            Email<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="email" value="#{addEmployeeBean.employee.email}" required="true" a:placeholder="Email" >
+                                                <f:validateLength maximum="100" />
+                                            </h:inputText>
                                         </div>                             
                                     </div>
 
@@ -79,10 +90,16 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.FirstName"]}: <h:inputText class="form-control" id="firstname" value="#{addEmployeeBean.employee.firstname}" required="true" a:placeholder="#{msg['register.FirstName']}" />                                              
+                                            #{msg["register.FirstName"]}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="firstname" value="#{addEmployeeBean.employee.firstname}" required="true" a:placeholder="#{msg['register.FirstName']}"> 
+                                                <f:validateLength minimum="1" maximum="100" />
+                                            </h:inputText>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.LastName"]}: <h:inputText class="form-control" id="lastname" value="#{addEmployeeBean.employee.lastname}" required="true" a:placeholder="#{msg['register.LastName']}" />                                            
+                                            #{msg["register.LastName"]}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="lastname" value="#{addEmployeeBean.employee.lastname}" required="true" a:placeholder="#{msg['register.LastName']}">
+                                                <f:validateLength minimum="1" maximum="100" />
+                                            </h:inputText>
                                         </div>
                                     </div>
 
@@ -91,7 +108,7 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            Type:
+                                            Type<span style="color: red">*</span>:
                                             <h:selectOneMenu class="form-control" id="type" value="#{addEmployeeBean.employee.type}" required="true">  
                                                 <f:selectItem itemValue="Employee" itemLabel="Employee" />
                                                 <f:selectItem itemValue="ImpTeam" itemLabel="ImpTeam" />
@@ -99,16 +116,29 @@
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.EmployeeNumber"]}: <h:inputText class="form-control" id="empnumber" value="#{addEmployeeBean.employee.employeenumber}" required="true" a:placeholder="#{msg['register.EmployeeNumber']}" />
+                                            #{msg["register.EmployeeNumber"]}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="empnumber" value="#{addEmployeeBean.employee.employeenumber}" required="true" a:placeholder="#{msg['register.EmployeeNumber']}">
+                                                <f:validateLength maximum="20" />
+                                            </h:inputText>
                                         </div>
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-lg btn-space" action="#{addEmployeeBean.register()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-sm btn-space" action="#{addEmployeeBean.register()}"/>
+                                    <h:commandButton value="Cancel" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
                                 </h:form>
                             </div>
-                            <div class="col-md-3"></div>
+                            <div class="col-md-3">
+                                <ul class="lighterFont">
+                                    <li>[Login] 3-30 znakow bez specjalnych</li>
+                                    <li>[Haslo] 8 Znakow, 1 duza, 1 mala, znak specjalny, liczba</li>
+                                    <li>[Email] Max 100 znakow</li>
+                                    <li>[FirstName] 1-100 znakow</li>
+                                    <li>[LastName] 1-100 znakow</li>
+                                    <li>[EmployeeNumber] Max 20 znakow</li>
+                                </ul>
+                                   
+                            </div>
                         </div>
 
                         <!--Przerwa-->
@@ -120,7 +150,7 @@
                             <div class="col-sm-5"></div>
                             <div  class="col-sm-2">
                                 <h:link class="nav-link" outcome="login">       
-                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
+                                    <button class="btn btn-success btn-sm my-2 my-sm-0 ">                       
                                         <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg["login.SignIn"]} 
                                     </button>
                                 </h:link>
@@ -131,7 +161,7 @@
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
 
 

@@ -14,6 +14,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
+            
             <title>Lista Kont</title>
         </ui:define>
 
@@ -27,7 +28,6 @@
 
         <!--Tutaj jest główna treść-->
         <ui:define name="body">
-
 
 
             <!--Podział na flexy z Bootstrapa 4. Główny kontener.
@@ -46,11 +46,9 @@
                     <div class="col-10 text-center "> 
                         <f:view>
                             <h:form>
-
-
                                 <p:dataTable 
                                     var="employee" 
-                                    class="font-weight-light" 
+                                    class="font-weight-light table-bordered" 
                                     value="#{empView.tableDataList}" 
                                     style="margin-top: 20px;" 
                                     rowStyleClass="#{employee.status ? null : 'old  '}"
@@ -59,60 +57,55 @@
                                     paginatorPosition="bottom"
                                     >
 
-                                    <p:columnGroup type="header">
+                                    <p:columnGroup type="header" >   
                                         <p:row>
-                                            <p:column rowspan="2" width="3%">
+                                            <p:column rowspan="2" width="3%" class="table-dark font-weight-light">
                                                 <p:rowToggler class="btn btn-outline-success btn-lg"/>
                                             </p:column>
-                                            <p:column colspan="4" headerText="Dane" >
+                                            <p:column colspan="4" headerText="Dane" class="table-dark font-weight-light"/>
+                                            <p:column colspan="4" rowspan="2" headerText="Akcje" class="table-dark font-weight-light" width="30%" />
 
-                                            </p:column>
-                                            <p:column colspan="4" rowspan="2" headerText="Akcje" >
-
-                                            </p:column>
                                         </p:row>
                                         <p:row>
-                                            <p:column headerText="Numer Pracownika" sortBy="${employee.employeenumber}" width="8%" styleClass="lighterFont" />
-                                            <p:column headerText="Login" sortBy="${employee.login}" width="8%" styleClass="lighterFont"/>
-                                            <p:column headerText="Typ" sortBy="${employee.type}" width="8%" styleClass="lighterFont" />
-                                            <p:column headerText="Poprzedni Typ" sortBy="${employee.lasttype}" width="8%" styleClass="lighterFont" />
+                                            <p:column headerText="Numer Pracownika" sortBy="${employee.employeenumber}" class="table-dark font-weight-light" />
+                                            <p:column headerText="Login" sortBy="${employee.login}" class="table-dark font-weight-light" />
+                                            <p:column headerText="Typ" sortBy="${employee.type}" class="table-dark font-weight-light" />
+                                            <p:column headerText="Poprzedni Typ" sortBy="${employee.lasttype}"  class="table-dark font-weight-light" />
                                         </p:row>
                                     </p:columnGroup>
-                                    <p:column width="3%">
+                                    <p:column>
                                         <p:rowToggler/>
                                     </p:column>
-                                    <p:column styleClass="lighterFont">
+                                    <p:column  class="table-bordered">
                                         <h:outputText value="${employee.employeenumber}"/>
                                     </p:column>
-                                    <p:column styleClass="lighterFont">
-                                        <h:outputText value="${employee.login}"/>
+                                    <p:column  class="table-bordered">
+                                        <h:outputText value="${employee.login}" />
                                     </p:column>
-                                    <p:column styleClass="lighterFont">
+                                    <p:column  class="table-bordered">
                                         <h:outputText value="${employee.type}"/>
                                     </p:column>
-                                    <p:column styleClass="lighterFont">
+                                    <p:column class="table-bordered">
                                         <h:outputText value="${employee.lasttype}"/>
                                     </p:column>
                                     <p:column styleClass="lighterFont">
-                                        <h:commandButton value="Aktywuj" action="#{empView.enableEmployee(employee)}" disabled="#{employee.status}"/>
-                                    </p:column>
-                                    <p:column styleClass="lighterFont">
-                                        <h:commandButton value="Zablokuj" action="#{empView.disableEmployee(employee)}" disabled="#{not employee.status}"/>
+                                        <h:commandButton value="Aktywuj" action="#{empView.enableEmployee(employee)}" disabled="#{employee.status}" rendered="#{not employee.status}"/>
+                                        <h:commandButton value="Zablokuj" action="#{empView.disableEmployee(employee)}" disabled="#{not employee.status}" rendered="#{employee.status}" />
                                     </p:column>
                                     <p:column styleClass="lighterFont">
                                         <h:commandButton value="Usun" action="#{empView.deleteEmployee(employee)}"/>
                                     </p:column>
-                                    <p:column styleClass="lighterFont">
+                                    <p:column class="lighterFont table-bordered">
                                         <h:commandButton value="Employee" action="#{empView.setEmployeeRole(employee)}" /><br/>
                                         <h:commandButton value="ImpTeam" action="#{empView.setImpTeamRole(employee)}" /><br/>
                                         <h:commandButton value="Admin" action="#{empView.setAdminRole(employee)}"/>
                                     </p:column>
 
-                                    <p:column styleClass="lighterFont">
-                                        <p:commandButton value="ResetPass" action="#{empView.resetPassword(employee)}"/>
+                                    <p:column class="lighterFont table-bordered">
+                                        <h:commandButton value="ResetPass" action="#{empView.resetPassword(employee)}"/>
                                     </p:column>
 
-                                    <p:rowExpansion styleClass="lighterFont">    
+                                    <p:rowExpansion class="table-dark font-weight-light">    
                                         <span>Nazwisko: <h:outputText value="${employee.lastname}"/></span>
                                         <span>Imie: <h:outputText value="${employee.firstname}"/></span>
                                         <span>Email: <h:outputText value="${employee.email}"/></span>
@@ -120,16 +113,14 @@
 
                                 </p:dataTable>
                             </h:form>
-                   
                         </f:view>
-
                         <!--Przerwa-->
                         <br/><br/><br/>
 
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
 
                 <!--Koniec kontenera treści-->

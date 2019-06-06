@@ -4,7 +4,6 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
@@ -12,14 +11,14 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["success.Title"]}</title>
+            <title>#{msg["login.Title"]}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
 
         <!--Tutaj jest menu-->
         <ui:define name="navbar">
-            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
+            <!--Wstrzyknięcie menu-->
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
 
@@ -41,23 +40,45 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
 
-                        <h2>Twoje konto jest juz aktywne! Zaloguj sie - czekamy na Ciebie :)!</h2>
+                        <!-- Dwa teksty wylogowania na stronie. Zwykla internacjonalizacja poprzez właściwości-->
+                        <h1>#{msg["login.Welcome"]}</h1>
+
+                        <!--Ponowny podział na wiersz i 3x4 grid kolumny -->      
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4 text-center">
+
+                                <h:form id="login" onsubmit="action = 'j_security_check';" prependId="false">
+                                        <h:inputText id="j_username" class="form-control" a:placeholder="Login"/>           
+                                        <h:inputSecret id="j_password" class="form-control" a:placeholder="Password"/> <br/>
+                                        <h:commandButton class="btn btn-success btn-sm btnMain" id="submit" value="LOGIN"/>
+                                </h:form> 
+
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                        <!-- Przycisk z linkiem do strony z rejestracją poprzez navigation rule i outcome z ikonką z FontAwesome.-->
+                        <!-- Ponowny podział na wiersz--> 
+                        <h3 class="font-weight-light">#{msg["login.Register"]}</h3>
                         <div class="row">
                             <div class="col-sm-5"></div>
-                            <div class="col-sm-1">
-                                <h:link class="nav-link" outcome="login">       
-                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        Login
+                            <div  class="col-sm-2">
+                                <h:link class="nav-link" outcome="register">       
+                                    <button class="btn btn-success btn-sm my-2 my-sm-0 ">                       
+                                        <i class="fas fa-user-plus buttonFixed"></i> #{msg["login.RegisterButt"]} 
                                     </button>
                                 </h:link>
                             </div>
                             <div class="col-sm-5"></div>
                         </div>
-
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
                 <!--Koniec kontenera treści-->
             </div>
@@ -71,12 +92,4 @@
         </ui:define>
     </ui:composition> 
 </html>
-
-
-
-
-
-
-
-
 

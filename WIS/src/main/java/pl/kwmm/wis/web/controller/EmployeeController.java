@@ -8,18 +8,55 @@ import javax.inject.Named;
 import pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint;
 import pl.kwmm.wis.model.Employee;
 
+/**
+ * Named Bean working as controller for Employee related data. 
+ * Gathers all methods in one place for Employee management and pass the methods/data to Employee Endpoint for business logic.
+ *
+ * @author Bartosz Kurek
+ * @version 1.0
+ * @since 2019-06-06
+ */
 @Named
 @SessionScoped
 public class EmployeeController implements Serializable {
 
-    public EmployeeController() {
-    }
-
+//    To be deleted if not needed    
+//    public EmployeeController() {
+//    }
+    
+    /**
+     * Endpoint Injection for Employee data
+     */
     @Inject
-    EmployeeEndpoint employeeEndpoint;
-
+    private EmployeeEndpoint employeeEndpoint;
+    
+    //*****************Fields
     private Employee registeredEmployee;
-
+    
+    //*****************Methods
+    /**
+     * Method called from AddEmployeeConfirmBean to register Employee employee with normal privileges.
+     * At the last step sets AddEmployeeConfirmBean.registeredEmployee field to null to prevent registering same account.
+     * 
+     * @see pl.kwmm.wis.web.bean.employee.AddEmployeeConfirmBean#register() 
+     */
+    public void registerEmployee() {
+        employeeEndpoint.registerUserAccount(registeredEmployee);
+        registeredEmployee = null;
+    }
+    
+    /**
+     * Method called from AddEmployeeConfirmBean to register Admin or ImpTeam employee with higher privileges.
+     * At the last step sets AddEmployeeConfirmBean.registeredEmployee field to null to prevent registering same account.
+     * 
+     * @see pl.kwmm.wis.web.bean.employee.AddEmployeeConfirmBean#register() 
+     */
+    public void registerEscalatedEmployee() {
+        employeeEndpoint.registerEscalatedAccount(registeredEmployee);
+        registeredEmployee = null;
+    }
+    
+    //*****************Standard Getters/Setters
     public Employee getRegisteredEmployee() {
         return registeredEmployee;
     }
@@ -27,17 +64,8 @@ public class EmployeeController implements Serializable {
     public void setRegisteredEmployee(Employee registeredEmployee) {
         this.registeredEmployee = registeredEmployee;
     }
-
-    public void registerEmployee() {
-        employeeEndpoint.registerUserAccount(registeredEmployee);
-        registeredEmployee = null;
-    }
-
-    public void registerEscalatedEmployee() {
-        employeeEndpoint.registerEscalatedAccount(registeredEmployee);
-        registeredEmployee = null;
-    }
-
+    
+    //************************TODO
     public List<Employee> getAllEmployee() {
         return employeeEndpoint.getAllEmployee();
     }

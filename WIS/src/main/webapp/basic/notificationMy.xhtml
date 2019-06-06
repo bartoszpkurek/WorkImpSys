@@ -14,7 +14,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["view.Title"]}</title>
+            <title>Moje zgloszenia</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -48,7 +48,7 @@
                                 var="notification"
                                 widgetVar="notificationTable"
                                 class="font-weight-light" 
-                                value="#{notView.tableDataList}" 
+                                value="#{notView.getMyDataList(employee)}" 
                                 style="margin-top: 20px;" 
                                 rowStyleClass="#{notification.rankingpoints le -1 ? 'old' : null}"
                                 paginator="true" 
@@ -56,9 +56,7 @@
                                 paginatorPosition="bottom"
                                 >
 
-                                <f:facet name="header">
-                                    [ #{fn:length(notView.tableDataList)} ] #{msg["view.Footer"]}
-                                </f:facet>
+                                
                                 <f:facet name="header">
                                     <p:outputPanel>
                                         <h:outputText value="Search all fields:" />
@@ -70,11 +68,9 @@
                                     <p:rowToggler class="btn btn-outline-success btn-lg"/>
 
                                 </p:column>
-                                <p:column sortBy="${notification.dateadded}" width="10%" styleClass="lighterFont">
+                                <p:column sortBy="${notification.createdOn}" width="10%" styleClass="lighterFont">
                                     <f:facet name="header">#{msg["view.Date"]}</f:facet>
-                                    <h:outputText value="${notification.dateadded}" styleClass="lighterFont">
-                                        <f:convertDateTime pattern="dd-MM-yyyy HH:mm" />
-                                    </h:outputText>
+                                    <h:outputText value="${notification.createdOn}" styleClass="lighterFont"/>
                                 </p:column>
                                 <p:column headerText="Category" filterBy="#{notification.category}" sortBy="#{notification.category}" filterMatchMode="exact" width="8%" styleClass="lighterFont">
                                     <f:facet name="filter">
@@ -87,7 +83,7 @@
                                     </f:facet> 
                                     <h:outputText value="${notification.category}"/>
                                 </p:column>
-
+                                
                                 <p:column headerText="ShortDescription" filterBy="#{notification.shortdescription}" filterMatchMode="contains" styleClass="lighterFont">
                                     <f:facet name="filter">
                                         <p:inputText onkeyup="PF('notificationTable').filter()" style="width:350px" placeholder="Enter keyword"/>
@@ -127,31 +123,20 @@
                                 </p:column>
 
                                 <p:column width="8%" styleClass="lighterFont" rendered="#{request.isUserInRole('EMPLOYEE')}">
-                                    <f:facet name="header">Vote</f:facet>
-                                    <h:commandButton value="+" action="#{notView.voteUp(notification)}" class="btn-md btn-success" style="width:35px;height:35px"/><br/>
-                                    <h:commandButton value="-" action="#{notView.voteDown(notification)}" class="btn-md btn-danger" style="width:35px;height:35px"/>
-                                </p:column>
-
-                                <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}">
-                                    <f:facet name="header">StatusChange</f:facet>
-                                    <h:commandButton value="Oczekuje" action="#{notView.setStatusAwaiting(notification)}" /><br/>
-                                    <h:commandButton value="W realizacji" action="#{notView.setStatusInImplementation(notification)}" /> <br/>
-                                    <h:commandButton value="Odrzucone" action="#{notView.setStatusRejected(notification)}" /> <br/>
-                                </p:column>
-                                <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}">
                                     <f:facet name="header">Remove</f:facet>
-                                    <h:commandButton value="Remove" action="#{notView.removeNotification(notification)}" /><br/>
-
+                                    <h:commandButton value="Remove" action="#{notView.removeNotification(notification)}"/>
                                 </p:column>
-                                <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}">
-                                    <f:facet name="header">Remove</f:facet>
-                                    <h:commandButton value="Complete" action="#{notView.completeNotification(notification)}" /><br/>
-
+                                <p:column width="8%" styleClass="lighterFont" rendered="#{request.isUserInRole('EMPLOYEE')}">
+                                    <f:facet name="header">Edit</f:facet>
+                                    <h:commandButton value="Edit" action="#{notView.getNotificationToEdit(notification)}"/>
                                 </p:column>
+
+
+
                                 <p:rowExpansion styleClass="lighterFont">   
-
+                                    
                                     <h:outputText value="${notification.fulldescription}" />
-
+                                    
                                 </p:rowExpansion>
 
                             </p:dataTable>
@@ -163,7 +148,7 @@
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
 
                 <!--Koniec kontenera treści-->
