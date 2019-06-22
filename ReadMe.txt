@@ -1,18 +1,29 @@
-- communication with Derby
-- accounts/notification listing
-- login system - partially
-- NamedQueries
-- Interceptors (for now only for one class)
-- Ranking system to check if 1 user can vote 1 time - right now based on exception
-- actually full planned functionality works - user management, disabling, enabling, deleting
-- CRUD
-- Validation of forms (partially)
+Whats needed (easiest):
+- JavaDerby (Netbeans default DBMS)
+- Payara
 
+Instruction of deployment:
+- JDBC configuration - /Web Pages/Web-INF/glassfish-resources
+- persistance.xml is set to Create so please after creating DB run the project to create tables
+- SQL initial data to insert is in Other Sources/SQL
+- Realm configuration is in RealmConf.PNG
+
+What works (for now):
+- all use cases,
+- communication with Derby
+- hashing passwords
+- NamedQueries
+- login system
+- ranking/notification system
+- CRUD
+- validation of forms
+- loggers (partialy)
 
 What does not work:
 -Everything else :)
 -Exceptions
 -Junit Test
 -List of what work :)
--
+-loggers (partialy)
+-transactions
 
