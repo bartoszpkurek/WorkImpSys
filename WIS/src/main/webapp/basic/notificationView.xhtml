@@ -121,7 +121,7 @@
                                     <h:outputText value="${notification.rankingpoints}"/>
                                 </p:column>
 
-                                <p:column width="8%" styleClass="lighterFont">
+                                <p:column width="8%" rendered="#{request.isUserInRole('EMPLOYEE')}" styleClass="lighterFont">
                                     <f:facet name="header">Vote</f:facet>
                                     <h:commandButton value="+" action="#{notView.voteUp(notification)}" class="btn-md btn-success" style="width:35px;height:35px"/><br/>
                                     <h:commandButton value="-" action="#{notView.voteDown(notification)}" class="btn-md btn-danger" style="width:35px;height:35px"/>

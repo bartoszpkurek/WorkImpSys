@@ -65,6 +65,7 @@
                                             Password<span style="color: red">*</span>: 
                                             <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" >
                                                 <f:validateLength minimum="8"/>
+                                                <f:validateRegex pattern="^.*(?=.{8,})((?=.*[!@#$%^*()\-_=+{};:,.]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$"/>
                                             </h:inputSecret> 
                                         </div>
                                         <div class="col-md-4 md-form form-group">

@@ -14,10 +14,10 @@ public class LoggingInterceptor {
 
     @AroundInvoke
     public Object additionalInvokeForMethod(InvocationContext invocation) throws Exception {
-        StringBuilder sb = new StringBuilder("Invoking method"
+        StringBuilder sb = new StringBuilder("Invoking method "
                 + invocation.getTarget().getClass().getName() + "."
                 + invocation.getMethod().getName());
-        sb.append("as user: " + sessionContext.getCallerPrincipal().getName());
+        sb.append(" as user: " + sessionContext.getCallerPrincipal().getName());
         try {
             Object[] parameters = invocation.getParameters();
             if (null != parameters) {

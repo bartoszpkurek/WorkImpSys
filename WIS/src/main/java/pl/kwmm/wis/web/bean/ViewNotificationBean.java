@@ -1,5 +1,6 @@
 package pl.kwmm.wis.web.bean;
 
+import pl.kwmm.wis.web.bean.utils.AppUtilsBean;
 import java.io.IOException;
 import pl.kwmm.wis.web.controller.NotificationController;
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class ViewNotificationBean implements Serializable {
     private EditNotificationBean editBean;
     
     @Inject
-    private UtilsAccountSessionBean accountSessionBean;
+    private AppUtilsBean appUtilsBean;
 
     public ViewNotificationBean() {
     }
@@ -105,7 +106,7 @@ public class ViewNotificationBean implements Serializable {
 
     public void completeNotification(Notification n) throws IOException {
         ctrl.completeNotification(n);
-        accountSessionBean.reload();
+        appUtilsBean.reload();
     }
 
     public String getNotificationToEdit(Notification n) {

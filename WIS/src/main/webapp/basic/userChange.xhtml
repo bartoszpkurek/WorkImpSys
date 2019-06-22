@@ -2,38 +2,136 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+
+    <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
+
+        <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Zmień hasło</title>
+
+            <title>Lista Kont</title>
         </ui:define>
+
+        <!--Odtąd rozpoczyna się <body></body>-->
+
+        <!--Tutaj jest menu-->
         <ui:define name="navbar">
+            <!--Wstrzyknięcie menu ale okrojonego do celów tylko zmiany języka-->
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
+
+        <!--Tutaj jest główna treść-->
         <ui:define name="body">
-            <div class="container">
-                <div class="starter-template">
-                    <h1>Zmień hasło</h1>
-                    <h:form> 
-                        Login: <h:outputText id="login" value="#{employeeDetailsBean.employee.login}"/> <br/>
-
-                        FirstName: <h:inputText id="firstname" value="#{editEmployeeBean.employee.firstname}"/><br/>
-                        LastName: <h:inputText id="lastname" value="#{editEmployeeBean.employee.lastname}"/><br/>
-                        Email: <h:inputText id="email" value="#{editEmployeeBean.employee.email}"/><br/>
-                        EmployeeNumber: <h:inputText id="employeenumber" value="#{editEmployeeBean.employee.employeenumber}"/><br/>
-                                              
-                        <h:commandButton action="#{editEmployeeBean.saveEmployeeAfterEdit()}" value="Save" />
-                        <br />
-                        <h:commandButton action="homePage" value="Cancel" immediate="true" />
-                    </h:form>
 
 
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center"> 
+                        <div>
+                            <h1>Edytuj dane</h1>
+                            <hr/>
+                        </div>
+
+                        <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
+                        <div class="row">
+                            <div class="col-md-3 textRed"><h:messages/></div>
+                            <div class="col-md-6">
+                                <h:form> 
+                                    <!-- 1st row -->
+                                    <div class="form-row">
+
+                                        <!-- 1x12 kolumny -->
+                                        <div class="col-md-12 md-form form-group">
+                                            <h3>Login:</h3><h:outputText class="fa-2x greenText" id="login" value="#{appUtilsBean.employee.login}"/>                                         <br/><br/><br/>
+                                        </div>                             
+                                    </div>
+                                    <!-- 2nd row -->
+                                    <div class="form-row">
+
+                                        <!-- 2x6 kolumny -->
+                                        <div class="col-md-6 md-form form-group">
+                                            FirstName: 
+                                            <h:inputText class="form-control" id="firstname" value="#{editEmployeeBean.employee.firstname}"> 
+                                                <f:validateLength minimum="1" maximum="100" />
+                                            </h:inputText>
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                            LastName: 
+                                            <h:inputText class="form-control" id="lastname" value="#{editEmployeeBean.employee.lastname}">
+                                                <f:validateLength minimum="1" maximum="100" />
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3rd row -->
+                                    <div class="form-row">
+
+                                        <!-- 2x6 kolumny -->
+                                        <div class="col-md-6 md-form form-group">
+                                            Email: 
+                                            <h:inputText class="form-control" id="email" value="#{editEmployeeBean.employee.email}">
+                                                <f:validateLength maximum="100" />
+                                            </h:inputText>
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                            EmployeeNumber:
+                                            <h:inputText class="form-control" id="empnumber" value="#{editEmployeeBean.employee.employeenumber}">
+                                                <f:validateLength maximum="20" />
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <!-- Przycisk zatwierdzenia-->
+                                    <h:commandButton type="submit" value="Save" class="btn btn-success btn-sm btn-space" action="#{editEmployeeBean.changeMyData()}"/>
+                                    <h:commandButton value="Cancel" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
+
+                                </h:form>
+                            </div>
+                            <div class="col-md-3">
+
+
+                            </div>
+                            <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+
+                        </div>
+
+                    </div> 
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
+                    <!--Koniec kontenera treści-->
                 </div>
+                <!--Koniec zdefiniowanego body z templateMain-->  
             </div>
-        </ui:define>
+        </ui:define>  
+
+        <!--Tutaj jest stopka-->
         <ui:define name="footer">
+            <!--Wstrzyknięcie stopki-->
             <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
         </ui:define>
     </ui:composition> 
 </html>
+
+
+
+
+
+
+
 

@@ -11,12 +11,12 @@
 
             <p class="font-weight-bold">
                 <h:outputText id="noUser" value="Guest" rendered="#{empty request.remoteUser}"/>
-                <h:outputText id="yesUser" value="#{employeeDetailsBean.employee.login}" rendered="#{not empty request.remoteUser}"/>
+                <h:outputText id="yesUser" value="#{appUtilsBean.employee.login}" rendered="#{not empty request.remoteUser}"/>
             </p>
 
             <h:form>
                 <h:commandLink class="btn btn-success btn-sm btnMain" action="login" value="LOGIN" rendered="#{empty request.remoteUser}"/>
-                <h:commandLink class="btn btn-success btn-sm btnMain" action="#{accountSession.logout()}" value="LOGOUT" rendered="#{not empty request.remoteUser}"/>
+                <h:commandLink class="btn btn-success btn-sm btnMain" action="#{appUtilsBean.logout()}" value="LOGOUT" rendered="#{not empty request.remoteUser}"/>
             </h:form>
             <br/>
             <h:form>

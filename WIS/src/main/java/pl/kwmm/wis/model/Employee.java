@@ -81,7 +81,6 @@ public class Employee implements Serializable {
     //Identifier
     @NotNull(message = "{constraint.string.length.notnull}")
     @Size(min = 8, message = "{constraint.string.length.password.notinrange}")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,}$", message = "{constraint.string.length.password.strongpassword}")
     @Column(name = "password")
     private String password;
 

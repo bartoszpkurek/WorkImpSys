@@ -3,8 +3,11 @@ package pl.kwmm.wis.web.bean.employee;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
+import pl.kwmm.wis.web.utils.ApplicationUtils;
 
 /** Named Bean for registering Employee.
  *
@@ -16,6 +19,11 @@ import pl.kwmm.wis.web.controller.EmployeeController;
 @RequestScoped
 public class AddEmployeeBean {
 
+    /** Initialization of the logger.
+     * 
+     */
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    
     /** Controller Injection for Employee data.
      *
      */
@@ -38,6 +46,7 @@ public class AddEmployeeBean {
      * if "passwordRepeat" field equals "password" field from Employee Entity.
      * Sets employee field as RegisteredEmployee field
      * in Employee controler by a setter.
+     * Logs debug message.
      * If false returns null.
      *
      * @see pl.kwmm.wis.model.Employee#getPassword()
@@ -49,6 +58,7 @@ public class AddEmployeeBean {
     public String register() {
         if (passwordRepeat.equals(employee.getPassword())) {
             empCtrl.setRegisteredEmployee(employee);
+            logger.debug("User " + ApplicationUtils.getUserName() + " provided proper register form date." );
             return "employeeAddConfirm";
         } else {
             return null;

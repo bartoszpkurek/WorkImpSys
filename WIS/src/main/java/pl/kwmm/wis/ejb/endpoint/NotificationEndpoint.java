@@ -9,7 +9,7 @@ import pl.kwmm.wis.ejb.facade.EmployeeFacade;
 import pl.kwmm.wis.ejb.facade.NotificationFacade;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.model.Notification;
-import pl.kwmm.wis.web.bean.UtilsAccountSessionBean;
+import pl.kwmm.wis.web.bean.utils.AppUtilsBean;
 import pl.kwmm.wis.web.utils.NotificationUtils;
 
 @Stateful
@@ -25,7 +25,7 @@ public class NotificationEndpoint {
     private EmployeeEndpoint employeeEndpoint;
 
     @Inject
-    private UtilsAccountSessionBean accountSessionBean;
+    private AppUtilsBean appUtilsBean;
 
 //    Dodatkowe metody dodajace date i punkty przy rejestracji Sugestii
     public void registerNotification(Notification n) {
@@ -83,7 +83,7 @@ public class NotificationEndpoint {
 
     public void removeNotification(Notification n) throws IOException {
         notificationFacade.remove(n);
-        accountSessionBean.reload();
+        appUtilsBean.reload();
     }
 
     public List<Notification> getMyNotification(Employee employee) {
