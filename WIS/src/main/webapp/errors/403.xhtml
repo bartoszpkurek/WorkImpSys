@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
@@ -39,13 +41,13 @@
                     <div class="col-10 text-center align-self-center"> 
                         
                         <!-- Trzy teksty powitalne na stronie plus obrazek z WebPages>resources>images. Zwykla internacjonalizacja poprzez właściwości-->
-                        <div>
+                        
                             <h1>Witaj, wyglada na to ze twoje konto jest zablokowane lub nie masz uprawnien do przegladania tej strony!</h1>                       
-                        </div>
+                        
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
                 <!--Koniec kontenera treści-->
             </div>

@@ -1,19 +1,18 @@
-
-What work:
-- adding, listing, sorting suggestions
-- navigation
-- communication with DB Postgres/Derby
-- accounts listing
-- login system 
-- ranking system
-- changing account/notification data
+- communication with Derby
+- accounts/notification listing
+- login system - partially
+- NamedQueries
+- Interceptors (for now only for one class)
+- Ranking system to check if 1 user can vote 1 time - right now based on exception
+- actually full planned functionality works - user management, disabling, enabling, deleting
 - CRUD
+- Validation of forms (partially)
+
 
 What does not work:
--good front :)
+-Everything else :)
 -Exceptions
 -Junit Test
--Validation of forms
--Security Manager
--roles/groups (partially)
+-List of what work :)
+-
 

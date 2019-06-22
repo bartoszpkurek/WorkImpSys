@@ -1,7 +1,6 @@
 package pl.kwmm.wis.ejb.endpoint;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -32,11 +31,9 @@ public class NotificationEndpoint {
     public void registerNotification(Notification n) {
         notificationFacade.create(n);
         n.setRankingpoints(0);
-        Date cal = new Date();
-        n.setDateadded(cal);
-
+      
         n.setEmployee(employeeEndpoint.getCurrentAccount());
-        n.addTag(employeeEndpoint.getCurrentAccount());
+        n.addVoter(employeeEndpoint.getCurrentAccount());
         notificationFacade.edit(n);
     }
 
@@ -46,7 +43,7 @@ public class NotificationEndpoint {
         Integer tmp = n.getRankingpoints();
         Integer mathtmp = tmp + 1;
         n.setRankingpoints(mathtmp);
-        n.addTag(employeeEndpoint.getCurrentAccount());
+        n.addVoter(employeeEndpoint.getCurrentAccount());
         notificationFacade.edit(n);
 
     }
@@ -56,7 +53,7 @@ public class NotificationEndpoint {
         Integer tmp = n.getRankingpoints();
         Integer mathtmp = tmp - 1;
         n.setRankingpoints(mathtmp);
-        n.addTag(employeeEndpoint.getCurrentAccount());
+        n.addVoter(employeeEndpoint.getCurrentAccount());
         notificationFacade.edit(n);
 
     }
@@ -66,21 +63,21 @@ public class NotificationEndpoint {
     }
 
     public List<Notification> getAllNotifications() {
-        return notificationFacade.findAll();
+        return notificationFacade.findAllNotEndedNotification();
     }
 
     public void setStatusAwaiting(Notification n) {
-        n.setStatus("Oczekuje na akceptacje");
+        n.setStatus(Notification.NotificationStatus.Pending);
         notificationFacade.edit(n);
     }
 
     public void setStatusInImplementation(Notification n) {
-        n.setStatus("W realizacji");
+        n.setStatus(Notification.NotificationStatus.WIP);
         notificationFacade.edit(n);
     }
 
     public void setStatusRejected(Notification n) {
-        n.setStatus("Odrzucony");
+        n.setStatus(Notification.NotificationStatus.Rejected);
         notificationFacade.edit(n);
     }
 
@@ -102,7 +99,7 @@ public class NotificationEndpoint {
     }
 
     public void completeNotification(Notification n) {
-        n.setStatus("Zakonczone");
+        n.setStatus(Notification.NotificationStatus.Completed);
         Employee e = n.getEmployee();
         int points = e.getNotificationpoints();
         points = points + 10;

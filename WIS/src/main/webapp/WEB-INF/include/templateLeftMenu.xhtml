@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>    
+        <div class="jumbotron jumbotron-fluid text-center align-self-center">
+            <p class="greenText font-weight-bold">Logged as:</p>
+
+            <p class="font-weight-bold">
+                <h:outputText id="noUser" value="Guest" rendered="#{empty request.remoteUser}"/>
+                <h:outputText id="yesUser" value="#{employeeDetailsBean.employee.login}" rendered="#{not empty request.remoteUser}"/>
+            </p>
+
+            <h:form>
+                <h:commandLink class="btn btn-success btn-sm btnMain" action="login" value="LOGIN" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink class="btn btn-success btn-sm btnMain" action="#{accountSession.logout()}" value="LOGOUT" rendered="#{not empty request.remoteUser}"/>
+            </h:form>
+            <br/>
+            <h:form>
+                <h:commandButton 
+                    class="btn btn-outline-success btn-lg btnMain" 
+                    action="#{language.changeLanguage('pl')}" value="PL">
+                </h:commandButton>
+                <h:outputText value=" " />
+                <h:commandButton 
+                    class="btn btn-outline-success btn-lg btnMain"
+                    action="#{language.changeLanguage('en')}" value="EN">
+                </h:commandButton>
+            </h:form>
+        </div>
+
+    </h:body>
+</html>
+

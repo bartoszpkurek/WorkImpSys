@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pl.kwmm.wis.ejb.facade;
 
 import javax.ejb.Stateless;
@@ -16,24 +11,49 @@ import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.model.Employee_;
 
 /**
+ * Class Facade created from Session Beans For Entity Classes.
+ *  
+ * @see pl.kwmm.wis.model.Employee
  *
- * @author Warsztat
+ * @author Bartosz Kurek
+ * @version 1.0
+ * @since 2019-06-06
  */
 @Stateless
 public class EmployeeFacade extends AbstractFacade<Employee> {
 
+    /**
+     * Created from Session Beans For Entity Classes for PersistenceContext Instance.
+     */
     @PersistenceContext(unitName = "wisPU")
     private EntityManager em;
 
+    /**
+     * Created from Session Beans For Entity Classes for EntityManager.
+     * 
+     * @return EntityManager 
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * Constructor created from Session Beans For Entity Classes
+     */
     public EmployeeFacade() {
         super(Employee.class);
     }
     
+    
+    /**
+     * Method with Criteria Builder for finding proper single login from database.
+     * 
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#findLogin(java.lang.String) 
+     * 
+     * @param login
+     * @return Single Result of login from Database
+     */
     public Employee findLogin(String login) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Employee> query = cb.createQuery(Employee.class);

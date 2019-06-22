@@ -1,116 +1,221 @@
 package pl.kwmm.wis.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import pl.kwmm.wis.web.utils.ApplicationUtils;
 
+/**
+ * Entity class for General Employee object. Divided into two tables: EMPLOYEE &
+ * PERSONALDATA. EMPLOYEE table contains data: Utils Fields/Checkers
+ * Fields/Identifiers Fields PERSONALDATA table contains data: Relations/Identifiers
+ *
+ *
+ * @author Bartosz Kurek
+ * @version 1.0
+ * @since 2019-06-01
+ */
 @Entity
 @Table(name = "employee")
 @SecondaryTable(name = "PersonalData")
-
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    //Account Data (Main)
+    //**************FIELDS
+    /* 
+        Utils fields for EMPLOYEE table:
+        For checking unique id/versions/created date/created by user 
+     */
+    //Utils
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id", nullable = false)
+    @Column(name = "employee_id", updatable = false)
     private long employee_id;
 
-    @Size(min = 1, max = 30)
-    @Column(name = "login", nullable = false)
+    //Utils
+    @Column(name = "created_on")
+    @NotNull
+    private LocalDateTime createdOn;
+
+    //Utils (should be always Anonymous)
+    @Column(name = "created_by")
+    @NotNull
+    private String createdBy;
+
+    //Utils
+    @Version
+    private long version;
+
+    /* 
+        Specific account fields for EMPLOYEE table:
+        Fields for account identifications: login/password/type/lasttype/status      
+        Fields for relationships votes/notifications
+     */
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Size(min = 3, max = 30, message = "{constraint.string.length.login.notinrange}")
+    @Pattern(regexp = "^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$", message = "{constraint.string.length.login.charnotallowed}")
+    @Column(name = "login", unique = true)
     private String login;
 
-    @Size(min = 1, max = 30)
-    @Column(name = "password", nullable = false)
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Size(min = 8, message = "{constraint.string.length.password.notinrange}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d.*)(?=.*\\W.*)[a-zA-Z0-9\\S]{8,}$", message = "{constraint.string.length.password.strongpassword}")
+    @Column(name = "password")
     private String password;
 
-    @Size(min = 1, max = 50)
-    @Column(name = "type", nullable = false)
-    private String type;
+    //Identifier
+    /**
+     * Enumerated internal class for Type field.
+     *
+     * @see pl.kwmm.wis.web.bean.AddEmployeeConfirmBean#register()
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#registerEscalatedAccount(pl.kwmm.wis.model.Employee)
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#disableEmployee(pl.kwmm.wis.model.Employee)
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#setAdminRole(pl.kwmm.wis.model.Employee)
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#setEmployeeRole(pl.kwmm.wis.model.Employee)
+     * @see pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint#setImpTeamRole(pl.kwmm.wis.model.Employee)
+     *
+     * @version 1.0
+     * @since 2019-06-01
+     */
+    public static enum EmployeeType {
+        Disabled, Employee, ImpTeam, Admin
+    }
 
-    @Size(min = 1, max = 50)
-    @Column(name = "lasttype", nullable = true)
-    private String lasttype;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Column(name = "type")
+    private EmployeeType type;
 
-    @Column(name = "status", nullable = false)
+    //Identifier
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lasttype")
+    private EmployeeType lasttype;
+
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Column(name = "status")
     private boolean status;
-
-    //Personal Data (Secondary)
-    @Size(min = 1, max = 50)
-    @Column(table = "PersonalData", name = "firstname", nullable = false)
-    private String firstname;
-
-    @Size(min = 1, max = 50)
-    @Column(table = "PersonalData", name = "lastname", nullable = false)
-    private String lastname;
-
-    @Size(min = 1, max = 30)
-    @Column(table = "PersonalData", name = "employeenumber", nullable = false)
-    private String employeenumber;
-
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(min = 1, max = 30)
-    @Column(table = "PersonalData", name = "email", nullable = false)
-    private String email;
-
-    @Column(table = "PersonalData", name = "notificationpoints")
-    private Integer notificationpoints;
-
-    @ManyToMany(mappedBy = "tags")
-    private List<Notification> posts = new ArrayList<>();
-
+    
+     //Relation
+    @ManyToMany(mappedBy = "voters")
+    private List<Notification> votes = new ArrayList<>();
+    
+    //Relation
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private List<Notification> notifications;
 
-    public Employee() {
+    /* 
+        Utils fields for PERSONALDATA table:
+        Checking updatedOn/updatedBy user.
+        Fields for identification Employee: firstname/lastname/employeenumber/email/notificationpoints
+     */
+    //Checker (can be null on creation)
+    @Column(name = "updated_on", table = "PersonalData")
+    private LocalDateTime updatedOn;
+
+    //Checker (can be null on creation)
+    @Column(name = "updated_by", table = "PersonalData")
+    private String updatedBy;
+
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Size(min=1, max = 100, message = "{constraint.string.length.toolong}")
+    @Pattern(regexp = "^[a-zA-Z ,.'-]+$", message = "{constraint.string.length.firstlastname}")
+    @Column(table = "PersonalData", name = "firstname")
+    private String firstname;
+
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Size(min=1, max = 100, message = "{constraint.string.length.toolong}")
+    @Pattern(regexp = "^[a-zA-Z ,.'-]+$", message = "{constraint.string.length.firstlastname}")
+    @Column(table = "PersonalData", name = "lastname")
+    private String lastname;
+
+    //Identifier
+    @NotNull(message = "{constraint.string.length.notnull}")
+    @Size(max = 20, message = "{constraint.string.length.toolong}")
+    @Column(table = "PersonalData", name = "employeenumber")
+    private String employeenumber;
+
+    //Identifier
+    @Column(table = "PersonalData", name = "email")
+    @Size(max = 100, message = "{constraint.string.length.toolong}")
+    @Email(message = "{javax.validation.constraints.Email.message}")
+    private String email;
+
+    //Identifier
+    @Column(table = "PersonalData", name = "notificationpoints")
+    private int notificationpoints;
+
+    //**************METHODS
+    /**
+     * PrePersist method for adding two fields (createdOn, createdBy) automatically before each time Employee object is created into database.
+     * For evidence of creation in future investigations.
+     */
+    @PrePersist
+    public void prePersist() {
+        createdOn = LocalDateTime.now();
+        createdBy = ApplicationUtils.getUserName();
     }
 
-    public Employee(long employee_id, String login, String password, String type, String lasttype, boolean status, String firstname, String lastname, String employeenumber, String email, Integer notificationpoints, List<Notification> notifications) {
-        this.employee_id = employee_id;
-        this.login = login;
-        this.password = password;
-        this.type = type;
-        this.lasttype = lasttype;
-        this.status = status;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.employeenumber = employeenumber;
-        this.email = email;
-        this.notificationpoints = notificationpoints;
-        this.notifications = notifications;
+    /**
+     * PreUpdate method for adding two fields (updatedOn, updatedBy) automatically before each time Employee object is changed in database.
+     * For evidence of creation in future investigations.
+     */
+    @PreUpdate
+    public void preUpdate() {
+        updatedOn = LocalDateTime.now();
+        updatedBy = ApplicationUtils.getUserName();
     }
-
-    public List<Notification> getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
-    }
-
-
-
+    
+    //**************ONLY GETTERS FOR FIELDS THAT SHOULDN'T BE CHANGED
     public long getEmployee_id() {
         return employee_id;
     }
 
-    public void setEmployee_id(long employee_id) {
-        this.employee_id = employee_id;
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+      
+    public long getVersion() {
+        return version;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+    
+    //**************STANDARD GETTERS/SETTERS
     public String getLogin() {
         return login;
     }
@@ -127,19 +232,19 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
-    public String getType() {
+    public EmployeeType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(EmployeeType type) {
         this.type = type;
     }
 
-    public String getLasttype() {
+    public EmployeeType getLasttype() {
         return lasttype;
     }
 
-    public void setLasttype(String lasttype) {
+    public void setLasttype(EmployeeType lasttype) {
         this.lasttype = lasttype;
     }
 
@@ -149,6 +254,22 @@ public class Employee implements Serializable {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public List<Notification> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Notification> votes) {
+        this.votes = votes;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public String getFirstname() {
@@ -183,20 +304,11 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public Integer getNotificationpoints() {
+    public int getNotificationpoints() {
         return notificationpoints;
     }
 
-    public void setNotificationpoints(Integer notificationpoints) {
+    public void setNotificationpoints(int notificationpoints) {
         this.notificationpoints = notificationpoints;
     }
-
-    public List<Notification> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<Notification> posts) {
-        this.posts = posts;
-    }
-
 }

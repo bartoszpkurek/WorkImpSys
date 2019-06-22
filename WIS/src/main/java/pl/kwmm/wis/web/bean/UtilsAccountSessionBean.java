@@ -7,14 +7,14 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import pl.kwmm.wis.web.utils.WebSessioUtils;
+import pl.kwmm.wis.web.utils.ApplicationUtils;
 
 @Named("accountSession")
 @SessionScoped
 public class UtilsAccountSessionBean implements Serializable {
 
     public String logout() throws IOException {
-        WebSessioUtils.invalidateSession();
+        ApplicationUtils.invalidateSession();
         reload();
         return "homePage";
     }

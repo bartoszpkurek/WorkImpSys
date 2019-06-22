@@ -4,8 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
@@ -41,7 +40,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
                         <div>
-                            <h1>#{msg["useradd.WelcomeText"]}</h1>
+                            <h1>#{msg["useraddconfirm.WelcomeText"]}</h1>
                         </div>
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
@@ -56,48 +55,37 @@
 
                                         <!-- 1x12 kolumna -->
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.ShortDescription"]}: <h:inputText class="form-control" id="shortdescription" value="#{addNotificationBean.notification.shortdescription}" required="true" a:placeholder="#{msg['useradd.ShortDescription']}" />                                             
+                                            #{msg["useradd.ShortDescription"]}: <h:outputText class="form-control" id="shortdescription" value="#{addNotificationConfimBean.notification.shortdescription}" />                                             
                                         </div>
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.FullDescription"]}: <h:inputTextarea class="form-control" id="fulldescription" value="#{addNotificationBean.notification.fulldescription}" required="true" a:placeholder="#{msg['useradd.FullDescription']}" />                                             
+                                            #{msg["useradd.FullDescription"]}: <h:outputText class="form-control" id="fulldescription" value="#{addNotificationConfimBean.notification.fulldescription}" />                                             
                                         </div>
                                     </div>
 
                                     <!-- 2nd row -->
                                     <div class="form-row">
 
-                                        <!-- 4x3 kolumny -->
+                                        <!-- 3x4 kolumny -->
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.MoneyRequired"]}: <h:selectBooleanCheckbox class="form-control" id="moneyrequired" value="#{addNotificationBean.notification.moneyrequired}" required="true" a:placeholder="#{msg['register.FirstName']}" />                                             
+                                            #{msg["useradd.MoneyRequired"]}: <h:outputText class="form-control" id="moneyrequired" value="#{addNotificationConfimBean.notification.moneyrequired}"  />                                              
                                         </div>
                                         <div class="col-md-3 md-form form-group">
                                             #{msg["useradd.Priority"]}: 
-                                            <h:selectOneMenu class="form-control" id="priority" value="#{addNotificationBean.notification.priority}" required="true">  
-                                                <f:selectItem itemValue="5" itemLabel="5" />
-                                                <f:selectItem itemValue="4" itemLabel="4" />
-                                                <f:selectItem itemValue="3" itemLabel="3" />
-                                                <f:selectItem itemValue="2" itemLabel="2" />
-                                                <f:selectItem itemValue="1" itemLabel="1" />
-                                            </h:selectOneMenu>
+                                            <h:outputText class="form-control" id="priority" value="#{addNotificationConfimBean.notification.priority}"/>  
+
                                         </div>
                                         <div class="col-md-3 md-form form-group">
                                             #{msg["useradd.Category"]}: 
-                                            <h:selectOneMenu class="form-control" id="category" value="#{addNotificationBean.notification.category}" required="true">  
-                                                <f:selectItem itemValue="Workspace" itemLabel="Workspace" />
-                                                <f:selectItem itemValue="Process" itemLabel="Process" />
-                                                <f:selectItem itemValue="Other" itemLabel="Other" />    
-                                            </h:selectOneMenu>
+                                            <h:outputText class="form-control" id="category" value="#{addNotificationConfimBean.notification.category}" />  
                                         </div>
                                         <div class="col-md-3 md-form form-group">
                                             Status: 
-                                            <h:selectOneMenu class="form-control" id="status" value="#{addNotificationBean.notification.status}" required="true">  
-                                                <f:selectItem itemValue="Nowy" itemLabel="Nowy" />                                          
-                                            </h:selectOneMenu>
+                                            <h:outputText class="form-control" id="status" value="#{addNotificationConfimBean.notification.status}" />  
                                         </div>
-                                    </div>
 
+                                    </div>                                   
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-lg btn-space" action="#{addNotificationBean.register()}"/>
+                                    <h:commandButton type="submit" value="Confirm" class="btn btn-success btn-lg btn-space" action="#{addNotificationConfimBean.register()}"/>
                                     <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
                                 </h:form>
 
@@ -112,7 +100,7 @@
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
 
 
@@ -130,8 +118,4 @@
         </ui:define>
     </ui:composition> 
 </html>
-
-
-
-
 

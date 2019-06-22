@@ -5,39 +5,73 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import pl.kwmm.wis.ejb.facade.EmployeeFacade;
+import pl.kwmm.wis.ejb.interceptor.LoggingInterceptor;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.utils.EmployeeUtils;
 
+/**
+ * Stateful Endpoint for business logic and performing Entity JPA methods.
+ * Important! Avoid multi-threading after Injection as it's state could be shared.
+ * Interceptor is added for event logs.
+ *
+ * LocalBean for no-interface view.
+ * @author Bartosz Kurek
+ * @version 1.0
+ * @since 2019-06-06
+ */
 @Stateful
 @LocalBean
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+@Interceptors(LoggingInterceptor.class)
 public class EmployeeEndpoint extends AbstractEndpoint {
 
+    /**
+     * Facades Injection for Employee JPA data
+     */
     @Inject
-    EmployeeFacade employeefacade;
+    private EmployeeFacade employeefacade;
 
-
+    //*****************Methods
+    /**
+     * Method to pass register Employee into Database.
+     * Before creating sets status to true and notification points to 0 for starter point.
+     * Lastly calling method from EmployeeFacade to create JPA entry in database.
+     * 
+     * @see pl.kwmm.wis.web.controller.EmployeeController#registerEmployee() 
+     * 
+     * @param e is Employee instance
+     */
     public void registerUserAccount(Employee e) {
-        employeefacade.create(e);
         e.setStatus(true);
         e.setNotificationpoints(0);
-        employeefacade.edit(e);
+        employeefacade.create(e);
     }
 
+    /**
+     * Method to pass register Admin/ImpTeam Employee into Database.
+     * Before creating: 
+     * sets status to false to prevent login, 
+     * sets lasttype to type chosen on register form to automating admin enabling account, 
+     * sets type for type from enum - DISABLED (same as one role for jdbc), 
+     * sets notification points to 0 for starter point. 
+     * Lastly calling method from EmployeeFacade to create JPA entry in database.
+     *  
+     * @see pl.kwmm.wis.web.controller.EmployeeController#registerEmployee() 
+     * 
+     * @param e is Employee instance
+     */
     public void registerEscalatedAccount(Employee e) {
-
         e.setStatus(false);
         e.setLasttype(e.getType());
-        e.setType("Disabled");
+        e.setType(Employee.EmployeeType.Disabled);
         e.setNotificationpoints(0);
         employeefacade.create(e);
     }
 
+    //************************TODO
     public List<Employee> getAllEmployee() {
         return employeefacade.findAll();
     }
@@ -56,7 +90,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
     public void disableEmployee(Employee e) {
         e.setStatus(false);
         e.setLasttype(e.getType());
-        e.setType("Disabled");
+        e.setType(Employee.EmployeeType.Disabled);
         employeefacade.edit(e);
     }
 
@@ -94,26 +128,25 @@ public class EmployeeEndpoint extends AbstractEndpoint {
     
     public void setImpTeamRole(Employee e){
         e.setLasttype(e.getType());
-        e.setType("ImpTeam");
+        e.setType(Employee.EmployeeType.ImpTeam);
         employeefacade.edit(e);
     }
     
     public void setAdminRole(Employee e){
         e.setLasttype(e.getType());
-        e.setType("Admin");
+        e.setType(Employee.EmployeeType.Admin);
         employeefacade.edit(e);
     }
     
     public void setEmployeeRole(Employee e){
         e.setLasttype(e.getType());
-        e.setType("Employee");
+        e.setType(Employee.EmployeeType.Employee);
         employeefacade.edit(e);
     }
     
     public void resetPassword(Employee e){
         EmployeeUtils.passwordChange(e);
         employeefacade.edit(e);
-    
     }
     
 

@@ -41,29 +41,23 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
 
-                        <h2>#{msg["success.Text"]}</h2>
+                        <h2>Wybrales eskalacyjny typ konta! Administrator musi zweryfikowac dane. Wiadomosc o aktywacji konta otrzymasz mailem! Jezeli chcesz, wroc na strone logowania.</h2>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div class="col-sm-1">
-                                <h:link class="nav-link" outcome="userAdd">       
+                                <h:link class="nav-link" outcome="login">       
                                     <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        Add 
+                                        Login
                                     </button>
                                 </h:link>
                             </div>
-                            <div class="col-sm-1">
-                                <h:link class="nav-link" outcome="homePage">       
-                                    <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        Home 
-                                    </button>
-                                </h:link></div>
                             <div class="col-sm-5"></div>
                         </div>
 
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
                 <!--Koniec kontenera treści-->
             </div>

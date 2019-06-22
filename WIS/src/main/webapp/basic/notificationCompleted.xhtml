@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
 
     <!--Cala kompozycja interfejsu uzytkownika (duzy kontener, nie usuwac - spina wszystko)-->
@@ -41,30 +42,35 @@
                     <div class="col-1 marginsCol"></div>
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
-                    <div class="col-10 text-center "> 
-                        <h:form id="form" style="margin-top: 10px;">
-                            <p:repeat value="#{notView.completedDataList}" var="notification">
-                                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                     <p:outputPanel>
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                            <h:outputText value="Id:" />
-                                            <h:outputText value="#{notification.category}" style="font-weight: bold"/>
+                    <div class="col-10 text-center"> 
+                        <div class="align-self-center">
+                            <h2 class="table-success table-bordered border-dark" style="padding: 5px;">Those we completed :)</h2>
 
-                                            <h:outputText value="Year:" />
-                                            <h:outputText value="#{notification.status}" style="font-weight: bold"/>
+                            <h:form id="grid">
+                                <p:repeat value="#{notView.completedDataList}" var="notification">
 
-                                            <h:outputText value="Color:" />
-                                            <h:outputText value="#{notification.priority}" style="font-weight: bold"/>
-                                        </h:panelGrid>
-                                    </p:outputPanel>
-                                </h:panelGrid>
-                                <hr />
-                            </p:repeat>
-                        </h:form>
+                                    <p:panel header="#{notification.createdOn}" class="table-success " style="width: 80%; margin-left: 10%"> 
+                                        <p:panelGrid columns="2" layout="grid">
+                                            <h:outputText class="btn-block font-weight-bold" value="Short description:" />
+                                            <h:outputText value="#{notification.shortdescription}"/>
+                                            <h:outputText class="btn-block font-weight-bold" value="Full description:" />
+                                            <h:outputText  value="#{notification.fulldescription}" />
+                                            <h:outputText class="btn-block font-weight-bold" value="Priority:" />
+                                            <h:outputText value="#{notification.priority}"/>
+                                            <h:outputText class="btn-block font-weight-bold" value="Category:" />
+                                            <h:outputText value="#{notification.category}"/>
+                                            <h:outputText class="btn-block  font-weight-bold" value="Ranking Points:" />
+                                            <h:outputText value="#{notification.rankingpoints}"/>
+                                        </p:panelGrid>    
+                                    </p:panel>
+                                    <br/>
+                                </p:repeat>
+                            </h:form>
+                        </div>
                     </div>
 
                     <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
-                    <div class="col-1 marginsCol"></div>
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
                 </div> 
 
                 <!--Koniec kontenera treści-->

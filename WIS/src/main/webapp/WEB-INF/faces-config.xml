@@ -37,19 +37,24 @@
             <base-name>i18n.messages</base-name>
             <var>msg</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>ValidationMessages</base-name>
+            <var>val</var>
+        </resource-bundle>
+      
     </application>
     <!-- Zasady nawigacyjne-->
     
     <navigation-rule>
         <navigation-case>
             <from-outcome>userNotificationChange</from-outcome>
-            <to-view-id>/basic/userNotificationChange.xhtml</to-view-id>
+            <to-view-id>/basic/notificationChange.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userEmployeeChange</from-outcome>
-            <to-view-id>/basic/userEmployeeChange.xhtml</to-view-id>
+            <to-view-id>/basic/userChange.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -61,35 +66,35 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>employeeEscalatedReg</from-outcome>
-            <to-view-id>/employeeEscalatedReg.xhtml</to-view-id>
+            <to-view-id>/alertEscalatedReg.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>employeeUserReg</from-outcome>
-            <to-view-id>/employeeUserReg.xhtml</to-view-id>
+            <to-view-id>/alertUserReg.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userRegister.xhtml</from-view-id>
+        <from-view-id>/formRegister.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>employeeAddConfirm</from-outcome>
-            <to-view-id>/userRegisterConfirm.xhtml</to-view-id>
+            <to-view-id>/formRegisterConfirm.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/basic/userAdd.xhtml</from-view-id>
+        <from-view-id>/basic/notificationAdd.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>userAddConfirm</from-outcome>
-            <to-view-id>/basic/userAddConfirm.xhtml</to-view-id>
+            <to-view-id>/basic/notificationAddConfirm.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/success.xhtml</to-view-id>
+            <to-view-id>/alertSuccess.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -102,37 +107,37 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>FAQ</from-outcome>
-            <to-view-id>/faq.xhtml</to-view-id>
+            <to-view-id>/staticFaq.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>ranking</from-outcome>
-            <to-view-id>/basic/ranking.xhtml</to-view-id>
+            <to-view-id>/basic/notificationRanking.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>view</from-outcome>
-            <to-view-id>/basic/view.xhtml</to-view-id>
+            <to-view-id>/basic/notificationView.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>completed</from-outcome>
-            <to-view-id>/basic/completed.xhtml</to-view-id>
+            <to-view-id>/basic/notificationCompleted.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userNotifications</from-outcome>
-            <to-view-id>/basic/userNotifications.xhtml</to-view-id>
+            <to-view-id>/basic/notificationMy.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>userAdd</from-outcome>
-            <to-view-id>/basic/userAdd.xhtml</to-view-id>
+            <to-view-id>/basic/notificationAdd.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -150,25 +155,25 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>contact</from-outcome>
-            <to-view-id>/contact.xhtml</to-view-id>
+            <to-view-id>/staticContact.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>logout</from-outcome>
-            <to-view-id>/pageLogout.xhtml</to-view-id>
+            <to-view-id>/alertLogout.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>login</from-outcome>
-            <to-view-id>/pageLogin.xhtml</to-view-id>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <navigation-case>
             <from-outcome>register</from-outcome>
-            <to-view-id>/userRegister.xhtml</to-view-id>
+            <to-view-id>/formRegister.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
