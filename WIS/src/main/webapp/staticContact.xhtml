@@ -10,7 +10,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["contact.Title"]}</title>
+            <title>#{msg['web.main.contact.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -40,7 +40,7 @@
                     <div class="col-10 text-center align-self-center"> 
 
                         <!-- Tekst plus button z ikonką z FontAwsome z linkiem do emailowania.-->
-                        <h4>#{msg["contact.Text"]}</h4>
+                        <h4>#{msg['web.main.contact.TEXT']}</h4>
                         <h:outputLink value="mailto:contact@wis.com">
                             <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
                                 <i class="fas fa-envelope buttonFixed"></i> Email 

@@ -310,4 +310,6 @@ public class Employee implements Serializable {
     public void setNotificationpoints(int notificationpoints) {
         this.notificationpoints = notificationpoints;
     }
+    
+    
 }

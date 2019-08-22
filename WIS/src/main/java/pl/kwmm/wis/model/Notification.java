@@ -32,9 +32,9 @@ import org.hibernate.validator.constraints.Length;
 import pl.kwmm.wis.web.utils.ApplicationUtils;
 
 /**
- * Entity class for General Notification object. 
- * NOTIFICATION table contains data: Utils Fields/Identifiers/Relations
- * 
+ * Entity class for General Notification object. NOTIFICATION table contains
+ * data: Utils Fields/Identifiers/Relations
+ *
  * @author Bartosz Kurek
  * @version 1.0
  * @since 2019-06-04
@@ -46,7 +46,8 @@ import pl.kwmm.wis.web.utils.ApplicationUtils;
     @NamedQuery(name = "Notification.findByStatusNotEnded", query = "SELECT n FROM Notification n WHERE n.status != pl.kwmm.wis.model.Notification.NotificationStatus.Completed"),
     @NamedQuery(name = "Notification.findByNotificationId", query = "SELECT n FROM Notification n WHERE n.notification_id = :notification"),
     @NamedQuery(name = "Notification.findByStatusEnded", query = "SELECT n FROM Notification n WHERE n.status = pl.kwmm.wis.model.Notification.NotificationStatus.Completed"),
-    @NamedQuery(name = "Notification.findByTopThree", query = "SELECT n FROM Notification n ORDER BY n.rankingpoints DESC")})
+    @NamedQuery(name = "Notification.findByTopThree", query = "SELECT n FROM Notification n WHERE n.status != pl.kwmm.wis.model.Notification.NotificationStatus.Completed ORDER BY n.rankingpoints DESC"),
+})
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -110,32 +111,36 @@ public class Notification implements Serializable {
     //Identifier
     @Column(name = "rankingpoints")
     private int rankingpoints;
-    
+
     //Identifier
     @NotNull(message = "{constraint.string.length.notnull}")
     @Min(1)
     @Max(5)
     @Column(name = "priority")
     private int priority;
-    
+
     //Enum
     public static enum NotificationCategory {
         Other, Workspace, Process, Organization
     }
-    
+
     //Enum
     public static enum NotificationStatus {
         New, Pending, WIP, Rejected, Completed
     }
-    
+
     //Identifier
     /**
      * Enumerated internal class for Type field.
      *
-     * @see pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusAwaiting(pl.kwmm.wis.model.Notification) 
-     * @see pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusInImplementation(pl.kwmm.wis.model.Notification) 
-     * @see pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusRejected(pl.kwmm.wis.model.Notification) 
-     * @see pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#completeNotification(pl.kwmm.wis.model.Notification) 
+     * @see
+     * pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusAwaiting(pl.kwmm.wis.model.Notification)
+     * @see
+     * pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusInImplementation(pl.kwmm.wis.model.Notification)
+     * @see
+     * pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#setStatusRejected(pl.kwmm.wis.model.Notification)
+     * @see
+     * pl.kwmm.wis.ejb.endpoint.NotificationEndpoint#completeNotification(pl.kwmm.wis.model.Notification)
      *
      * @version 1.0
      * @since 2019-06-04
@@ -192,8 +197,11 @@ public class Notification implements Serializable {
     }
 
     /**
-     * Method for adding Employee to the instance and in other way after adding to the Notification addint to voter list. 
-     * @param voter - parameter for this method only. Needed from calling source. Employee instance.
+     * Method for adding Employee to the instance and in other way after adding
+     * to the Notification addint to voter list.
+     *
+     * @param voter - parameter for this method only. Needed from calling
+     * source. Employee instance.
      */
     public void addVoter(Employee voter) {
         voters.add(voter);
@@ -220,13 +228,12 @@ public class Notification implements Serializable {
     public String getUpdatedBy() {
         return updatedBy;
     }
-    
+
     public long getVersion() {
         return version;
     }
-    
-    //**************STANDARD GETTERS/SETTERS
 
+    //**************STANDARD GETTERS/SETTERS
     public String getShortdescription() {
         return shortdescription;
     }

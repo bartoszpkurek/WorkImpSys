@@ -12,7 +12,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["useradd.WelcomeText"]}</title>
+            <title>#{msg['web.basic.notificationAdd.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -41,7 +41,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
                         <div>
-                            <h1>#{msg["useradd.WelcomeText"]}</h1>
+                            <h1>#{msg['web.basic.notificationAdd.TITLE']}</h1>
                         </div>
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
@@ -56,12 +56,12 @@
 
                                         <!-- 1x12 kolumna -->
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.ShortDescription"]}<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="shortdescription" value="#{addNotificationBean.notification.shortdescription}" required="true" a:placeholder="#{msg['useradd.ShortDescription']}" />                                             
+                                            #{msg['static.notification.SHORT_DESCRIPTION']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="shortdescription" value="#{addNotificationBean.notification.shortdescription}" required="true" a:placeholder="#{msg['static.notification.SHORT_DESCRIPTION']}" />                                             
                                         </div>
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.FullDescription"]}<span style="color: red">*</span>: 
-                                            <h:inputTextarea class="form-control" id="fulldescription" value="#{addNotificationBean.notification.fulldescription}" required="true" a:placeholder="#{msg['useradd.FullDescription']}" />                                             
+                                            #{msg['static.notification.FULL_DESCRIPTION']}<span style="color: red">*</span>: 
+                                            <h:inputTextarea class="form-control" id="fulldescription" value="#{addNotificationBean.notification.fulldescription}" required="true" a:placeholder="#{msg['static.notification.FULL_DESCRIPTION']}" />                                             
                                         </div>
                                     </div>
 
@@ -70,10 +70,10 @@
 
                                         <!-- 4x3 kolumny -->
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.MoneyRequired"]}<span style="color: red">*</span>: <h:selectBooleanCheckbox class="form-control" id="moneyrequired" value="#{addNotificationBean.notification.moneyrequired}" required="true" a:placeholder="#{msg['register.FirstName']}" />                                             
+                                            #{msg['static.notification.MONEY']}<span style="color: red">*</span>: <h:selectBooleanCheckbox class="form-control" id="moneyrequired" value="#{addNotificationBean.notification.moneyrequired}" required="true" a:placeholder="#{msg['static.notification.MONEY']}" />                                             
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.Priority"]}<span style="color: red">*</span>: 
+                                            #{msg['static.notification.PRIORITY']}<span style="color: red">*</span>: 
                                             <h:selectOneMenu class="form-control" id="priority" value="#{addNotificationBean.notification.priority}" required="true">  
                                                 <f:selectItem itemValue="5" itemLabel="5" />
                                                 <f:selectItem itemValue="4" itemLabel="4" />
@@ -83,16 +83,17 @@
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.Category"]}<span style="color: red">*</span>: 
+                                            #{msg['static.notification.CATEGORY']}<span style="color: red">*</span>: 
                                             <h:selectOneMenu class="form-control" id="category" value="#{addNotificationBean.notification.category}" required="true">  
                                                 <f:selectItem itemValue="Other" itemLabel="Other" />
-                                                <f:selectItem itemValue="Workspace" itemLabel="Workspace" />
-                                                <f:selectItem itemValue="Process" itemLabel="Process" />
-                                                <f:selectItem itemValue="Organization" itemLabel="Organization" />    
+                                            <f:selectItem itemLabel="Workspace" itemValue="Workspace" />
+                                            <f:selectItem itemLabel="Process" itemValue="Process" />
+                                            <f:selectItem itemLabel="Other" itemValue="Other" />
+                                            <f:selectItem itemLabel="Organization" itemValue="Organization" />   
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            Status<span style="color: red">*</span>: 
+                                            #{msg['static.notification.STATUS']}<span style="color: red">*</span>: 
                                             <h:selectOneMenu class="form-control" id="status" value="#{addNotificationBean.notification.status}" required="true">  
                                                 <f:selectItem itemValue="New" itemLabel="New" />                                          
                                             </h:selectOneMenu>
@@ -100,8 +101,8 @@
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-lg btn-space" action="#{addNotificationBean.register()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton type="submit" value="#{msg['static.notification.BUTTON_SUBMIT']}" class="btn btn-success btn-lg btn-space" action="#{addNotificationBean.register()}"/>
+                                    <h:commandButton value="#{msg['static.notification.BUTTON_CANCEL']}" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
                                 </h:form>
 
 

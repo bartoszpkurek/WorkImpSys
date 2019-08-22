@@ -15,7 +15,7 @@
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
 
-            <title>Lista Kont</title>
+            <title>#{msg['web.basic.userChange.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -45,7 +45,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center"> 
                         <div>
-                            <h1>Edytuj dane</h1>
+                            <h1>#{msg['web.basic.userChange.TITLE']}</h1>
                             <hr/>
                         </div>
 
@@ -59,7 +59,7 @@
 
                                         <!-- 1x12 kolumny -->
                                         <div class="col-md-12 md-form form-group">
-                                            <h3>Login:</h3><h:outputText class="fa-2x greenText" id="login" value="#{appUtilsBean.employee.login}"/>                                         <br/><br/><br/>
+                                            <h3>#{msg['web.basic.userChange.LOGIN']}:</h3><h:outputText class="fa-2x greenText" id="login" value="#{appUtilsBean.employee.login}"/>                                         <br/><br/><br/>
                                         </div>                             
                                     </div>
                                     <!-- 2nd row -->
@@ -67,13 +67,13 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            FirstName: 
+                                            #{msg['web.basic.userChange.FIRST_NAME']}: 
                                             <h:inputText class="form-control" id="firstname" value="#{editEmployeeBean.employee.firstname}"> 
                                                 <f:validateLength minimum="1" maximum="100" />
                                             </h:inputText>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            LastName: 
+                                            #{msg['web.basic.userChange.LAST_NAME']}: 
                                             <h:inputText class="form-control" id="lastname" value="#{editEmployeeBean.employee.lastname}">
                                                 <f:validateLength minimum="1" maximum="100" />
                                             </h:inputText>
@@ -85,13 +85,13 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            Email: 
+                                            #{msg['web.basic.userChange.EMAIL']}: 
                                             <h:inputText class="form-control" id="email" value="#{editEmployeeBean.employee.email}">
                                                 <f:validateLength maximum="100" />
                                             </h:inputText>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            EmployeeNumber:
+                                            #{msg['web.basic.userChange.EMPLOYEE_NUMBER']}:
                                             <h:inputText class="form-control" id="empnumber" value="#{editEmployeeBean.employee.employeenumber}">
                                                 <f:validateLength maximum="20" />
                                             </h:inputText>
@@ -99,8 +99,8 @@
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Save" class="btn btn-success btn-sm btn-space" action="#{editEmployeeBean.changeMyData()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " type="submit" value="#{msg['web.basic.userChange.BUTTON_SUBMIT']}" class="btn btn-success btn-sm btn-space" action="#{editEmployeeBean.changeMyData()}"/>
+                                    <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " value="#{msg['web.basic.userChange.BUTTON_CANCEL']}" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
 
                                 </h:form>
                             </div>

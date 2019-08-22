@@ -14,7 +14,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["index.Title"]}</title>
+            <title>#{msg['web.basic.userPassChange.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -43,7 +43,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center"> 
                         <div>
-                            <h1>Zmien haslo</h1>
+                            <h1>#{msg['web.basic.userPassChange.TITLE']}</h1>
                             <hr/>
                         </div>
 
@@ -57,7 +57,7 @@
 
                                         <!-- 1x12 kolumny -->
                                         <div class="col-md-12 md-form form-group">
-                                            <h3>Login:</h3><h:outputText class="fa-2x greenText" id="login" value="#{appUtilsBean.employee.login}"/>                                         <br/><br/><br/>
+                                            <h3>#{msg['web.basic.userPassChange.LOGIN']}:</h3><h:outputText class="fa-2x greenText" id="login" value="#{appUtilsBean.employee.login}"/>                                         <br/><br/><br/>
                                         </div>                             
                                     </div>
                                     <!-- 2nd row -->
@@ -65,24 +65,24 @@
 
                                         <!-- 1x12 kolumny -->
                                         <div class="col-md-12 md-form form-group">
-                                            Password:
-                                            <h:inputSecret class="form-control" id="password" value="#{userPasswordChangeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" >
+                                            #{msg['web.basic.userPassChange.PASSWORD']}:
+                                            <h:inputSecret class="form-control" id="password" value="#{userPasswordChangeBean.employee.password}" required="true" a:placeholder="#{msg['web.basic.userPassChange.PASSWORD']}" >
                                                 <f:validateLength minimum="8"/>
                                                 <f:validateRegex pattern="^.*(?=.{8,})((?=.*[!@#$%^*()\-_=+{};:,.]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$"/>
                                             </h:inputSecret> 
-                                            Repeat Pasword:
-                                            <h:inputSecret class="form-control" id="repeatpassword" value="#{userPasswordChangeBean.passwordRepeat}" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
+                                            #{msg['web.basic.userPassChange.PASSWORD_REPEAT']}:
+                                            <h:inputSecret class="form-control" id="repeatpassword" value="#{userPasswordChangeBean.passwordRepeat}" required="true" a:placeholder="#{msg['web.basic.userPassChange.PASSWORD_REPEAT']}" />                                             
                                         </div>                             
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="ChangePass" class="btn btn-success btn-sm btn-space" action="#{userPasswordChangeBean.changeMyPassword()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " type="submit" value="#{msg['web.basic.userPassChange.BUTTON_SUBMIT']}" class="btn btn-success btn-sm btn-space" action="#{userPasswordChangeBean.changeMyPassword()}"/>
+                                    <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " value="#{msg['web.basic.userPassChange.BUTTON_CANCEL']}" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
                                 </h:form>
                             </div>
                             <div class="col-md-3">
                                 <ul class="lighterFont">
-                                    <li>[Haslo] 8 Znakow, 1 duza, 1 mala, znak specjalny, liczba</li>
+                                    <li>#{msg['web.main.formRegister.HINT_PASSWORD']}</li>
                                 </ul>
                             </div>
                         </div>

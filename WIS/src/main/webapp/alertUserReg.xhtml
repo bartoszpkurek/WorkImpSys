@@ -12,7 +12,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["success.Title"]}</title>
+            <title>#{msg['web.main.alertUserReg.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -41,13 +41,13 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
 
-                        <h2>Twoje konto jest juz aktywne! Zaloguj sie - czekamy na Ciebie :)!</h2>
+                        <h2>#{msg['web.main.alertUserReg.TEXT']}</h2>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div class="col-sm-1">
                                 <h:link class="nav-link" outcome="login">       
                                     <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        Login
+                                       #{msg['web.main.alertUserReg.BUTTON']}
                                     </button>
                                 </h:link>
                             </div>

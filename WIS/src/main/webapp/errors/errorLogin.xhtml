@@ -9,7 +9,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["index.Title"]}</title>
+            <title>#{msg['web.main.errors.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -40,7 +40,7 @@
                         
                         <!-- Trzy teksty powitalne na stronie plus obrazek z WebPages>resources>images. Zwykla internacjonalizacja poprzez właściwości-->
                         <div>
-                            <h1>Zle wpisane haslo lub login! Popraw lub zarejestruj sie :)</h1>                       
+                            <h1>#{msg['web.main.errors.ERROR_LOGIN']}</h1>                       
                         </div>
                     </div>
 

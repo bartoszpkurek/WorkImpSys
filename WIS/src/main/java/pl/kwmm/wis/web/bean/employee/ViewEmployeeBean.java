@@ -1,8 +1,7 @@
 package pl.kwmm.wis.web.bean.employee;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
@@ -10,6 +9,7 @@ import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
 import pl.kwmm.wis.web.utils.EmployeeUtils;
@@ -24,6 +24,7 @@ import pl.kwmm.wis.web.utils.EmployeeUtils;
  */
 @Named("empView")
 @RequestScoped
+@RolesAllowed("ADMIN")
 public class ViewEmployeeBean {
 
     /**
@@ -129,10 +130,9 @@ public class ViewEmployeeBean {
      * showing the password in a dialog box.
      *
      * @param e Employee Object
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
+     * @throws BaseException
      */
-    public void resetPassword(Employee e) throws IOException, NoSuchAlgorithmException {
+    public void resetPassword(Employee e) throws BaseException {
         String tempPassword = EmployeeUtils.passwordChange();
         empCtrl.resetPassword(e, tempPassword);
         FacesMessage message = new FacesMessage("New Password", tempPassword);

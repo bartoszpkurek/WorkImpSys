@@ -9,7 +9,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["userpoints.Text"]}</title>
+            <title>#{msg['web.basic.userPoints.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -37,13 +37,13 @@
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
-                        
+
                         <!-- Treść-->
                         <div class="container">               
-                            <h3>#{msg["userpoints.Text"]}:</h3>  
+                            <h3>#{msg['web.basic.userPoints.HEADER']}:</h3>  
                             <blockquote class="blockquote">
-                                <h1 class="font-weight-bold greenText"><i class="fas fa-brain"></i> <span><h:outputText id="points" value="#{appUtilsBean.employee.notificationpoints}"/></span> #{msg["userpoints.Points"]}!</h1>                            
-                            <footer class="blockquote-footer">#{msg["userpoints.Quote1"]}<br/>#{msg["userpoints.Quote2"]}</footer>
+                                <h1 class="font-weight-bold greenText"><i class="fas fa-brain"></i> <span><h:outputText id="points" value="#{notView.employee.notificationpoints}"/></span> #{msg['web.basic.userPoints.POINTS']}!</h1>                            
+                                <footer class="blockquote-footer">#{msg['web.basic.userPoints.QUOTE_FIRST']}<br/>#{msg['web.basic.userPoints.QUOTE_SECOND']}</footer>
                             </blockquote>
                         </div>
                     </div>

@@ -11,7 +11,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Confirm</title>
+            <title>#{msg['web.main.formRegisterConfirm.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -55,10 +55,10 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            Login: <h:outputText class="form-control" id="login" value="#{addEmployeeConfirmBean.employee.login}"/>                                              
+                                            #{msg['web.main.formRegisterConfirm.LOGIN']}: <h:outputText class="form-control" id="login" value="#{addEmployeeConfirmBean.employee.login}"/>                                              
                                         </div>   
                                         <div class="col-md-6 md-form form-group">
-                                            Email: <h:outputText class="form-control" id="email" value="#{addEmployeeConfirmBean.employee.email}"/>                                                   
+                                            #{msg['web.main.formRegisterConfirm.EMAIL']}: <h:outputText class="form-control" id="email" value="#{addEmployeeConfirmBean.employee.email}"/>                                                   
                                         </div>
                                     </div>
 
@@ -67,10 +67,10 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.FirstName"]}: <h:outputText class="form-control" id="firstname" value="#{addEmployeeConfirmBean.employee.firstname}"/>                                              
+                                            #{msg['web.main.formRegisterConfirm.FIRST_NAME']}: <h:outputText class="form-control" id="firstname" value="#{addEmployeeConfirmBean.employee.firstname}"/>                                              
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.LastName"]}: <h:outputText class="form-control" id="lastname" value="#{addEmployeeConfirmBean.employee.lastname}"/>                                            
+                                            #{msg['web.main.formRegisterConfirm.LAST_NAME']}: <h:outputText class="form-control" id="lastname" value="#{addEmployeeConfirmBean.employee.lastname}"/>                                            
                                         </div>
                                     </div>
 
@@ -79,16 +79,16 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            Type: <h:outputText class="form-control" id="type" value="#{addEmployeeConfirmBean.employee.type}"/> 
+                                            #{msg['web.main.formRegisterConfirm.TYPE']}: <h:outputText class="form-control" id="type" value="#{addEmployeeConfirmBean.employee.type}"/> 
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.EmployeeNumber"]}: <h:outputText class="form-control" id="empnumber" value="#{addEmployeeConfirmBean.employee.employeenumber}"/>
+                                            #{msg['web.main.formRegisterConfirm.EMPLOYEE_NUMBER']}: <h:outputText class="form-control" id="empnumber" value="#{addEmployeeConfirmBean.employee.employeenumber}"/>
                                         </div>
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Confirm" class="btn btn-success btn-lg btn-space" action="#{addEmployeeConfirmBean.register()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton type="submit" value="#{msg['web.main.formRegisterConfirm.BUTTON_SUBMIT']}" class="btn btn-success btn-lg btn-space" action="#{addEmployeeConfirmBean.register()}"/>
+                                    <h:commandButton value="#{msg['web.main.formRegisterConfirm.BUTTON_CANCEL']}" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
                                 </h:form>
                             </div>
                             <div class="col-md-3"></div>
@@ -98,13 +98,13 @@
                         <br/><br/><br/>
 
                         <!--Przycisk powrotu na strone logowania-->
-                        <h3 class="font-weight-light">#{msg["register.SignIn"]}</h3>
+                        <h3 class="font-weight-light">#{msg['web.main.formRegisterConfirm.TEXT_SIGN_IN']}</h3>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div  class="col-sm-2">
                                 <h:link class="nav-link" outcome="login">       
                                     <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg["login.SignIn"]} 
+                                        <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg['web.main.formRegisterConfirm.BUTTON_SIGN_IN']} 
                                     </button>
                                 </h:link>
                             </div>

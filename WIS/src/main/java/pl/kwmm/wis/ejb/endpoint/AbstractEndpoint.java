@@ -8,5 +8,4 @@ abstract public class AbstractEndpoint {
     @Resource
     protected SessionContext sessionContext;
     
-    
 }

@@ -9,7 +9,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["index.Title"]}</title>
+            <title>#{msg['web.main.index.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -40,12 +40,12 @@
                         
                         <!-- Trzy teksty powitalne na stronie plus obrazek z WebPages>resources>images. Zwykla internacjonalizacja poprzez właściwości-->
                         <div>
-                            <h1>#{msg["index.Welcome"]}</h1>
-                            <h5>#{msg["index.Text"]}</h5>
+                            <h1>#{msg['web.main.index.WELCOME']}</h1>
+                            <h5>#{msg['web.main.index.TEXT']}</h5>
                             <br/><br/>
                         </div>
                         <div>  
-                            <h2 class="font-weight-bold greenText">#{msg["index.OverImage"]}</h2>
+                            <h2 class="font-weight-bold greenText">#{msg['web.main.index.OVER_IMAGE']}</h2>
                             <h:graphicImage class="img-fluid rounded-circle"  library="images" name="success.jpg" />
                         </div>
                         

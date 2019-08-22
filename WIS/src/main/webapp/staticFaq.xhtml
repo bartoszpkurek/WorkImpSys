@@ -8,7 +8,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["faq.Title"]}</title>
+            <title>FAQ</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -36,7 +36,7 @@
 
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center" style="padding-top: 10%;"> 
-                        <h1 align="left">#{msg["faq.Title"]}</h1>    
+                        <h1 align="left">FAQ</h1>    
                         <div class="row">
 
                             <!--Dwie kolumny z FAQ. 
@@ -48,18 +48,18 @@
                                 Tab-pane to po prostu panel.-->
                             <div class="col-4">
                                 <div class="list-group" id="list-tab" role="tablist">
-                                    <a class="list-group-item list-group-item-action active" id="firstQ" data-toggle="list" href="#firstA" role="tab">#{msg["faq.FirstQ"]}</a>
-                                    <a class="list-group-item list-group-item-action" id="secondQ" data-toggle="list" href="#secondA" role="tab">#{msg["faq.SecondQ"]}</a>
-                                    <a class="list-group-item list-group-item-action" id="thirdQ" data-toggle="list" href="#thirdA" role="tab">#{msg["faq.ThirdQ"]}</a>
-                                    <a class="list-group-item list-group-item-action" id="fourthQ" data-toggle="list" href="#fourthA" role="tab">#{msg["faq.FourthQ"]}</a>
+                                    <a class="list-group-item list-group-item-action active" id="firstQ" data-toggle="list" href="#firstA" role="tab">#{msg['web.main.faq.1Q']}</a>
+                                    <a class="list-group-item list-group-item-action" id="secondQ" data-toggle="list" href="#secondA" role="tab">#{msg['web.main.faq.2Q']}</a>
+                                    <a class="list-group-item list-group-item-action" id="thirdQ" data-toggle="list" href="#thirdA" role="tab">#{msg['web.main.faq.3Q']}</a>
+                                    <a class="list-group-item list-group-item-action" id="fourthQ" data-toggle="list" href="#fourthA" role="tab">#{msg['web.main.faq.4Q']}</a>
                                 </div>
                             </div>
                             <div class="col-7">
                                 <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane active font-weight-bold" id="firstA" role="tabpanel">#{msg["faq.FirstA"]}</div>
-                                    <div class="tab-pane font-weight-bold" id="secondA" role="tabpanel">#{msg["faq.SecondA"]}</div>
-                                    <div class="tab-pane font-weight-bold" id="thirdA" role="tabpanel">#{msg["faq.ThirdA"]}</div>
-                                    <div class="tab-pane font-weight-bold" id="fourthA" role="tabpanel">#{msg["faq.FourthA"]}</div>
+                                    <div class="tab-pane active font-weight-bold" id="firstA" role="tabpanel">#{msg['web.main.faq.1A']}</div>
+                                    <div class="tab-pane font-weight-bold" id="secondA" role="tabpanel">#{msg['web.main.faq.2A']}</div>
+                                    <div class="tab-pane font-weight-bold" id="thirdA" role="tabpanel">#{msg['web.main.faq.3A']}</div>
+                                    <div class="tab-pane font-weight-bold" id="fourthA" role="tabpanel">#{msg['web.main.faq.4A']}</div>
                                 </div>
                             </div>
                         </div>

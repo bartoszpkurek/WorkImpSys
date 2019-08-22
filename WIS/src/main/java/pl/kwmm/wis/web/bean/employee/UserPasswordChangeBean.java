@@ -1,9 +1,9 @@
 package pl.kwmm.wis.web.bean.employee;
 
-import java.security.NoSuchAlgorithmException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
 
@@ -36,8 +36,9 @@ public class UserPasswordChangeBean {
      * If false returns null.
      *   
      * @return homePage String for faces-config.xml navigation rules
+     * @throws BaseException
      */
-    public String changeMyPassword()throws NoSuchAlgorithmException{
+    public String changeMyPassword() throws BaseException{
         if (passwordRepeat.equals(employee.getPassword())) {
             empCtrl.changeMyPassword(employee.getPassword());
             return "homePage";

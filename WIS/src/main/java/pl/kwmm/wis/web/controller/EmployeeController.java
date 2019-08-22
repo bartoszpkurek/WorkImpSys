@@ -1,12 +1,12 @@
 package pl.kwmm.wis.web.controller;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pl.kwmm.wis.ejb.endpoint.EmployeeEndpoint;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 
 /**
@@ -40,7 +40,7 @@ public class EmployeeController implements Serializable {
      *
      * @see pl.kwmm.wis.web.bean.employee.AddEmployeeConfirmBean#register()
      */
-    public void registerEmployee() throws NoSuchAlgorithmException{
+    public void registerEmployee() throws BaseException{
         employeeEndpoint.registerUserAccount(registeredEmployee);
         registeredEmployee = null;
     }
@@ -53,7 +53,7 @@ public class EmployeeController implements Serializable {
      *
      * @see pl.kwmm.wis.web.bean.employee.AddEmployeeConfirmBean#register()
      */
-    public void registerEscalatedEmployee() throws NoSuchAlgorithmException{
+    public void registerEscalatedEmployee() throws BaseException{
         employeeEndpoint.registerEscalatedAccount(registeredEmployee);
         registeredEmployee = null;
     }
@@ -132,8 +132,9 @@ public class EmployeeController implements Serializable {
      * Method for invoking changing password from EmployeeEndpoint.
      *
      * @param password
+     * @throws BaseException
      */
-    public void changeMyPassword(String password) throws NoSuchAlgorithmException{
+    public void changeMyPassword(String password) throws BaseException{
         employeeEndpoint.changeMyPassword(password);
     }
 
@@ -151,9 +152,9 @@ public class EmployeeController implements Serializable {
      *
      * @param e Employee Object
      * @param tempPassword 
-     * @throws NoSuchAlgorithmException
+     * @throws BaseException
      */
-    public void resetPassword(Employee e, String tempPassword)throws NoSuchAlgorithmException{
+    public void resetPassword(Employee e, String tempPassword) throws BaseException{
         employeeEndpoint.resetPassword(e, tempPassword);
     }
 

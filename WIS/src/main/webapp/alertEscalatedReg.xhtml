@@ -12,7 +12,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["success.Title"]}</title>
+            <title>#{msg["web.main.alertEscalatedReg.TITLE"]}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -41,13 +41,13 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
 
-                        <h2>Wybrales eskalacyjny typ konta! Administrator musi zweryfikowac dane. Wiadomosc o aktywacji konta otrzymasz mailem! Jezeli chcesz, wroc na strone logowania.</h2>
+                        <h2>#{msg["web.main.alertEscalatedReg.TEXT"]}</h2>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div class="col-sm-1">
                                 <h:link class="nav-link" outcome="login">       
                                     <button class="btn btn-success btn-lg my-2 my-sm-0 ">                       
-                                        Login
+                                        #{msg["web.main.alertEscalatedReg.LOGIN"]}
                                     </button>
                                 </h:link>
                             </div>

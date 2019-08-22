@@ -11,7 +11,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["register.Title"]}</title>
+            <title>#{msg['web.main.formRegister.REGISTER']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -40,7 +40,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
                         <div>
-                            <h1>#{msg["login.RegisterButt"]}!</h1>
+                            <h1>#{msg['web.main.formRegister.REGISTER']}!</h1>
                         </div>
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
@@ -56,21 +56,21 @@
                                         
                                         <!-- 3x4 kolumny -->
                                         <div class="col-md-4 md-form form-group">
-                                            Login<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="login" value="#{addEmployeeBean.employee.login}" required="true" a:placeholder="Login" >
+                                            #{msg['web.main.formRegister.LOGIN']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="login" value="#{addEmployeeBean.employee.login}" required="true" a:placeholder="#{msg['web.main.formRegister.LOGIN']}" >
                                                 <f:validateLength minimum="3" maximum="30" />
                                             </h:inputText>
                                         </div>                                  
                                         <div class="col-md-4 md-form form-group">
-                                            Password<span style="color: red">*</span>: 
-                                            <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['login.Password']}" >
+                                            #{msg['web.main.formRegister.PASSWORD']}<span style="color: red">*</span>: 
+                                            <h:inputSecret class="form-control" id="password" value="#{addEmployeeBean.employee.password}" required="true" a:placeholder="#{msg['web.main.formRegister.PASSWORD']}" >
                                                 <f:validateLength minimum="8"/>
                                                 <f:validateRegex pattern="^.*(?=.{8,})((?=.*[!@#$%^*()\-_=+{};:,.]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$"/>
                                             </h:inputSecret> 
                                         </div>
                                         <div class="col-md-4 md-form form-group">
-                                            #{msg["register.RepeatPassword"]}<span style="color: red">*</span>: 
-                                            <h:inputSecret class="form-control" id="repeatpassword" value="#{addEmployeeBean.passwordRepeat}" required="true" a:placeholder="#{msg['register.RepeatPassword']}" />                                             
+                                            #{msg['web.main.formRegister.REPEAT_PASSWORD']}<span style="color: red">*</span>: 
+                                            <h:inputSecret class="form-control" id="repeatpassword" value="#{addEmployeeBean.passwordRepeat}" required="true" a:placeholder="#{msg['web.main.formRegister.REPEAT_PASSWORD']}" />                                             
                                         </div>
                                     </div>
 
@@ -79,8 +79,8 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-12 md-form form-group">
-                                            Email<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="email" value="#{addEmployeeBean.employee.email}" required="true" a:placeholder="Email" >
+                                            #{msg['web.main.formRegister.EMAIL']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="email" value="#{addEmployeeBean.employee.email}" required="true" a:placeholder="#{msg['web.main.formRegister.EMAIL']}" >
                                                 <f:validateLength maximum="100" />
                                             </h:inputText>
                                         </div>                             
@@ -91,14 +91,14 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.FirstName"]}<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="firstname" value="#{addEmployeeBean.employee.firstname}" required="true" a:placeholder="#{msg['register.FirstName']}"> 
+                                            #{msg['web.main.formRegister.FIRST_NAME']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="firstname" value="#{addEmployeeBean.employee.firstname}" required="true" a:placeholder="#{msg['web.main.formRegister.FIRST_NAME']}"> 
                                                 <f:validateLength minimum="1" maximum="100" />
                                             </h:inputText>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.LastName"]}<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="lastname" value="#{addEmployeeBean.employee.lastname}" required="true" a:placeholder="#{msg['register.LastName']}">
+                                            #{msg['web.main.formRegister.LAST_NAME']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="lastname" value="#{addEmployeeBean.employee.lastname}" required="true" a:placeholder="#{msg['web.main.formRegister.LAST_NAME']}">
                                                 <f:validateLength minimum="1" maximum="100" />
                                             </h:inputText>
                                         </div>
@@ -109,34 +109,34 @@
 
                                         <!-- 2x6 kolumny -->
                                         <div class="col-md-6 md-form form-group">
-                                            Type<span style="color: red">*</span>:
+                                            #{msg['web.main.formRegister.TYPE']}<span style="color: red">*</span>:
                                             <h:selectOneMenu class="form-control" id="type" value="#{addEmployeeBean.employee.type}" required="true">  
-                                                <f:selectItem itemValue="Employee" itemLabel="Employee" />
-                                                <f:selectItem itemValue="ImpTeam" itemLabel="ImpTeam" />
-                                                <f:selectItem itemValue="Admin" itemLabel="Admin" />
+                                                <f:selectItem itemValue="Employee" itemLabel="#{msg['web.main.formRegister.LABEL_EMPLOYEE']}" />
+                                                <f:selectItem itemValue="ImpTeam" itemLabel="#{msg['web.main.formRegister.LABEL_IMPTEAM']}" />
+                                                <f:selectItem itemValue="Admin" itemLabel="#{msg['web.main.formRegister.LABEL_ADMIN']}" />
                                             </h:selectOneMenu>
                                         </div>
                                         <div class="col-md-6 md-form form-group">
-                                            #{msg["register.EmployeeNumber"]}<span style="color: red">*</span>: 
-                                            <h:inputText class="form-control" id="empnumber" value="#{addEmployeeBean.employee.employeenumber}" required="true" a:placeholder="#{msg['register.EmployeeNumber']}">
+                                            #{msg['web.main.formRegister.EMPLOYEE_NUMBER']}<span style="color: red">*</span>: 
+                                            <h:inputText class="form-control" id="empnumber" value="#{addEmployeeBean.employee.employeenumber}" required="true" a:placeholder="#{msg['web.main.formRegister.EMPLOYEE_NUMBER']}">
                                                 <f:validateLength maximum="20" />
                                             </h:inputText>
                                         </div>
                                     </div>
 
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Add" class="btn btn-success btn-sm btn-space" action="#{addEmployeeBean.register()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton type="submit" value="#{msg['web.main.formRegister.BUTTON_ADD']}" class="btn btn-success btn-sm btn-space" action="#{addEmployeeBean.register()}"/>
+                                    <h:commandButton value="#{msg['web.main.formRegister.BUTTON_CANCEL']}" class="btn btn-success btn-sm btn-space" action="homePage" immediate="true"/>
                                 </h:form>
                             </div>
                             <div class="col-md-3">
                                 <ul class="lighterFont">
-                                    <li>[Login] 3-30 znakow bez specjalnych</li>
-                                    <li>[Haslo] 8 Znakow, 1 duza, 1 mala, znak specjalny, liczba</li>
-                                    <li>[Email] Max 100 znakow</li>
-                                    <li>[FirstName] 1-100 znakow</li>
-                                    <li>[LastName] 1-100 znakow</li>
-                                    <li>[EmployeeNumber] Max 20 znakow</li>
+                                    <li>#{msg['web.main.formRegister.HINT_LOGIN']}</li>
+                                    <li>#{msg['web.main.formRegister.HINT_PASSWORD']}</li>
+                                    <li>#{msg['web.main.formRegister.HINT_EMAIL']}</li>
+                                    <li>#{msg['web.main.formRegister.HINT_FIRST_NAME']}</li>
+                                    <li>#{msg['web.main.formRegister.HINT_LAST_NAME']}</li>
+                                    <li>#{msg['web.main.formRegister.HINT_EMPLOYEE_NUMBER']}</li>
                                 </ul>
                                    
                             </div>
@@ -146,13 +146,13 @@
                         <br/><br/><br/>
 
                         <!--Przycisk powrotu na strone logowania-->
-                        <h3 class="font-weight-light">#{msg["register.SignIn"]}</h3>
+                        <h3 class="font-weight-light">#{msg['web.main.formRegister.TEXT_SIGN_IN']}</h3>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div  class="col-sm-2">
                                 <h:link class="nav-link" outcome="login">       
                                     <button class="btn btn-success btn-sm my-2 my-sm-0 ">                       
-                                        <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg["login.SignIn"]} 
+                                        <i class="fas fa-sign-in-alt buttonFixed"></i> #{msg['web.main.formRegister.BUTTON_SIGN_IN']} 
                                     </button>
                                 </h:link>
                             </div>

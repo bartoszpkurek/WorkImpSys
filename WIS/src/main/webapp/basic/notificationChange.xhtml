@@ -5,32 +5,88 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:composition template="/WEB-INF/include/templateMain.xhtml">
         <ui:define name="head">
-            <title>Zmień hasło</title>
+            <title>#{msg['web.basic.notificationChange.TITLE']}</title>
         </ui:define>
         <ui:define name="navbar">
             <ui:include src="/WEB-INF/include/templateNavbar.xhtml" />
         </ui:define>
         <ui:define name="body">
-            <div class="container">
-                <div class="starter-template">
-                    <h1>Zmień hasło</h1>
-                    <h:form>
-                        Notification ID: <h:outputText id="login" value="#{editNotificationBean.notification.notification_id}"/> <br/>
 
-                        ShortDesc: <h:inputText id="ShortDesc" value="#{editNotificationBean.notification.shortdescription}"/><br/>
-                        FullDesc: <h:inputText id="FullDesc" value="#{editNotificationBean.notification.fulldescription}"/><br/>
-                        Category: <h:inputText id="Category" value="#{editNotificationBean.notification.category}"/><br/>
-                        Priority: <h:inputText id="Priority" value="#{editNotificationBean.notification.priority}"/><br/>
-                        
-                        <h:commandButton action="#{editNotificationBean.saveNotificationAfterEdit()}" value="Save" />
-                        <br />
-                        <h:commandButton action="homePage" value="Cancel" immediate="true" />
-                    </h:form>
+            <!--Podział na flexy z Bootstrapa 4. Główny kontener.
+            Opcja container-fluid wypełnia szerokość.
+            Opcja flex tworzy i daje tę właściwość child items.
+            Opcja h-100 to po prostu clasa 100% height.-->
+            <div class="container-fluid d-flex h-100">
+
+                <!--Jeden poziomy wiersz podzielony na 3 columny w formacie 1-10-1. 
+                    Opcja flex-fill wypełnia wysokość na cały ekran-->
+                <div class="row flex-fill">
+                    <!-- Lewy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"></div>
+
+                    <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
+                    <div class="col-10 text-center align-self-center"> 
+                        <div>
+                            <h1>#{msg['web.basic.notificationChange.TITLE']}</h1>
+                        </div>
+
+                        <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+
+                                <!-- Formularz ma 3x form-row-->
+                                <h:form>                                    
+                                    <!-- 1st row -->
+                                    <div class="form-row">
+
+                                        <!-- 1x12 kolumna -->
+                                        <div class="col-md-12 md-form form-group">
+                                            ID: <h:outputText id="login" value="#{editNotificationBean.notification.notification_id}"/> <br/>
+                                        </div>
+                                        <div class="col-md-12 md-form form-group">
+                                             #{msg['static.notification.SHORT_DESCRIPTION']}: <h:inputText class="form-control" id="ShortDesc" value="#{editNotificationBean.notification.shortdescription}" />
+                                        </div>
+                                        <div class="col-md-12 md-form form-group">
+                                            #{msg['static.notification.FULL_DESCRIPTION']}: <h:inputTextarea class="form-control" id="FullDesc" value="#{editNotificationBean.notification.fulldescription}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 md-form form-group">
+                                             #{msg['static.notification.CATEGORY']}: <h:inputText class="form-control" id="Category" value="#{editNotificationBean.notification.category}" />
+                                        </div>
+                                        <div class="col-md-6 md-form form-group">
+                                             #{msg['static.notification.PRIORITY']}: <h:inputText class="form-control" id="Priority" value="#{editNotificationBean.notification.priority}" /> 
+                                        </div>
+                                    </div>
+
+                                                                       
+                                    <!-- Przycisk zatwierdzenia-->
+                                    <h:commandButton class="btn btn-success btn-lg btn-space" onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " action="#{editNotificationBean.saveNotificationAfterEdit()}" value="#{msg['static.notification.BUTTON_SUBMIT']}" />
+                                    <h:commandButton class="btn btn-success btn-lg btn-space" onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " action="homePage" value="#{msg['static.notification.BUTTON_CANCEL']}" immediate="true" />
+                                </h:form>
 
 
-                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+
+                        <!--Przerwa-->
+                        <br/><br/><br/>
+
+                    </div>
+
+                    <!-- Prawy margines o szerokości col-1 i colorze z klasy marginsCol z style.css-->
+                    <div class="col-1 marginsCol"><ui:include src="/WEB-INF/include/templateLeftMenu.xhtml" /></div>
+                </div> 
+
+
+
+
+                <!--Koniec kontenera treści-->
             </div>
-        </ui:define>
+            <!--Koniec zdefiniowanego body z templateMain-->    
+        </ui:define> 
         <ui:define name="footer">
             <ui:include src="/WEB-INF/include/templateFooter.xhtml" />
         </ui:define>

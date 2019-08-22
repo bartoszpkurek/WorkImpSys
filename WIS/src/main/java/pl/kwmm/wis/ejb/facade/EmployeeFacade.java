@@ -1,6 +1,8 @@
 package pl.kwmm.wis.ejb.facade;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -12,7 +14,8 @@ import pl.kwmm.wis.model.Employee_;
 
 /**
  * Class Facade created from Session Beans For Entity Classes.
- *  
+ * Transaction - Mandatory.
+ * 
  * @see pl.kwmm.wis.model.Employee
  *
  * @author Bartosz Kurek
@@ -20,6 +23,7 @@ import pl.kwmm.wis.model.Employee_;
  * @since 2019-06-06
  */
 @Stateless
+@TransactionAttribute(TransactionAttributeType.MANDATORY)
 public class EmployeeFacade extends AbstractFacade<Employee> {
 
     /**

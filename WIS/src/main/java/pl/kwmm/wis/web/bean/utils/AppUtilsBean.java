@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import pl.kwmm.wis.exception.AppException;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
 import pl.kwmm.wis.web.utils.ApplicationUtils;
@@ -31,7 +33,8 @@ public class AppUtilsBean implements Serializable {
     private Employee employee = new Employee();
 
     /**
-     * Method after construction of the object to set Employee variable to currentAccount
+     * Method after construction of the object to set Employee variable to
+     * currentAccount
      */
     @PostConstruct
     private void init() {
@@ -42,9 +45,9 @@ public class AppUtilsBean implements Serializable {
      * Method for logout. Invokes reload method for requestedURI.
      *
      * @return String for navigation rules.
-     * @throws IOException
+     * @throws BaseException
      */
-    public String logout() throws IOException {
+    public String logout() throws BaseException {
         ApplicationUtils.invalidateSession();
         reload();
         return "homePage";
@@ -54,11 +57,16 @@ public class AppUtilsBean implements Serializable {
      * Method for reloading. Creates Instance of ExternalContext from
      * FacesContext. Redirects current context to new requested URI.
      *
-     * @throws IOException
+     * @throws BaseException
      */
-    public void reload() throws IOException {
+    public void reload() throws BaseException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        try {
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException ioe) {
+            throw AppException.resourceLackException(ioe);
+        }
+
     }
 
     //*****************Standard Getter

@@ -14,7 +14,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Ranking</title>
+            <title>#{msg['web.basic.notificationRanking.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -43,55 +43,55 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center "> 
 
-                        <h1 class="table-warning table-bordered border-dark" style="padding: 5px;">Ranking</h1>
+                        <h1 class="table-warning table-bordered border-dark" style="padding: 5px;">#{msg['web.basic.notificationRanking.TITLE']}</h1>
 
                         <h:form id="grid">
                             <p:dataGrid var="notification" value="#{notView.topThreeDataList}" columns="3" layout="grid"
                                         style="margin-top:10px;" >
                                 <f:facet name="header">
-                                    TOP 3 OF AWAITING COMPLETED IDEAS! FEEL FREE TO VOTE
+                                    #{msg['web.basic.notificationRanking.HEADER_TITLE']}
                                 </f:facet>
-                                <p:panel header="Punkty w Rankingu: #{notification.rankingpoints}" style="text-align:center;">
+                                <p:panel header="#{msg['static.notification.POINTS']}: #{notification.rankingpoints}" style="text-align:center;">
                                     <p:panelGrid columns="2" style="d-inline-block" >
 
                                         <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Short description:" />
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.SHORT_DESCRIPTION']}:" />
                                         </p:column>
                                         <p:column>
                                             <h:outputText value="#{notification.shortdescription}"/>
                                         </p:column>
                                         <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Full description:" />
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.FULL_DESCRIPTION']}:" />
                                         </p:column>
                                         <p:column >
                                             <h:outputText  value="#{notification.fulldescription}" />
                                         </p:column>
 
                                         <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Priority:" />
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.PRIORITY']}:" />
                                         </p:column>
                                         <p:column>
                                             <h:outputText value="#{notification.priority}"/>
                                         </p:column>
                                         <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Category:" />
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.CATEGORY']}:" />
                                         </p:column>
                                         <p:column>
                                             <h:outputText value="#{notification.category}"/>
                                         </p:column>
 
                                         <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Date Added:" />
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.DATE_ADDED']}:" />
                                         </p:column>
                                         <p:column>
                                             <h:outputText value="#{notification.createdOn}"/>
                                         </p:column>
-                                        <p:column>
-                                            <h:outputText class="btn-block table-success font-weight-bold" value="Vote:" />
+                                        <p:column rendered="#{request.isUserInRole('EMPLOYEE')}">
+                                            <h:outputText class="btn-block table-success font-weight-bold" value="#{msg['static.notification.VOTE']}:" />
                                         </p:column>
-                                        <p:column>
-                                            <h:commandButton value="+" action="#{notView.voteUp(notification)}" class="btn-md btn-success" style="width:35px;height:35px"/>
-                                            <h:commandButton value="-" action="#{notView.voteDown(notification)}" class="btn-md btn-danger" style="width:35px;height:35px"/>
+                                        <p:column rendered="#{request.isUserInRole('EMPLOYEE')}">
+                                            <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; " value="+" action="#{notView.voteUp(notification)}" class="btn-md btn-success" style="width:35px;height:35px"/>
+                                            <h:commandButton onclick="if (! confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}') ) { return false;}; return true; "  value="-" action="#{notView.voteDown(notification)}" class="btn-md btn-danger" style="width:35px;height:35px"/>
                                         </p:column>
                                     </p:panelGrid>
                                 </p:panel>

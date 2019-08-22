@@ -4,31 +4,45 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>    
         <div class="jumbotron jumbotron-fluid text-center align-self-center">
-            <p class="greenText font-weight-bold">Logged as:</p>
+            <p class="greenText font-weight-bold">#{msg['web.include.templateFooter.LOGGED_AS']}</p>
 
             <p class="font-weight-bold">
-                <h:outputText id="noUser" value="Guest" rendered="#{empty request.remoteUser}"/>
+                <h:outputText id="noUser" value="#{msg['web.include.templateFooter.ACCOUNT_NAME']}" rendered="#{empty request.remoteUser}"/>
                 <h:outputText id="yesUser" value="#{appUtilsBean.employee.login}" rendered="#{not empty request.remoteUser}"/>
             </p>
 
             <h:form>
-                <h:commandLink class="btn btn-success btn-sm btnMain" action="login" value="LOGIN" rendered="#{empty request.remoteUser}"/>
-                <h:commandLink class="btn btn-success btn-sm btnMain" action="#{appUtilsBean.logout()}" value="LOGOUT" rendered="#{not empty request.remoteUser}"/>
+                <h:commandLink class="btn btn-success btn-sm btnMain" action="login" value="#{msg['web.include.templateFooter.LOGIN']}" rendered="#{empty request.remoteUser}"/>
+                <h:commandLink class="btn btn-success btn-sm btnMain" action="#{appUtilsBean.logout()}" value="#{msg['web.include.templateFooter.LOGOUT']}" rendered="#{not empty request.remoteUser}"/>
             </h:form>
             <br/>
             <h:form>
-                <h:commandButton 
-                    class="btn btn-outline-success btn-lg btnMain" 
-                    action="#{language.changeLanguage('pl')}" value="PL">
-                </h:commandButton>
+
+                <c:if test="#{utilsLanguageBean.language == 'pl'}">
+                    <h:commandButton 
+                        class="btn btn-success btn-lg btnMain" 
+                        action="#{utilsLanguageBean.changeLanguage('pl')}" value="PL">
+                    </h:commandButton>
+                    <h:commandButton 
+                        class="btn btn-outline-success btn-lg btnMain"
+                        action="${utilsLanguageBean.changeLanguage('en')}" value="EN">
+                    </h:commandButton>
+                </c:if>
                 <h:outputText value=" " />
-                <h:commandButton 
-                    class="btn btn-outline-success btn-lg btnMain"
-                    action="#{language.changeLanguage('en')}" value="EN">
-                </h:commandButton>
+                <c:if test="#{utilsLanguageBean.language == 'en'}">
+                    <h:commandButton 
+                        class="btn btn-outline-success btn-lg btnMain" 
+                        action="#{utilsLanguageBean.changeLanguage('pl')}" value="PL">
+                    </h:commandButton>
+                    <h:commandButton 
+                        class="btn btn-success btn-lg btnMain"
+                        action="#{utilsLanguageBean.changeLanguage('en')}" value="EN">
+                    </h:commandButton>
+                </c:if>
             </h:form>
         </div>
 

@@ -29,13 +29,13 @@
                 <ul class="navbar-nav mr-auto">
                     <f:subview id="leftMenuAll" rendered="#{not empty request.remoteUser}">
                         <li class="nav-item">
-                            <h:link class="nav-link" outcome="ranking"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-chart-line buttonFixed"></i> Ranking</button></h:link>
+                            <h:link class="nav-link" outcome="ranking"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-chart-line buttonFixed"></i> #{msg['web.include.templateNavbar.RANKING']}</button></h:link>
                         </li>
                         <li class="nav-item">
-                            <h:link class="nav-link" outcome="view"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-search buttonFixed"></i> #{msg["navbarmenu.Browse"]}</button></h:link>
+                            <h:link class="nav-link" outcome="view"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-search buttonFixed"></i> #{msg['web.include.templateNavbar.BROWSE']}</button></h:link>
                         </li>
                         <li class="nav-item">
-                            <h:link class="nav-link" outcome="completed"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-dollar-sign buttonFixed"></i> #{msg["navbarmenu.Completed"]}</button></h:link>
+                            <h:link class="nav-link" outcome="completed"><button class="btn btn-success btn-lg my-2 my-sm-0 "><i class="fas fa-dollar-sign buttonFixed"></i> #{msg['web.include.templateNavbar.COMPLETED']}</button></h:link>
                         </li>
                     </f:subview>
                 </ul>
@@ -50,7 +50,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <h:link class="dropdown-item" outcome="FAQ"><i class="fas fa-question-circle"></i> FAQ</h:link>
-                            <h:link class="dropdown-item" outcome="contact"><i class="fas fa-address-card"></i> #{msg["navbarmenu.Contact"]}</h:link>
+                            <h:link class="dropdown-item" outcome="contact"><i class="fas fa-address-card"></i> #{msg['web.include.templateNavbar.CONTACT']}</h:link>
                         </div>
                     </li>
 
@@ -61,12 +61,12 @@
                                 <i class="fas fa-user-circle fa-2x green"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <h:link class="dropdown-item" outcome="userNotifications">#{msg["navbarmenu.MyNotification"]}</h:link>
-                                <h:link class="dropdown-item" outcome="userAdd">#{msg["navbarmenu.AddNotification"]}</h:link>                   
-                                <h:link class="dropdown-item" outcome="userPoints">#{msg["navbarmenu.Points"]}</h:link>
+                                <h:link class="dropdown-item" outcome="userNotifications">#{msg['web.include.templateNavbar.MY_NOTIFICATION']}</h:link>
+                                <h:link class="dropdown-item" outcome="userAdd">#{msg['web.include.templateNavbar.ADD_NOTIFICATION']}</h:link>                   
+                                <h:link class="dropdown-item" outcome="userPoints">#{msg['web.include.templateNavbar.MY_POINTS']}</h:link>
                                 <div class="dropdown-divider"></div>
-                                <h:link class="dropdown-item" outcome="userEmployeeChange"><i class="fas fa-user-edit"></i> Edytuj Konto</h:link>
-                                <h:link class="dropdown-item" outcome="userPassChange"><i class="fas fa-user-edit"></i> #{msg["navbarmenu.PassChange"]}</h:link>
+                                <h:link class="dropdown-item" outcome="userEmployeeChange"><i class="fas fa-user-edit"></i> #{msg['web.include.templateNavbar.EDIT_ACCOUNT']}</h:link>
+                                <h:link class="dropdown-item" outcome="userPassChange"><i class="fas fa-user-edit"></i> #{msg['web.include.templateNavbar.CHANGE_PASSWORD']}</h:link>
                             </div>
 
                         </li>
@@ -77,7 +77,7 @@
                                     <i class="fas fa-hat-wizard fa-2x green"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <h:link class="dropdown-item" outcome="accountList"><i class="fas fa-book-reader"></i> AccountList</h:link>
+                                    <h:link class="dropdown-item" outcome="accountList"><i class="fas fa-book-reader"></i> #{msg['web.include.templateNavbar.ACCOUNT_LIST']}</h:link>
                                 </div> 
                             </li>    
 

@@ -11,7 +11,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["index.Title"]}</title>
+            <title>#{msg['web.main.errors.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -42,7 +42,7 @@
                         
                         <!-- Trzy teksty powitalne na stronie plus obrazek z WebPages>resources>images. Zwykla internacjonalizacja poprzez właściwości-->
                         
-                            <h1>Witaj, wyglada na to ze twoje konto jest zablokowane lub nie masz uprawnien do przegladania tej strony!</h1>                       
+                            <h1>#{msg['web.main.errors.403']}</h1>                       
                         
                     </div>
 

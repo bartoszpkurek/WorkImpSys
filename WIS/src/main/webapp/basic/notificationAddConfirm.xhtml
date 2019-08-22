@@ -11,7 +11,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["useradd.WelcomeText"]}</title>
+            <title>#{msg['web.basic.notificationAddConfirm.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -40,7 +40,7 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center align-self-center"> 
                         <div>
-                            <h1>#{msg["useraddconfirm.WelcomeText"]}</h1>
+                            <h1>#{msg['web.basic.notificationAddConfirm.TITLE']}</h1>
                         </div>
 
                         <!-- Kolejny podział srodkowej cześci 3-6-3. 6 dla formularza -->                      
@@ -55,10 +55,10 @@
 
                                         <!-- 1x12 kolumna -->
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.ShortDescription"]}: <h:outputText class="form-control" id="shortdescription" value="#{addNotificationConfimBean.notification.shortdescription}" />                                             
+                                            #{msg['static.notification.SHORT_DESCRIPTION']}: <h:outputText style="height: 120px; overflow-x: scroll; display:block;" class="form-control" id="shortdescription" value="#{addNotificationConfimBean.notification.shortdescription}" />                                             
                                         </div>
                                         <div class="col-md-12 md-form form-group">
-                                            #{msg["useradd.FullDescription"]}: <h:outputText class="form-control" id="fulldescription" value="#{addNotificationConfimBean.notification.fulldescription}" />                                             
+                                            #{msg['static.notification.FULL_DESCRIPTION']}: <h:outputText style="height: 150px; overflow-x: scroll; display:block;" class="form-control" id="fulldescription" value="#{addNotificationConfimBean.notification.fulldescription}" />                                             
                                         </div>
                                     </div>
 
@@ -67,26 +67,26 @@
 
                                         <!-- 3x4 kolumny -->
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.MoneyRequired"]}: <h:outputText class="form-control" id="moneyrequired" value="#{addNotificationConfimBean.notification.moneyrequired}"  />                                              
+                                            #{msg['static.notification.MONEY']}: <h:outputText class="form-control" id="moneyrequired" value="#{addNotificationConfimBean.notification.moneyrequired}"  />                                              
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.Priority"]}: 
+                                            #{msg['static.notification.PRIORITY']}: 
                                             <h:outputText class="form-control" id="priority" value="#{addNotificationConfimBean.notification.priority}"/>  
 
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            #{msg["useradd.Category"]}: 
+                                            #{msg['static.notification.CATEGORY']}: 
                                             <h:outputText class="form-control" id="category" value="#{addNotificationConfimBean.notification.category}" />  
                                         </div>
                                         <div class="col-md-3 md-form form-group">
-                                            Status: 
+                                            #{msg['static.notification.STATUS']}: 
                                             <h:outputText class="form-control" id="status" value="#{addNotificationConfimBean.notification.status}" />  
                                         </div>
 
                                     </div>                                   
                                     <!-- Przycisk zatwierdzenia-->
-                                    <h:commandButton type="submit" value="Confirm" class="btn btn-success btn-lg btn-space" action="#{addNotificationConfimBean.register()}"/>
-                                    <h:commandButton value="Cancel" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
+                                    <h:commandButton type="Submit" value="#{msg['static.notification.BUTTON_SUBMIT']}" class="btn btn-success btn-lg btn-space" action="#{addNotificationConfimBean.register()}"/>
+                                    <h:commandButton value="#{msg['static.notification.BUTTON_CANCEL']}" class="btn btn-success btn-lg btn-space" action="homePage" immediate="true"/>
                                 </h:form>
 
 

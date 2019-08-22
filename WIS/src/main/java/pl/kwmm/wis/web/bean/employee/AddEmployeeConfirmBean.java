@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.controller.EmployeeController;
 
@@ -45,7 +46,7 @@ public class AddEmployeeConfirmBean {
      * @return employeeUserReg or employeeEscalatedReg String for
      * faces-config.xml navigation rules
      */
-    public String register() throws NoSuchAlgorithmException{
+    public String register() throws BaseException{
         if (getEmployee().getType().equals(Employee.EmployeeType.Employee)) {
             logger.info("Starting register process of normal account....");
             empCtrl.registerEmployee();

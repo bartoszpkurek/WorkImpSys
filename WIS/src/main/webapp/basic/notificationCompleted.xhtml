@@ -15,7 +15,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>Completed</title>
+            <title>#{msg['web.basic.notificationCompleted.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -44,22 +44,22 @@
                     <!-- Środkowa kolumna treści umieszczona pośrodku pionu oraz z tekstem centrowanym.-->
                     <div class="col-10 text-center"> 
                         <div class="align-self-center">
-                            <h2 class="table-success table-bordered border-dark" style="padding: 5px;">Those we completed :)</h2>
+                            <h2 class="table-success table-bordered border-dark" style="padding: 5px;">#{msg['web.basic.notificationCompleted.HEADER_TEXT']}</h2>
 
                             <h:form id="grid">
                                 <p:repeat value="#{notView.completedDataList}" var="notification">
 
                                     <p:panel header="#{notification.createdOn}" class="table-success " style="width: 80%; margin-left: 10%"> 
                                         <p:panelGrid columns="2" layout="grid">
-                                            <h:outputText class="btn-block font-weight-bold" value="Short description:" />
+                                            <h:outputText class="btn-block font-weight-bold" value="#{msg['static.notification.SHORT_DESCRIPTION']}:" />
                                             <h:outputText value="#{notification.shortdescription}"/>
-                                            <h:outputText class="btn-block font-weight-bold" value="Full description:" />
+                                            <h:outputText class="btn-block font-weight-bold" value="#{msg['static.notification.FULL_DESCRIPTION']}:" />
                                             <h:outputText  value="#{notification.fulldescription}" />
-                                            <h:outputText class="btn-block font-weight-bold" value="Priority:" />
+                                            <h:outputText class="btn-block font-weight-bold" value="#{msg['static.notification.PRIORITY']}:" />
                                             <h:outputText value="#{notification.priority}"/>
-                                            <h:outputText class="btn-block font-weight-bold" value="Category:" />
+                                            <h:outputText class="btn-block font-weight-bold" value="#{msg['static.notification.CATEGORY']}:" />
                                             <h:outputText value="#{notification.category}"/>
-                                            <h:outputText class="btn-block  font-weight-bold" value="Ranking Points:" />
+                                            <h:outputText class="btn-block  font-weight-bold" value="#{msg['static.notification.POINTS']}:" />
                                             <h:outputText value="#{notification.rankingpoints}"/>
                                         </p:panelGrid>    
                                     </p:panel>

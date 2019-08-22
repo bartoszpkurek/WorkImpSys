@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -13,6 +15,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.kwmm.wis.ejb.facade.EmployeeFacade;
+import pl.kwmm.wis.exception.AppException;
+import pl.kwmm.wis.exception.BaseException;
 import pl.kwmm.wis.model.Employee;
 import pl.kwmm.wis.web.utils.ApplicationUtils;
 import pl.kwmm.wis.web.utils.EmployeeUtils;
@@ -20,7 +24,7 @@ import pl.kwmm.wis.web.utils.EmployeeUtils;
 /**
  * Stateful Endpoint for business logic and performing Entity JPA methods.
  * Important! Avoid multi-threading after Injection as it's state could be
- * shared.
+ * shared. Transaction - Requires New.
  *
  * LocalBean for no-interface view.
  *
@@ -55,8 +59,9 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      * @see pl.kwmm.wis.web.controller.EmployeeController#registerEmployee()
      *
      * @param e is Employee instance
+     * @throws BaseException
      */
-    public void registerUserAccount(Employee e) throws NoSuchAlgorithmException {
+    public void registerUserAccount(Employee e) throws BaseException {
         e.setPassword(hashPassword(e));
         e.setStatus(true);
         logger.info(e.getType() + " account " + e.getLogin() + " has been automatically activated.");
@@ -76,8 +81,9 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      * @see pl.kwmm.wis.web.controller.EmployeeController#registerEmployee()
      *
      * @param e is Employee instance
+     * @throws BaseException
      */
-    public void registerEscalatedAccount(Employee e) throws NoSuchAlgorithmException{
+    public void registerEscalatedAccount(Employee e) throws BaseException {
         e.setPassword(hashPassword(e));
         e.setStatus(false);
         e.setLasttype(e.getType());
@@ -95,6 +101,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void enableEmployee(Employee e) {
         e.setStatus(true);
         e.setType(e.getLasttype());
@@ -111,6 +118,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void disableEmployee(Employee e) {
         e.setStatus(false);
         e.setLasttype(e.getType());
@@ -125,6 +133,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void deleteEmployee(Employee e) {
         employeefacade.remove(e);
         logger.warn(e.getType() + " type account: " + e.getLogin() + " has been successfully DELETED by: " + ApplicationUtils.getUserName());
@@ -138,6 +147,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void setEmployeeRole(Employee e) {
         if (!e.getType().equals(Employee.EmployeeType.Employee)) {
             e.setLasttype(e.getType());
@@ -169,6 +179,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void setImpTeamRole(Employee e) {
         if (!e.getType().equals(Employee.EmployeeType.ImpTeam)) {
             e.setLasttype(e.getType());
@@ -200,6 +211,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param e - Employee Object
      */
+    @RolesAllowed("ADMIN")
     public void setAdminRole(Employee e) {
         if (!e.getType().equals(Employee.EmployeeType.Admin)) {
             e.setLasttype(e.getType());
@@ -231,6 +243,7 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @param employee
      */
+    @PermitAll
     public void changeMyData(Employee employee) {
         if (null == employee) {
             throw new IllegalArgumentException("Brak wczytanego konta do modyfikacji");
@@ -247,12 +260,14 @@ public class EmployeeEndpoint extends AbstractEndpoint {
 
     /**
      * Method for changing Password. Create new Instance of current Account.
-     * Uses hashPassword method for employee.
-     * Sets Password and edits by facade Employee Object.
-     * 
+     * Uses hashPassword method for employee. Sets Password and edits by facade
+     * Employee Object.
+     *
      * @param password
+     * @throws BaseException
      */
-    public void changeMyPassword(String password) throws NoSuchAlgorithmException {
+    @PermitAll
+    public void changeMyPassword(String password) throws BaseException {
         Employee employee = getCurrentAccount();
         employee.setPassword(hashString(password));
         employeefacade.edit(employee);
@@ -294,14 +309,15 @@ public class EmployeeEndpoint extends AbstractEndpoint {
 
     /**
      * Method for resetting password by escalated account Admin. Invokes
-     * Employee facade method for merging with hashing method.
-     * Clears temporary variable.
-     * 
+     * Employee facade method for merging with hashing method. Clears temporary
+     * variable.
+     *
      * @param e Employee Object
-     * @param tempPassword 
-     * @throws NoSuchAlgorithmException
+     * @param tempPassword
+     * @throws BaseException
      */
-    public void resetPassword(Employee e, String tempPassword) throws NoSuchAlgorithmException{
+    @RolesAllowed("ADMIN")
+    public void resetPassword(Employee e, String tempPassword) throws BaseException {
         e.setPassword(hashString(tempPassword));
         employeefacade.edit(e);
         tempPassword = null;
@@ -312,37 +328,48 @@ public class EmployeeEndpoint extends AbstractEndpoint {
      *
      * @return List of Employees
      */
+    @RolesAllowed("ADMIN")
     public List<Employee> getAllEmployee() {
         return employeefacade.findAll();
     }
 
     /**
      * Hash method for Employee object param.
-     * 
+     *
      * @param e
      * @return
-     * @throws NoSuchAlgorithmException 
+     * @throws BaseException
      */
-    public String hashPassword(Employee e) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(e.getPassword().getBytes(StandardCharsets.UTF_8));
-        String encoded = Base64.getEncoder().encodeToString(hash); // Java 8 feature
+    public String hashPassword(Employee e) throws BaseException {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(e.getPassword().getBytes(StandardCharsets.UTF_8));
+            String encoded = Base64.getEncoder().encodeToString(hash); // Java 8 feature
+            return encoded;
+        } catch (NoSuchAlgorithmException nsae) {
+            throw AppException.hashPasswordException(nsae);
+        }
 
-        return encoded;
     }
-    
+
     /**
      * Hash method for String param.
+     *
      * @param password
      * @return
-     * @throws NoSuchAlgorithmException 
+     * @throws BaseException
      */
-    public String hashString(String password) throws NoSuchAlgorithmException {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        String encoded = Base64.getEncoder().encodeToString(hash); // Java 8 feature
+    public String hashString(String password) throws BaseException{
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            String encoded = Base64.getEncoder().encodeToString(hash); // Java 8 feature
 
-        return encoded;
+            return encoded;
+        } catch (NoSuchAlgorithmException nsae) {
+            throw AppException.hashPasswordException(nsae);
+        }
+
     }
 
 }

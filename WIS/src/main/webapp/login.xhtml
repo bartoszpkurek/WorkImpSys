@@ -11,7 +11,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["login.Title"]}</title>
+            <title>#{msg['web.main.login.LOGIN']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -41,7 +41,7 @@
                     <div class="col-10 text-center align-self-center"> 
 
                         <!-- Dwa teksty wylogowania na stronie. Zwykla internacjonalizacja poprzez właściwości-->
-                        <h1>#{msg["login.Welcome"]}</h1>
+                        <h1>#{msg['web.main.login.WELCOME']}</h1>
 
                         <!--Ponowny podział na wiersz i 3x4 grid kolumny -->      
                         <div class="row">
@@ -50,9 +50,9 @@
                                 
                                 <!--Formularz do logowania-->
                                 <h:form id="login" onsubmit="action = 'j_security_check';" prependId="false">
-                                        <h:inputText id="j_username" class="form-control" a:placeholder="Login"/>           
-                                        <h:inputSecret id="j_password" class="form-control" a:placeholder="Password"/> <br/>
-                                        <h:commandButton class="btn btn-success btn-sm btnMain" id="submit" value="LOGIN"/>
+                                        <h:inputText id="j_username" class="form-control" a:placeholder="#{msg['web.main.login.PLACEHOLDER_LOGIN']}"/>           
+                                        <h:inputSecret id="j_password" class="form-control" a:placeholder="#{msg['web.main.login.PLACEHOLDER_PASSWORD']}"/> <br/>
+                                        <h:commandButton class="btn btn-success btn-sm btnMain" id="submit" value="#{msg['web.main.login.LOGIN']}"/>
                                 </h:form> 
 
                             </div>
@@ -64,13 +64,13 @@
 
                         <!-- Przycisk z linkiem do strony z rejestracją poprzez navigation rule i outcome z ikonką z FontAwesome.-->
                         <!-- Ponowny podział na wiersz--> 
-                        <h3 class="font-weight-light">#{msg["login.Register"]}</h3>
+                        <h3 class="font-weight-light">#{msg['web.main.login.TEXT_REGISTER']}</h3>
                         <div class="row">
                             <div class="col-sm-5"></div>
                             <div  class="col-sm-2">
                                 <h:link class="nav-link" outcome="register">       
                                     <button class="btn btn-success btn-sm my-2 my-sm-0 ">                       
-                                        <i class="fas fa-user-plus buttonFixed"></i> #{msg["login.RegisterButt"]} 
+                                        <i class="fas fa-user-plus buttonFixed"></i> #{msg['web.main.login.BUTTON_REGISTER']} 
                                     </button>
                                 </h:link>
                             </div>

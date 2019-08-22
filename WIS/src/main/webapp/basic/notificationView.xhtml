@@ -14,7 +14,7 @@
 
         <!--Odtąd rozpoczyna się sekcja <head></head> z templateMain.xhtml - bez tytulu, ktory jest inny w zaleznosci od strony.-->
         <ui:define name="head">
-            <title>#{msg["view.Title"]}</title>
+            <title>#{msg['web.basic.notificationView.TITLE']}</title>
         </ui:define>
 
         <!--Odtąd rozpoczyna się <body></body>-->
@@ -57,9 +57,9 @@
                                 >
                                 <f:facet name="footer" >
                                     <p:outputPanel>
-                                        [ #{fn:length(notView.tableDataList)} ] #{msg["view.Footer"]}
-                                        <h:outputText value="You can also search all fields:" />
-                                        <p:inputText id="globalFilter" onkeyup="PF('notificationTable').filter()" style="width:350px" placeholder="Enter keyword"/>
+                                        [ #{fn:length(notView.tableDataList)} ] #{msg['web.basic.notificationView.FOOTER']}
+                                        <h:outputText value="#{msg['web.basic.notificationMy.HEADER_FILTER']}:" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('notificationTable').filter()" style="width:350px" placeholder="#{msg['web.basic.notificationMy.HEADER_PLACEHOLDER']}"/>
                                     </p:outputPanel>
                                 </f:facet>
 
@@ -68,29 +68,30 @@
 
                                 </p:column>
                                 <p:column sortBy="${notification.createdOn  }" width="10%" styleClass="lighterFont">
-                                    <f:facet name="header">#{msg["view.Date"]}</f:facet>
+                                    <f:facet name="header">#{msg['static.notification.DATE_ADDED']}</f:facet>
                                     <h:outputText value="${notification.createdOn}" styleClass="lighterFont"/>
                                 </p:column>
-                                <p:column headerText="Category" filterBy="#{notification.category}" sortBy="#{notification.category}" filterMatchMode="exact" width="8%" styleClass="lighterFont">
+                                <p:column headerText="#{msg['static.notification.CATEGORY']}" filterBy="#{notification.category}" sortBy="#{notification.category}" filterMatchMode="exact" width="8%" styleClass="lighterFont">
                                     <f:facet name="filter">
                                         <h:selectOneMenu onchange="PF('notificationTable').filter()" >
                                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
                                             <f:selectItem itemLabel="Workspace" itemValue="Workspace" />
                                             <f:selectItem itemLabel="Process" itemValue="Process" />
                                             <f:selectItem itemLabel="Other" itemValue="Other" />
+                                            <f:selectItem itemLabel="Organization" itemValue="Organization" />
                                         </h:selectOneMenu>
                                     </f:facet> 
                                     <h:outputText value="${notification.category}"/>
                                 </p:column>
 
-                                <p:column headerText="ShortDescription" filterBy="#{notification.shortdescription}" filterMatchMode="contains" styleClass="lighterFont">
+                                <p:column headerText="#{msg['static.notification.SHORT_DESCRIPTION']}" filterBy="#{notification.shortdescription}" filterMatchMode="contains" styleClass="lighterFont">
                                     <f:facet name="filter">
-                                        <p:inputText onkeyup="PF('notificationTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                                        <p:inputText onkeyup="PF('notificationTable').filter()" style="width:150px" placeholder="#{msg['web.basic.notificationMy.HEADER_PLACEHOLDER']}"/>
                                     </f:facet>
                                     <h:outputText value="#{notification.shortdescription}"/>
                                 </p:column>
 
-                                <p:column headerText="Priority" filterBy="#{notification.priority}" sortBy="#{notification.priority}" filterMatchMode="exact" width="7%" styleClass="lighterFont">
+                                <p:column headerText="#{msg['static.notification.PRIORITY']}" filterBy="#{notification.priority}" sortBy="#{notification.priority}" filterMatchMode="exact" width="7%" styleClass="lighterFont">
                                     <f:facet name="filter">
                                         <h:selectOneMenu onchange="PF('notificationTable').filter()" >
                                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
@@ -103,44 +104,44 @@
                                     </f:facet>
                                     <h:outputText value="${notification.priority}"/>
                                 </p:column>
-                                <p:column headerText="Status" filterBy="#{notification.status}" sortBy="#{notification.status}" filterMatchMode="contains" width="9%" styleClass="lighterFont">
+                                <p:column headerText="#{msg['static.notification.STATUS']}" filterBy="#{notification.status}" sortBy="#{notification.status}" filterMatchMode="contains" width="9%" styleClass="lighterFont">
                                     <f:facet name="filter">
                                         <h:selectOneMenu onchange="PF('notificationTable').filter()" >
                                             <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
-                                            <f:selectItem itemLabel="Nowy" itemValue="Nowy" />
-                                            <f:selectItem itemLabel="Oczekuje" itemValue="Oczekuje" />
-                                            <f:selectItem itemLabel="W realizacji" itemValue="W realizacji" />
-                                            <f:selectItem itemLabel="Odrzucony" itemValue="Odrzucony" />
-                                            <f:selectItem itemLabel="Zakonczony" itemValue="Zakonczony" />
+                                            <f:selectItem itemLabel="New" itemValue="New" />
+                                            <f:selectItem itemLabel="Pending" itemValue="Pending" />
+                                            <f:selectItem itemLabel="WIP" itemValue="WIP" />
+                                            <f:selectItem itemLabel="Rejected" itemValue="Rejected" />
+                                            <f:selectItem itemLabel="Completed" itemValue="Completed" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                     <h:outputText value="${notification.status}"/>
                                 </p:column>
                                 <p:column sortBy="${notification.rankingpoints}" width="7%" styleClass="lighterFont">
-                                    <f:facet name="header">Points</f:facet> 
+                                    <f:facet name="header">#{msg['static.notification.POINTS']}</f:facet> 
                                     <h:outputText value="${notification.rankingpoints}"/>
                                 </p:column>
 
                                 <p:column width="8%" rendered="#{request.isUserInRole('EMPLOYEE')}" styleClass="lighterFont">
-                                    <f:facet name="header">Vote</f:facet>
-                                    <h:commandButton value="+" action="#{notView.voteUp(notification)}" class="btn-md btn-success" style="width:35px;height:35px"/><br/>
-                                    <h:commandButton value="-" action="#{notView.voteDown(notification)}" class="btn-md btn-danger" style="width:35px;height:35px"/>
+                                    <f:facet name="header">#{msg['static.notification.VOTE']}</f:facet>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true; " value="+" action="#{notView.voteUp(notification)}" class="#{notification.status eq 'Rejected' ? 'btn-md btn-secondary' : 'btn-md btn-success'}" disabled="#{notification.status eq 'Rejected'}" style="width:35px;height:35px"/><br/>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true; " value="-" action="#{notView.voteDown(notification)}" class="#{notification.status eq 'Rejected' ? 'btn-md btn-secondary' : 'btn-md btn-danger'}" disabled="#{notification.status eq 'Rejected'}" style="width:35px;height:35px"/>
                                 </p:column>
 
                                 <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}" styleClass="lighterFont">
-                                    <f:facet name="header">StatusChange</f:facet>
-                                    <h:commandButton value="Oczekuje" action="#{notView.setStatusAwaiting(notification)}" /><br/>
-                                    <h:commandButton value="W realizacji" action="#{notView.setStatusInImplementation(notification)}" /> <br/>
-                                    <h:commandButton value="Odrzucone" action="#{notView.setStatusRejected(notification)}" /> <br/>
+                                    <f:facet name="header">#{msg['static.notification.STATUS_CHANGE']}</f:facet>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true;" value="PENDING" action="#{notView.setStatusAwaiting(notification)}" disabled="#{notification.status eq 'Pending'}" /><br/>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true;" value="WIP" action="#{notView.setStatusInImplementation(notification)}" disabled="#{notification.status eq 'WIP'}" /> <br/>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true;" value="REJECTED" action="#{notView.setStatusRejected(notification)}" disabled="#{notification.status eq 'Rejected'}" /> <br/>
                                 </p:column>
                                 <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}" styleClass="lighterFont">
-                                    <f:facet name="header">Remove</f:facet>
-                                    <h:commandButton value="Remove" action="#{notView.removeNotification(notification)}" /><br/>
+                                    <f:facet name="header">#{msg['static.notification.REMOVE']}</f:facet>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true;" value="#{msg['static.notification.REMOVE']}" action="#{notView.removeNotification(notification)}" /><br/>
 
                                 </p:column>
                                 <p:column width="10%" rendered="#{request.isUserInRole('IMPTEAM')}" styleClass="lighterFont">
-                                    <f:facet name="header">Complete </f:facet>
-                                    <h:commandButton value="Complete" action="#{notView.completeNotification(notification)}" /><br/>
+                                    <f:facet name="header">#{msg['static.notification.COMPLETE']}</f:facet>
+                                    <h:commandButton onclick="if (!confirm('#{msg['web.misc.POP_UP_ARE_YOU_SURE']}')) {return false;};return true;" value="Complete" action="#{notView.completeNotification(notification)}" disabled="#{notification.status eq 'Rejected' or notification.status eq 'Pending' or notification.status eq 'New'}"/><br/>
 
                                 </p:column>
                                 <p:rowExpansion styleClass="lighterFont">   
